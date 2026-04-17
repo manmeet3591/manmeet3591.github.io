@@ -121,35 +121,41 @@ export const resumeData = {
   ],
   publications: [
     {
-      title: "Unraveling the Indian Monsoon Response to Volcanic Forcing",
-      authors: "Singh, M., et al.",
-      journal: "Environmental Research Communications",
+      title: "A First End-to-End AI Land Model for Accurate Representation of Physical Systems in Machine Learning Earth System Models",
+      authors: "Singh, M., Sudharsan, N., Kamath, H., Mbarak, M., Acharya, N., Schreck, J., et al.",
+      journal: "106th AMS Annual Meeting",
       year: "2026",
     },
     {
-      title: "EpiClim: Weekly District-Wise all-India multi-epidemics Climate-Health Dataset",
-      authors: "Kaur, G., ... Singh, M.",
-      journal: "Environmental Research: Health",
+      title: "AI-Based Downscaling of Solar and Meteorological Data Using Diffusion, Distillation, and Flow Matching Networks",
+      authors: "Singh, M., Sudharsan, N., Dashtian, H., Young, M., Patadia, F., Brosnan, I.G., et al.",
+      journal: "106th AMS Annual Meeting",
       year: "2026",
     },
     {
-      title: "SOLWEIG-GPU: GPU-Accelerated Thermal Comfort Modeling Framework",
-      authors: "Kamath, H., ... Singh, M.",
+      title: "When Less Is More: Simplicity Beats Complexity for Physics-Constrained InSAR Phase Unwrapping",
+      authors: "Singh, P., Singh, M.",
+      journal: "4th ICLR Workshop on Machine Learning for Remote Sensing",
+      year: "2026",
+    },
+    {
+      title: "Exploring the Design Space of Diffusion and Flow Models for Data Fusion",
+      authors: "Chaudhari, N., Singh, M., Sudharsan, N., Srivastava, A.K., Kamath, H., et al.",
+      journal: "arXiv preprint",
+      year: "2025",
+    },
+    {
+      title: "High-Resolution Maize Yield Mapping across Africa using Earth Observation and Machine Learning, Deep Learning, and Foundation Model",
+      authors: "Halder, K., Ewert, F., Ghosh, A., et al.",
+      journal: "Science of Remote Sensing",
+      year: "2025",
+    },
+    {
+      title: "SOLWEIG-GPU: GPU-Accelerated Thermal Comfort Modeling Framework for Urban Digital Twins",
+      authors: "Kamath, H.G., Sudharsan, N., Singh, M., et al.",
       journal: "Journal of Open Source Software",
       year: "2026",
     },
-    {
-        title: "GLObal Building heights for Urban Studies (UT-GLOBUS)",
-        authors: "Kamath, H., Singh, M., et al.",
-        journal: "Nature Scientific Data",
-        year: "2024",
-    },
-    {
-        title: "Fingerprint of volcanic forcing on the ENSO–Indian monsoon coupling",
-        authors: "Singh, M., et al.",
-        journal: "Science Advances",
-        year: "2020",
-    }
   ],
   teaching: [
     {

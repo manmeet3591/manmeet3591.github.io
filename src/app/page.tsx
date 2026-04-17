@@ -218,7 +218,7 @@ export default function Home() {
               <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-4" />
             </div>
             <a
-              href="https://scholar.google.com/citations?user=SCHOLAR_ID"
+              href="https://scholar.google.com/citations?hl=en&user=4F4aasoAAAAJ&view_op=list_works&authuser=2&sortby=pubdate"
               className="text-sm font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors"
             >
               All on Scholar <ExternalLink size={14} />
