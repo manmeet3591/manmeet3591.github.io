@@ -3,70 +3,76 @@ export const resumeData = {
   title: "Assistant Professor",
   affiliation: "Western Kentucky University",
   contact: {
-    address: "2342 Cave Mill Station Blvd, Apt 825, Bowling Green 42104, KY, USA",
-    phone: "+1 512 296 9098",
     email: "manmeet.singh@wku.edu",
     linkedin: "https://www.linkedin.com/in/manmeet-singh-60bb6640/",
     website: "https://manmeet3591.github.io/",
     airLab: "https://air-lab-wku.github.io/",
+    scholar: "https://scholar.google.com/citations?hl=en&user=4F4aasoAAAAJ&view_op=list_works&authuser=2&sortby=pubdate",
+    github: "https://github.com/manmeet3591",
   },
-  bio: "Assistant Professor at Western Kentucky University specializing in AI for Disaster Science, Climate Data Science, and Earth System Modelling. Leading the AIR Lab at WKU, focused on high-resolution AI forecasts of precipitation, temperature, radiation, and winds.",
+  bio: "I build AI systems for Earth science — from end-to-end deep learning weather models to GPU-accelerated climate simulations. 50+ publications, 4,300+ citations. My work spans diffusion models for data assimilation, physics-informed neural networks for downscaling, and real-time AI forecasting pipelines deployed at scale. Previously Distinguished Postdoctoral Fellow at UT Austin; Staff Scientist at IITM India; Fulbright-Kalam Fellow. Contributor to IPCC AR6 via CMIP6 Earth System Model simulations.",
+  highlights: [
+    { label: "Publications", value: "50+" },
+    { label: "Citations", value: "4,300+" },
+    { label: "Years Research", value: "11+" },
+    { label: "Active Grants", value: "$2M+" },
+  ],
   experience: [
     {
       role: "Assistant Professor",
       organization: "Western Kentucky University, Bowling Green, Kentucky, USA",
       period: "August 2025 - Present",
-      description: "AI for Disaster Science, Teaching: Introduction to Meteorology, Climate Data Science. Products: High-resolution short-range AI forecasts (EarthMind High-Res), EarthMind S2S, field scale soil moisture data using diffusion.",
+      description: "Leading the AIR Lab (AI Research Lab). Building high-resolution AI forecasting products: EarthMind High-Res, EarthMind S2S, field-scale soil moisture via diffusion models. Teaching Climate Data Science (grad) and Intro to Meteorology. PI on $2M DOE microgrid project and NSF/NCAR compute allocations.",
     },
     {
       role: "Research Affiliate (0% Appointment)",
       organization: "The University of Texas at Austin, Austin, Texas, USA",
       period: "August 2025 - Present",
-      description: "Development of AI Subseasonal to Seasonal (S2S) / AI Earth System Model (ESM), AI Land Model, AI Ocean Model, AI Atmosphere Model.",
+      description: "Developing AI Earth System Model components: AI Land Model, AI Ocean Model, AI Atmosphere Model. Building end-to-end ML pipelines for subseasonal-to-seasonal (S2S) prediction.",
     },
     {
       role: "Distinguished Postdoctoral Fellow",
       organization: "The University of Texas at Austin, Austin, Texas, USA",
       period: "April 2024 - July 2025",
-      description: "Deep learning augmented numerical weather prediction for human health, flood forecasting, wildfires, financial risk, heat.",
+      description: "Deep learning augmented NWP for human health, flood forecasting, wildfires, and financial risk. Led WMO Research Demonstration Project on ultra-high-resolution AI forecasting for 2024 Paris Olympics. Built CNN & Transformer models for geospatial data with real-time inference pipelines.",
     },
     {
       role: "Scientist D",
       organization: "Indian Institute of Tropical Meteorology, Pune, India",
       period: "January 2023 - March 2024",
-      description: "Aerosol-land-atmosphere interactions and South Asian monsoon, AI/ML for downscaling, improving processes in climate models.",
+      description: "AI/ML for climate model downscaling using physics-inspired deep learning. Published in Geophysical Research Letters on physics-inspired neural networks for high-resolution downscaling.",
     },
     {
       role: "Research Affiliate",
       organization: "The University of Texas at Austin, Austin, Texas, USA",
       period: "November 2021 - December 2022",
-      description: "Deep learning augmented numerical weather prediction, urban climate change assessment, super-resolution based downscaling, causality in climate science review, urban climate extremes.",
+      description: "Deep learning augmented numerical weather prediction published in GRL. Super-resolution based downscaling, causal discovery in climate science, urban climate extremes assessment.",
     },
     {
-      role: "Fulbright-Kalam fellow",
+      role: "Fulbright-Kalam Fellow",
       organization: "The University of Texas at Austin, Austin, Texas, USA",
       period: "February 2021 - October 2021",
-      description: "Aerosol-land-atmosphere interactions and agricultural droughts over South Asia, land surface modelling (NOAH-MP).",
+      description: "International research fellowship for aerosol-land-atmosphere interactions. Land surface modelling with NOAH-MP, agricultural drought prediction over South Asia.",
     },
     {
       role: "Scientist C",
       organization: "Indian Institute of Tropical Meteorology, Pune, India",
       period: "January 2019 - December 2022",
-      description: "CMIP6 simulations, Earth System Modelling, Aerosol Module in IITM-ESM, CMOR and ESMValTool setup.",
+      description: "Led CMIP6 simulations contributing to IPCC AR6. Built and maintained IITM Earth System Model aerosol module. Set up CMOR and ESMValTool pipelines for model evaluation.",
     },
     {
       role: "Scientist B",
       organization: "Indian Institute of Tropical Meteorology, Pune, India",
       period: "September 2015 - December 2018",
-      description: "ENSO-Indian Monsoon coupling using phase synchronization analysis, Deep Learning for seasonal Indian Monsoon prediction.",
-    }
+      description: "Pioneered deep learning for seasonal Indian Monsoon prediction. ENSO-Indian Monsoon coupling analysis using phase synchronization and complex networks.",
+    },
   ],
   education: [
     {
       degree: "Ph.D. (Geoscience)",
-      institution: "Indian Institute of Technology, Bombay, India",
+      institution: "Indian Institute of Technology Bombay, India",
       period: "July 2017 - May 2022",
-      description: "PhD topic: 'Role of volcanic and anthropogenic aerosols on the tropical ocean-atmosphere-land coupled system and the South Asian Monsoon'. GPA 9.0/10.",
+      description: "Role of volcanic and anthropogenic aerosols on the tropical ocean-atmosphere-land coupled system and the South Asian Monsoon. GPA 9.0/10.",
     },
     {
       degree: "Training in Earth System Sciences and Climate (ESSC)",
@@ -80,23 +86,25 @@ export const resumeData = {
       description: "GPA 8.85/10.",
     },
   ],
-  skills: [
-    "Earth System Modelling",
-    "Data Science",
-    "Atmospheric Science",
-    "Python",
-    "Artificial Intelligence",
-    "High Performance Computing",
-    "Google Cloud (Vertex AI)",
-    "Deep Learning (TensorFlow, PyTorch, Keras)",
-  ],
+  technicalSkills: {
+    mlFrameworks: ["PyTorch", "TensorFlow", "Keras", "JAX", "Hugging Face"],
+    genAI: ["Diffusion Models", "Flow Matching", "Score-Based Models", "Foundation Models"],
+    scientificComputing: ["NumPy", "SciPy", "xarray", "Zarr", "Dask", "pandas"],
+    cloudHPC: ["Google Cloud (Vertex AI)", "NCAR HPC", "NSF ACCESS", "CUDA/GPU Programming"],
+    geospatial: ["Google Earth Engine", "Microsoft Planetary Computer", "GDAL", "Rasterio"],
+    languages: ["Python", "TypeScript", "Fortran", "Shell/Bash"],
+    mlOps: ["Docker", "Git", "CI/CD", "Real-time Inference Pipelines"],
+    earthScience: ["Earth System Modelling", "NWP", "Remote Sensing", "Climate Downscaling", "Data Assimilation"],
+  },
   awards: [
     "Distinguished Postdoctoral Fellowship, UT Austin ($150,000 + grant)",
     "Fulbright-Kalam Climate Fellowship (2020-2021)",
-    "Prof DR Sikka award for the best research paper, IITM (2020)",
-    "Special Prize Smart India Hackathon (2020)",
-    "Silver Jubilee award for the best research paper, IITM (2018)",
-    "Best Poster Award 2024, BEG, UT Austin",
+    "WMO Research Demonstration Project — AI Forecasting for 2024 Paris Olympics",
+    "Contributor to IPCC AR6 via IITM Earth System Model CMIP6 simulations",
+    "Prof DR Sikka Award for Best Research Paper, IITM (2020)",
+    "Special Prize, Smart India Hackathon (2020)",
+    "Silver Jubilee Award for Best Research Paper, IITM (2018)",
+    "Best Poster Award 2024, Bureau of Economic Geology, UT Austin",
   ],
   projects: [
     {
@@ -107,7 +115,7 @@ export const resumeData = {
       period: "2026-2028",
     },
     {
-      title: "Climate modeling and artificial intelligence applications for weather and climate analysis",
+      title: "Climate Modeling and AI Applications for Weather and Climate Analysis",
       role: "PI",
       funding: "NCAR/CISL Exploratory Allocation",
       period: "2025-2026",
@@ -117,6 +125,50 @@ export const resumeData = {
       role: "PI",
       funding: "NSF Access Award",
       period: "2025-2026",
+    },
+  ],
+  products: [
+    {
+      name: "EarthMind High-Res",
+      description: "High-resolution short-range AI weather forecasts using deep learning, demonstrated superior performance during Hurricane Beryl",
+    },
+    {
+      name: "EarthMind S2S",
+      description: "AI subseasonal-to-seasonal prediction system for forecasting weeks to months ahead",
+    },
+    {
+      name: "SOLWEIG-GPU",
+      description: "GPU-accelerated thermal comfort modeling framework for urban digital twins, published in JOSS",
+    },
+    {
+      name: "UT-GLOBUS",
+      description: "Global building heights dataset for urban studies, published in Nature Scientific Data",
+    },
+    {
+      name: "EpiClim",
+      description: "Weekly district-wise all-India multi-epidemics climate-health dataset for GeoHealth research",
+    },
+    {
+      name: "DeepAssimilate",
+      description: "Python library for diffusion-based generative data assimilation for climate and weather applications",
+    },
+  ],
+  researchAreas: [
+    {
+      title: "AI-Augmented Weather Prediction",
+      description: "End-to-end deep learning systems for street-level forecasting. CNN & Transformer architectures for geospatial data with real-time inference pipelines and uncertainty quantification.",
+    },
+    {
+      title: "Generative AI for Earth Science",
+      description: "Diffusion models, flow matching, and score-based methods for data assimilation, downscaling, and gap-filling of satellite datasets.",
+    },
+    {
+      title: "Disaster Forecasting & Digital Twins",
+      description: "Real-time AI-powered digital twins for floods and wildfires. Partnerships with Kentucky Emergency Management and EM1.",
+    },
+    {
+      title: "Climate Modeling & Earth System Science",
+      description: "Physics-informed neural networks for climate downscaling. CMIP6 contributions to IPCC AR6. Causal discovery and complex networks in climate.",
     },
   ],
   publications: [
@@ -145,10 +197,16 @@ export const resumeData = {
       year: "2025",
     },
     {
-      title: "High-Resolution Maize Yield Mapping across Africa using Earth Observation and Machine Learning, Deep Learning, and Foundation Model",
-      authors: "Halder, K., Ewert, F., Ghosh, A., et al.",
-      journal: "Science of Remote Sensing",
-      year: "2025",
+      title: "Deep Learning Augmented Numerical Weather Prediction",
+      authors: "Singh, M., et al.",
+      journal: "Geophysical Research Letters",
+      year: "2024",
+    },
+    {
+      title: "Physics-Inspired Deep Learning for High-Resolution Downscaling",
+      authors: "Singh, M., et al.",
+      journal: "Geophysical Research Letters",
+      year: "2023",
     },
     {
       title: "SOLWEIG-GPU: GPU-Accelerated Thermal Comfort Modeling Framework for Urban Digital Twins",
@@ -156,6 +214,29 @@ export const resumeData = {
       journal: "Journal of Open Source Software",
       year: "2026",
     },
+    {
+      title: "High-Resolution Maize Yield Mapping across Africa using Earth Observation and ML, DL, and Foundation Model",
+      authors: "Halder, K., Ewert, F., Ghosh, A., et al.",
+      journal: "Science of Remote Sensing",
+      year: "2025",
+    },
+  ],
+  students: [
+    {
+      name: "Somnath Luitel",
+      role: "Graduate Researcher (MS)",
+      topic: "AI applications in weather and climate science",
+      background: "Civil Engineering, Tribhuvan University, Nepal",
+    },
+  ],
+  collaborations: [
+    "World Meteorological Organization (WMO)",
+    "Kentucky Emergency Management",
+    "EM1 — AI for Emergency Management",
+    "NSF EPSCoR CLIMBS — Storm Resilience",
+    "IPCC AR6 — Earth System Model Contribution",
+    "UT Austin — Jackson School of Geosciences",
+    "Indian Institute of Tropical Meteorology",
   ],
   teaching: [
     {
@@ -170,5 +251,5 @@ export const resumeData = {
       institution: "Western Kentucky University",
       period: "Fall 2025, Spring 2026",
     },
-  ]
+  ],
 };
