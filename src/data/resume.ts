@@ -129,6 +129,11 @@ export const resumeData = {
   ],
   products: [
     {
+      name: "AiRCast-SR",
+      description: "A generative atmospheric super-resolution foundation model translating 25-km global forecasts into 1-km hourly weather predictions. Built on 3D UNet with Latent Consistency Diffusion.",
+      url: "/aircast-sr",
+    },
+    {
       name: "EarthMind High-Res",
       description: "High-resolution short-range AI weather forecasts using deep learning, demonstrated superior performance during Hurricane Beryl",
     },
@@ -172,6 +177,13 @@ export const resumeData = {
     },
   ],
   publications: [
+    {
+      title: "AiRCast-SR: Kilometer-Scale Atmospheric Super-Resolution via Latent Consistency Diffusion",
+      authors: "Luitel, S., Singh, M., Durkee, J., Al Fahad, A., Sudharsan, N., Singh, P., He, C., Kamath, H., Yang, Z.L., Srivastava, A.K., Halder, K., Juneja, S., Mukhopadhyay, S., Dhanuka, K.",
+      journal: "arXiv preprint",
+      year: "2026",
+      url: "/files/aircast_sr_arxiv.pdf",
+    },
     {
       title: "A First End-to-End AI Land Model for Accurate Representation of Physical Systems in Machine Learning Earth System Models",
       authors: "Singh, M., Sudharsan, N., Kamath, H., Mbarak, M., Acharya, N., Schreck, J., et al.",

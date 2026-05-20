@@ -350,14 +350,24 @@ export default function Home() {
             {resumeData.products.map((product, index) => (
               <div
                 key={index}
-                className="group p-5 md:p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-200 hover:shadow-lg transition-all"
+                className="group p-5 md:p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-200 hover:shadow-lg transition-all flex flex-col justify-between"
               >
-                <h3 className="font-bold text-sm md:text-base text-slate-900 group-hover:text-blue-700 transition-colors mb-2 font-mono">
-                  {product.name}
-                </h3>
-                <p className="text-slate-500 text-xs md:text-sm leading-relaxed">
-                  {product.description}
-                </p>
+                <div>
+                  <h3 className="font-bold text-sm md:text-base text-slate-900 group-hover:text-blue-700 transition-colors mb-2 font-mono">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-xs md:text-sm leading-relaxed mb-4">
+                    {product.description}
+                  </p>
+                </div>
+                {(product as any).url && (
+                  <a
+                    href={(product as any).url}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    View Product <ExternalLink size={12} />
+                  </a>
+                )}
               </div>
             ))}
           </div>
@@ -389,20 +399,31 @@ export default function Home() {
                 key={index}
                 className="group p-4 md:p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-50/50 transition-all"
               >
-                <div className="space-y-1.5 md:space-y-2">
-                  <h3 className="font-bold text-sm md:text-base leading-snug text-slate-900 group-hover:text-blue-700 transition-colors">
-                    {pub.title}
-                  </h3>
-                  <p className="text-slate-500 text-xs md:text-sm">{pub.authors}</p>
-                  <div className="flex flex-wrap items-center gap-2 md:gap-3 pt-1">
-                    <span className="text-blue-600 font-semibold text-xs md:text-sm italic">
-                      {pub.journal}
-                    </span>
-                    <span className="w-1 h-1 rounded-full bg-slate-300" />
-                    <span className="text-slate-400 text-xs md:text-sm font-medium">
-                      {pub.year}
-                    </span>
+                <div className="flex justify-between items-start gap-4">
+                  <div className="space-y-1.5 md:space-y-2">
+                    <h3 className="font-bold text-sm md:text-base leading-snug text-slate-900 group-hover:text-blue-700 transition-colors">
+                      {pub.title}
+                    </h3>
+                    <p className="text-slate-500 text-xs md:text-sm">{pub.authors}</p>
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3 pt-1">
+                      <span className="text-blue-600 font-semibold text-xs md:text-sm italic">
+                        {pub.journal}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300" />
+                      <span className="text-slate-400 text-xs md:text-sm font-medium">
+                        {pub.year}
+                      </span>
+                    </div>
                   </div>
+                  {(pub as any).url && (
+                    <a
+                      href={(pub as any).url}
+                      className="flex-shrink-0 p-2 rounded-full bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all"
+                      title="View Publication"
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
