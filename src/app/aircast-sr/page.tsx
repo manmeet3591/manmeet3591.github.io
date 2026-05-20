@@ -1,256 +1,309 @@
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
   ArrowLeft, 
   Download, 
   Github, 
-  Globe, 
-  Zap, 
-  Layers, 
-  ShieldCheck,
-  Cpu,
-  Box,
-  Layout,
-  Activity,
-  Maximize2,
-  Database,
   Terminal,
+  Activity,
+  Cpu,
+  Database,
+  ShieldCheck,
+  Maximize2,
+  ChevronRight,
   ExternalLink
 } from "lucide-react";
 
+const paperLogs = [
+  "INITIALIZING AIRCAST-SR KERNEL...",
+  "LOADING CONDITIONING CHANNELS: 20 DETECTED",
+  "CHANNELS: 17 GRAPHCAST + ELEVATION + SVF + COS-SZA",
+  "ARCHITECTURE: 3D-UNET BACKBONE LOADED",
+  "SCHEDULER: LATENT CONSISTENCY MODEL (LCM)",
+  "TARGET RESOLUTION: 1.0 KM HORIZONTAL",
+  "TEMPORAL WINDOW: 67 HOURS HOURLY",
+  "INFERENCE STEPS: 1-4 [OPTIMIZED]",
+  "DEPLOYING OVER CONUS DOMAIN...",
+  "SAMPLING PRECIPITATION FIELD...",
+  "SAMPLING 2M TEMPERATURE FIELD...",
+  "SAMPLING SURFACE PRESSURE...",
+  "SAMPLING 10M U/V WIND...",
+  "BLENDING STRATEGY: COSINE-TAPERED SPATIAL",
+  "PATCH SIZE: 256x256 | STRIDE: 128",
+  "VALIDATING AGAINST HRRR BASELINE...",
+  "VALIDATING AGAINST AORC GROUND TRUTH...",
+  "STRUCTURAL REALISM SCORE: [HIGH]",
+  "INFERENCE COMPLETE: 50X SPEEDUP ACHIEVED",
+  "READY FOR GLOBAL ZERO-SHOT DEPLOYMENT."
+];
+
+function TerminalWindow() {
+  const [logs, setLogs] = useState<string[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < paperLogs.length) {
+        setLogs(prev => [...prev, paperLogs[i]]);
+        i++;
+      } else {
+        i = 0;
+        setLogs([paperLogs[0]]);
+      }
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [logs]);
+
+  return (
+    <div className="flex flex-col h-full bg-[#0a0a0a] border border-white/10 rounded-lg overflow-hidden shadow-2xl">
+      <div className="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/5">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+          <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+        </div>
+        <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Model_Logs.sh</div>
+      </div>
+      <div 
+        ref={scrollRef}
+        className="p-4 font-mono text-[11px] leading-relaxed overflow-y-auto scrollbar-hide flex-1"
+      >
+        {logs.map((log, idx) => (
+          <div key={idx} className="flex gap-3 mb-1">
+            <span className="text-blue-500/50">[{new Date().toLocaleTimeString([], { hour12: false })}]</span>
+            <span className={idx === logs.length - 1 ? "text-blue-400" : "text-slate-400"}>
+              {idx === logs.length - 1 ? "> " : ""}{log}
+            </span>
+          </div>
+        ))}
+        <div className="w-1.5 h-3 bg-blue-500 animate-pulse inline-block ml-1" />
+      </div>
+    </div>
+  );
+}
+
 export default function AiRCastSR() {
-  const stats = [
-    { label: "Resolution", value: "1 km" },
-    { label: "Temporal", value: "Hourly" },
-    { label: "Variables", value: "7 Channels" },
-    { label: "Domain", value: "Global" },
+  const [activePlot, setActivePlot] = useState(0);
+  const plots = [
+    { title: "Precipitation", id: "APCP", image: "/images/results/apcp_6hr.png", unit: "mm/6hr" },
+    { title: "Temperature", id: "TMP", image: "/images/results/tmp_2m.png", unit: "Kelvin" },
+    { title: "Surface Pressure", id: "PRES", image: "/images/results/pres_surface.png", unit: "Pa" },
+    { title: "U-Wind", id: "UGRD", image: "/images/results/ugrd_10m.png", unit: "m/s" },
   ];
 
-  const features = [
-    {
-      title: "3D-UNet Architecture",
-      description: "Optimized spatiotemporal backbone for high-fidelity weather patterns.",
-      icon: Cpu,
-    },
-    {
-      title: "LCM Diffusion",
-      description: "Rapid 1-4 step inference for real-time forecasting pipelines.",
-      icon: Zap,
-    },
-    {
-      title: "Zero-Shot Deployment",
-      description: "Foundation model capable of global kilometer-scale analysis.",
-      icon: Globe,
-    }
-  ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePlot(prev => (prev + 1) % plots.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-slate-300 font-sans selection:bg-blue-500/30 overflow-x-hidden">
-      {/* HUD Grid Effect */}
-      <div className="fixed inset-0 pointer-events-none opacity-20" 
-           style={{ backgroundImage: 'radial-gradient(#1e293b 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      {/* Background HUD Grid */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03]" 
+           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
       
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-[1600px] mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="p-2 hover:bg-white/5 rounded-lg transition-colors group">
-              <ArrowLeft size={18} className="text-slate-500 group-hover:text-white transition-colors" />
+      {/* Global Dashboard Nav */}
+      <nav className="sticky top-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-[1800px] mx-auto px-6 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-2 text-white font-black tracking-tighter hover:text-blue-500 transition-colors">
+              <Activity size={18} className="text-blue-600" />
+              AIRCAST<span className="text-blue-600">.CORE</span>
             </Link>
-            <div className="h-4 w-px bg-white/10" />
-            <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-blue-500 uppercase">System Console</span>
+            <div className="h-4 w-px bg-white/10 hidden md:block" />
+            <div className="hidden md:flex gap-6 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">
+              <span className="text-white">Dashboard</span>
+              <a href="/files/aircast_sr_arxiv.pdf" className="hover:text-white transition-colors">Preprint</a>
+              <a href="https://github.com/shreesomnath/AiRCast_highres" className="hover:text-white transition-colors">Source</a>
+            </div>
           </div>
           <div className="flex items-center gap-4">
-            <a href="https://github.com/shreesomnath/AiRCast_highres" target="_blank" className="text-slate-500 hover:text-white transition-colors">
-              <Github size={20} />
-            </a>
+            <div className="flex items-center gap-2 px-3 py-1 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-mono font-bold">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" /> SYSTEM_ONLINE
+            </div>
           </div>
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-[1600px] mx-auto px-6 py-8 md:py-12 space-y-8">
+      <main className="relative z-10 max-w-[1800px] mx-auto px-6 py-6 space-y-6">
         
-        {/* Header / Dashboard Title */}
-        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/5 pb-8">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/5 text-blue-400 text-[9px] font-mono font-bold uppercase tracking-widest">
-              <Activity size={10} /> Live Operations
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase italic">
-              AiRCast<span className="text-blue-600">.SR</span>
-            </h1>
-          </div>
+        {/* Top Row: Terminal + Main Map */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[auto] lg:h-[650px]">
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 md:gap-12">
-            {stats.map((s, i) => (
-              <div key={i} className="space-y-1">
-                <div className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">{s.label}</div>
-                <div className="text-lg font-bold text-white font-mono">{s.value}</div>
+          {/* Left: Terminal Output */}
+          <div className="lg:col-span-3 flex flex-col gap-4 order-2 lg:order-1">
+            <TerminalWindow />
+            <div className="p-4 rounded-lg bg-[#0a0a0a] border border-white/5 space-y-4">
+              <h4 className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                <Database size={12} /> Model Metadata
+              </h4>
+              <div className="grid grid-cols-2 gap-4 font-mono text-[10px]">
+                <div className="space-y-1">
+                  <div className="text-slate-600">RESOLUTION</div>
+                  <div className="text-white">1.0 KM</div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-slate-600">LATENCY</div>
+                  <div className="text-white">~250 MS</div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-slate-600">INPUT</div>
+                  <div className="text-white">0.25°</div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-slate-600">CHANNELS</div>
+                  <div className="text-white">20 IN / 7 OUT</div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
-        </header>
 
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          {/* Sidebar Left: Technical Control */}
-          <aside className="lg:col-span-3 space-y-6">
-            <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm space-y-6">
-              <h3 className="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
-                <Terminal size={14} /> Model Specs
-              </h3>
-              <div className="space-y-4">
-                {features.map((f, i) => (
-                  <div key={i} className="space-y-2">
-                    <div className="flex items-center gap-2 text-white font-bold text-sm">
-                      <f.icon size={14} className="text-blue-500" />
-                      {f.title}
-                    </div>
-                    <p className="text-xs text-slate-500 leading-relaxed">{f.description}</p>
-                  </div>
+          {/* Center: Main Visualization */}
+          <div className="lg:col-span-9 flex flex-col gap-4 order-1 lg:order-2">
+            <div className="flex-1 relative rounded-xl overflow-hidden border border-white/10 bg-slate-950 shadow-2xl group">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] z-10 pointer-events-none" />
+              <div className="absolute top-6 left-6 z-20 space-y-1">
+                <h2 className="text-2xl font-black text-white italic tracking-tighter uppercase leading-none">
+                  {plots[activePlot].title} <span className="text-blue-600">Analysis</span>
+                </h2>
+                <div className="text-[10px] font-mono text-blue-400 font-bold uppercase tracking-[0.3em]">
+                  FIELD_ID: {plots[activePlot].id} // UNIT: {plots[activePlot].unit}
+                </div>
+              </div>
+              
+              <div className="absolute bottom-6 left-6 z-20 flex gap-2">
+                {plots.map((_, i) => (
+                  <button 
+                    key={i} 
+                    onClick={() => setActivePlot(i)}
+                    className={`h-1 w-8 rounded-full transition-all ${i === activePlot ? "bg-blue-500" : "bg-white/10 hover:bg-white/30"}`} 
+                  />
                 ))}
               </div>
-              <div className="pt-4 border-t border-white/5 space-y-3">
-                <a href="/files/aircast_sr_arxiv.pdf" className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold transition-all group">
-                  Download Paper <Download size={16} className="group-hover:translate-y-0.5 transition-transform" />
-                </a>
-                <a href="https://github.com/shreesomnath/AiRCast_highres" target="_blank" className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-bold transition-all group">
-                  Repository <ExternalLink size={16} />
-                </a>
-              </div>
-            </div>
 
-            <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] space-y-4">
-              <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">Training Domain</h3>
-              <div className="aspect-square relative rounded-xl overflow-hidden border border-white/10 bg-black shadow-inner">
-                <div className="absolute inset-0 bg-blue-500/10 z-10" />
-                <Image src="/images/results/pres_surface.png" alt="Domain" fill className="object-contain opacity-70" />
-                <div className="absolute top-2 right-2 z-20">
-                  <span className="px-1.5 py-0.5 rounded bg-blue-500 text-white text-[8px] font-bold font-mono">CONUS</span>
-                </div>
+              <div className="absolute top-6 right-6 z-20">
+                <button className="p-2 rounded bg-black/60 backdrop-blur-md border border-white/10 text-white/50 hover:text-white transition-colors">
+                  <Maximize2 size={16} />
+                </button>
               </div>
-            </div>
-          </aside>
 
-          {/* Center Map / Main Visualization */}
-          <section className="lg:col-span-6 space-y-6">
-            <div className="relative aspect-square md:aspect-[4/3] w-full rounded-[2rem] overflow-hidden border border-white/10 bg-slate-900 shadow-2xl group">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] z-10 pointer-events-none" />
               <Image 
-                src="/images/results/apcp_6hr.png" 
-                alt="Main Dashboard Output" 
+                src={plots[activePlot].image} 
+                alt="Main Field" 
                 fill 
-                className="object-contain transition-transform duration-1000 group-hover:scale-105"
+                className="object-contain p-4 transition-opacity duration-700" 
                 priority
               />
-              {/* Overlay HUD elements */}
-              <div className="absolute top-6 left-6 z-20 space-y-2">
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10px] font-mono">
-                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> REC: PRIMARY_FIELD
-                </div>
-                <div className="text-[10px] font-mono text-white/40 px-3">0.25° → 1km SUPER-RESOLUTION</div>
-              </div>
-              <div className="absolute bottom-6 right-6 z-20">
-                <div className="p-3 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10">
-                   <Maximize2 size={16} className="text-white/60" />
-                </div>
-              </div>
             </div>
-
-            <div className="grid grid-cols-3 gap-4">
-              {["TMP", "PRES", "UGRD"].map((v, i) => (
-                <div key={i} className="aspect-video relative rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] cursor-pointer hover:border-blue-500/50 transition-colors group">
-                  <Image 
-                    src={`/images/results/${v.toLowerCase()}${v === "UGRD" ? "_10m" : v === "PRES" ? "_surface" : "_2m"}.png`} 
-                    alt={v} 
-                    fill 
-                    className="object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black to-transparent">
-                    <span className="text-[9px] font-mono font-bold text-white uppercase tracking-widest">{v} FIELD</span>
+            
+            {/* Thumbnail Row */}
+            <div className="grid grid-cols-4 gap-4 h-24">
+              {plots.map((p, i) => (
+                <button 
+                  key={i}
+                  onClick={() => setActivePlot(i)}
+                  className={`relative rounded-lg overflow-hidden border transition-all group ${i === activePlot ? "border-blue-500 scale-[0.98]" : "border-white/10 opacity-50 hover:opacity-100 hover:border-white/30"}`}
+                >
+                  <Image src={p.image} alt={p.id} fill className="object-cover" />
+                  <div className={`absolute inset-0 bg-blue-500/10 transition-opacity ${i === activePlot ? "opacity-100" : "opacity-0"}`} />
+                  <div className="absolute bottom-2 left-2 text-[8px] font-mono font-bold text-white uppercase tracking-widest bg-black/60 px-1.5 py-0.5 rounded">
+                    {p.id}
                   </div>
-                </div>
+                </button>
               ))}
             </div>
-          </section>
-
-          {/* Right Sidebar: Metadata & Citation */}
-          <aside className="lg:col-span-3 space-y-6">
-            <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] space-y-4">
-               <h3 className="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest">Author Contribution</h3>
-               <div className="space-y-4">
-                 <div className="space-y-1">
-                   <div className="text-[10px] text-slate-500 font-mono">CORE LEAD</div>
-                   <div className="text-white font-bold text-sm">Somnath Luitel</div>
-                 </div>
-                 <div className="space-y-1">
-                   <div className="text-[10px] text-slate-500 font-mono">PRINCIPAL INVESTIGATOR</div>
-                   <div className="text-white font-bold text-sm">Manmeet Singh</div>
-                 </div>
-               </div>
-            </div>
-
-            <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] space-y-4">
-               <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">Citation</h3>
-               <pre className="text-[10px] font-mono text-blue-100/60 leading-relaxed bg-black/40 p-4 rounded-xl border border-white/5 overflow-x-auto">
-{`@article{luitel2026AiRCastsr,
-  title   = {{AiRCast-SR}},
-  author  = {Luitel, S. and 
-             Singh, M., et al.},
-  journal = {arXiv},
-  year    = {2026}
-}`}
-               </pre>
-            </div>
-
-            <div className="p-6 rounded-[2rem] bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/20">
-               <div className="space-y-4">
-                 <ShieldCheck className="text-blue-400" size={32} />
-                 <h4 className="text-white font-bold tracking-tight">Foundation Ready.</h4>
-                 <p className="text-xs text-blue-100/60 leading-relaxed">
-                   The system is optimized for high-performance computing clusters and real-time operational weather centers.
-                 </p>
-               </div>
-            </div>
-          </aside>
+          </div>
         </div>
 
-        {/* Full Width Architecture Display */}
-        <section className="space-y-8 pt-12">
-          <div className="flex items-center gap-4">
-            <h2 className="text-2xl font-bold text-white uppercase italic tracking-tighter">System.Architecture</h2>
-            <div className="flex-1 h-px bg-white/5" />
-          </div>
-          <div className="relative rounded-[3rem] overflow-hidden border border-white/5 bg-[#050505] p-8 md:p-16">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.05),transparent)]" />
-            <div className="relative max-w-5xl mx-auto">
-              <div className="aspect-[2/1] relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black">
-                <Image src="/images/aircast_sr_schematic.jpg" alt="Architecture" fill className="object-contain" />
+        {/* Bottom Section: Architecture + Citation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6 border-t border-white/5">
+          
+          {/* Architecture Schematic */}
+          <div className="lg:col-span-8 space-y-6">
+            <div className="flex items-center gap-4">
+              <h3 className="text-sm font-mono font-bold text-white uppercase tracking-widest italic">System.Schematic</h3>
+              <div className="flex-1 h-px bg-white/10" />
+            </div>
+            <div className="relative aspect-[21/9] rounded-xl overflow-hidden border border-white/10 bg-[#050505] group">
+              <div className="absolute inset-0 bg-blue-600/5 z-10 pointer-events-none" />
+              <Image 
+                src="/images/aircast_sr_schematic.jpg" 
+                alt="AiRCast-SR Architecture" 
+                fill 
+                className="object-contain p-8 group-hover:scale-[1.02] transition-transform duration-1000" 
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <div className="text-[10px] font-mono text-blue-500 font-bold uppercase">01 // Input Processing</div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">Conditioning via 17 atmospheric vars + terrain (SRTM) + solar geometry (SZA).</p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-                <div className="space-y-4">
-                  <h4 className="text-blue-500 font-mono text-xs font-bold uppercase tracking-[0.3em]">Data Pipeline</h4>
-                  <p className="text-sm leading-relaxed text-slate-400">
-                    Ingests 17 atmospheric conditioning variables from GraphCast, augmented with static terrain descriptors (normalized elevation and sky-view factor) and instantaneous solar geometry.
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  <h4 className="text-blue-500 font-mono text-xs font-bold uppercase tracking-[0.3em]">Inference Engine</h4>
-                  <p className="text-sm leading-relaxed text-slate-400">
-                    Overlapping predictions are merged via cosine-tapered spatial blending to ensure seamless, artifact-free output across the full geographic domain.
-                  </p>
-                </div>
+              <div className="space-y-2">
+                <div className="text-[10px] font-mono text-blue-500 font-bold uppercase">02 // Latent Consistency</div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">LCM-guided diffusion enabling high-fidelity generation in single-digit steps.</p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-[10px] font-mono text-blue-500 font-bold uppercase">03 // Spatial Blending</div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">Cosine-tapered tile merging for artifact-free global deployment.</p>
               </div>
             </div>
           </div>
-        </section>
+
+          {/* Citation + Links */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="flex items-center gap-4">
+              <h3 className="text-sm font-mono font-bold text-white uppercase tracking-widest italic">Citation.json</h3>
+              <div className="flex-1 h-px bg-white/10" />
+            </div>
+            <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-6 space-y-6">
+              <pre className="text-[10px] font-mono text-blue-400/80 leading-relaxed overflow-x-auto">
+{`{
+  "title": "AiRCast-SR",
+  "author": [
+    "Luitel, Somnath",
+    "Singh, Manmeet",
+    "Durkee, Joshua"
+  ],
+  "journal": "arXiv preprint",
+  "year": 2026,
+  "resolution": "1km",
+  "doi": "pending"
+}`}
+              </pre>
+              <div className="pt-4 border-t border-white/5 space-y-3">
+                 <h4 className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-widest">Resources</h4>
+                 <div className="flex flex-col gap-2">
+                    <a href="/files/aircast_sr_arxiv.pdf" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors group">
+                       <Download size={14} className="text-slate-400 group-hover:text-blue-500" />
+                       <span className="text-[11px] font-bold">Manuscript (PDF)</span>
+                    </a>
+                    <a href="https://github.com/shreesomnath/AiRCast_highres" target="_blank" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors group">
+                       <Github size={14} className="text-slate-400 group-hover:text-blue-500" />
+                       <span className="text-[11px] font-bold">Development Repository</span>
+                    </a>
+                 </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
 
       </main>
 
-      <footer className="max-w-[1600px] mx-auto px-6 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-600">
-        <div className="text-[10px] font-mono tracking-widest">AIR LAB &bull; WESTERN KENTUCKY UNIVERSITY</div>
-        <div className="text-[10px] font-mono tracking-widest">&copy; 2026 MANMEET SINGH</div>
+      <footer className="max-w-[1800px] mx-auto px-6 py-12 border-t border-white/5 text-center">
+        <div className="text-[9px] font-mono font-bold text-slate-600 tracking-[0.5em] uppercase">
+          &copy; 2026 AIR LAB // WKU // MANMEET SINGH & SOMNATH LUITEL
+        </div>
       </footer>
     </div>
   );
