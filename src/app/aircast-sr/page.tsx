@@ -75,37 +75,71 @@ export default function AiRCastSR() {
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-24 space-y-24 md:space-y-32">
+      <main className="relative z-10 max-w-6xl mx-auto px-6 py-10 md:py-16 space-y-20 md:space-y-28">
         
         {/* Hero Section */}
-        <section className="space-y-8 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest animate-pulse">
-            <ShieldCheck size={14} /> State-of-the-Art Diffusion
+        <section className="space-y-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="space-y-6 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <ShieldCheck size={12} /> Project AiRCast
+              </div>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-none">
+                AiRCast<span className="text-blue-500">-SR</span>
+              </h1>
+              <p className="text-lg md:text-xl text-slate-400 font-medium leading-relaxed">
+                Kilometer-scale generative atmospheric super-resolution. Translating global weather forecasts into <span className="text-slate-200">high-fidelity gridded analyses</span> at scale.
+              </p>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <a 
+                  href="/files/aircast_sr_arxiv.pdf" 
+                  className="flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 text-sm"
+                >
+                  <Download size={18} /> Paper
+                </a>
+                <a 
+                  href="https://github.com/shreesomnath/AiRCast_highres" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all backdrop-blur-sm text-sm"
+                >
+                  <Github size={18} /> Code
+                </a>
+              </div>
+            </div>
+            
+            <div className="relative w-full md:w-1/3 aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900 group">
+              <Image 
+                src="/images/results/apcp_6hr.png" 
+                alt="AiRCast-SR Preview" 
+                fill 
+                className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-4 left-4">
+                <span className="text-[10px] font-mono text-blue-400 font-bold uppercase tracking-widest">Live Output</span>
+              </div>
+            </div>
           </div>
-          <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white leading-[0.9]">
-              AiRCast<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">-SR</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-400 font-medium max-w-2xl leading-relaxed">
-              Kilometer-Scale Atmospheric Super-Resolution via <span className="text-slate-200">Latent Consistency Diffusion</span>.
-            </p>
-          </div>
-          
-          <div className="flex flex-wrap gap-4 pt-4 justify-center md:justify-start">
-            <a 
-              href="/files/aircast_sr_arxiv.pdf" 
-              className="group flex items-center gap-2 px-8 py-4 rounded-2xl bg-white text-black font-bold hover:bg-blue-50 transition-all shadow-xl shadow-blue-500/10"
-            >
-              <Download size={20} /> Download Paper
-            </a>
-            <a 
-              href="https://github.com/shreesomnath/AiRCast_highres" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all backdrop-blur-sm"
-            >
-              <Github size={20} /> Source Code
-            </a>
+
+          {/* Wide Banner Image - Reduced Aspect Ratio */}
+          <div className="relative w-full h-48 md:h-64 rounded-2xl overflow-hidden border border-white/10 bg-black/40 shadow-inner group">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent z-10" />
+            <Image 
+              src="/images/banners/hero_wide.png" 
+              alt="AiRCast-SR High-Res Display" 
+              fill 
+              className="object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity duration-1000"
+            />
+            <div className="absolute inset-0 flex flex-col justify-end p-8 z-20">
+              <div className="flex items-center gap-4 text-white/50 text-[10px] font-mono uppercase tracking-[0.3em]">
+                <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> 1km Gridded</span>
+                <span>•</span>
+                <span>67-Hour Window</span>
+                <span>•</span>
+                <span>CONUS Domain</span>
+              </div>
+            </div>
           </div>
         </section>
 
