@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFDBench: AI Meteorologist for NWS Forecast Discussions (ICML 2026)</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #e2e8f0;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- Navigation Bar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <i data-lucide="cloud-sun-rain" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="text-lg font-bold text-white tracking-tight">AFDBench</span>
+      </div>
+      <div class="flex items-center space-x-4 text-xs font-medium">
+        <a href="#demo" class="text-slate-300 hover:text-white transition">Live Demo</a>
+        <a href="#leaderboard" class="text-slate-300 hover:text-white transition">Leaderboard</a>
+        <a href="#dataset" class="text-slate-300 hover:text-white transition">Dataset</a>
+        <a href="#citation" class="text-slate-300 hover:text-white transition">Citation</a>
+        <a href="https://github.com/manmeet3591/AI-NWS" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition flex items-center space-x-1">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center space-y-6">
+    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400">
+      <span>🏆 Accepted at ICML 2026 AI Scientists Workshop</span>
+    </div>
+
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+      <span class="gradient-text">AFDBench:</span> A Reasoning-First AI Scientist for NWS Forecast Discussions
+    </h1>
+
+    <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-slate-300 max-w-3xl mx-auto pt-2">
+      <span class="font-medium text-white">Manmeet Singh<sup>1</sup></span>
+      <span class="font-medium text-white">Somnath Luitel<sup>1</sup></span>
+      <span class="font-medium text-white">Prabhjot Singh<sup>2,3</sup></span>
+      <span class="font-medium text-white">Manraaj Banga<sup>1</sup></span>
+      <span class="font-medium text-white">Naveen Sudharsan<sup>2</sup></span>
+      <span class="font-medium text-white">Josh Durkee<sup>1</sup></span>
+    </div>
+
+    <div class="text-xs text-slate-400 max-w-2xl mx-auto space-y-1">
+      <p><sup>1</sup>Western Kentucky University • <sup>2</sup>University of Texas at Austin • <sup>3</sup>RediMinds Inc.</p>
+    </div>
+
+    <!-- Quick Action Links -->
+    <div class="flex flex-wrap justify-center gap-3 pt-4">
+      <a href="files/afdbench_icml2026.pdf" target="_blank" class="glass-panel hover:bg-slate-800 text-white font-medium px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 transition border border-slate-700">
+        <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+        <span>Paper (PDF)</span>
+      </a>
+      <a href="files/afdbench_dataset_paper.pdf" target="_blank" class="glass-panel hover:bg-slate-800 text-white font-medium px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 transition border border-slate-700">
+        <i data-lucide="database" class="w-4 h-4 text-cyan-400"></i>
+        <span>Dataset Paper</span>
+      </a>
+      <a href="https://github.com/manmeet3591/AI-NWS" target="_blank" class="glass-panel hover:bg-slate-800 text-white font-medium px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 transition border border-slate-700">
+        <i data-lucide="github" class="w-4 h-4 text-purple-400"></i>
+        <span>Code Repository</span>
+      </a>
+      <a href="https://huggingface.co/spaces/manmeet3591/AFDBench" target="_blank" class="glass-panel hover:bg-slate-800 text-white font-medium px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 transition border border-slate-700">
+        <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+        <span>Hugging Face Space</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Abstract Box -->
+  <section class="max-w-4xl mx-auto px-4 pb-12">
+    <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-4">
+      <h2 class="text-base font-bold text-white flex items-center space-x-2">
+        <i data-lucide="book-open" class="w-4 h-4 text-blue-400"></i>
+        <span>Abstract</span>
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Large language models (LLMs) hallucinate numerical values when generating high-stakes meteorological text, posing risks for weather communication. We present <strong>AFDBench</strong>, an AI meteorologist framework that generates professional Area Forecast Discussions (AFDs) by reasoning through structured multi-timestep AI weather predictions from Google's WeatherNext 2. We introduce AFDBench, the first benchmark comprising 7,732 expert-written discussions from 13 National Weather Service (NWS) offices paired with real AI weather inputs, evaluated across three metrics: <em>Met-Align</em> (numerical fidelity), <em>Style-Align</em> (NWS dialect adherence), and <em>Input-Grounding</em> (atmospheric physics fidelity).
+      </p>
+    </div>
+  </section>
+
+  <!-- Live Demo Embed Section -->
+  <section id="demo" class="max-w-6xl mx-auto px-4 py-8 space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+      <div>
+        <h2 class="text-2xl font-bold text-white">⚡ Live Interactive Demonstration</h2>
+        <p class="text-xs text-slate-400">Run real-time multi-timestep weather reasoning and audit against today's official NOAA human issuance.</p>
+      </div>
+      <a href="https://huggingface.co/spaces/manmeet3591/AFDBench" target="_blank" class="text-xs text-blue-400 hover:text-blue-300 flex items-center space-x-1">
+        <span>Open full screen on Hugging Face</span>
+        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+
+    <!-- Embedded HF Space IFrame -->
+    <div class="w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900" style="min-height: 880px;">
+      <iframe 
+        src="https://manmeet3591-afdbench.hf.space"
+        width="100%" 
+        height="880px"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="w-full h-full"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- Key Metrics Breakdown -->
+  <section class="max-w-6xl mx-auto px-4 py-12 space-y-6">
+    <h2 class="text-2xl font-bold text-white text-center">🎯 Three Complementary Evaluation Metrics</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="glass-panel p-6 rounded-2xl space-y-3">
+        <div class="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+          <i data-lucide="calculator" class="w-5 h-5 text-emerald-400"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Met-Align (%)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Measures the percentage of 2-to-3 digit numerical forecast values (temperatures, winds, pressure heights) shared with the official human NWS reference.
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl space-y-3">
+        <div class="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+          <i data-lucide="feather" class="w-5 h-5 text-blue-400"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Style-Align (0–1)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Quantifies linguistic overlap with 20 core operational NWS terminology terms (e.g. <em>baroclinic, isentropic, advection, shortwave</em>).
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl space-y-3">
+        <div class="h-10 w-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+          <i data-lucide="gauge" class="w-5 h-5 text-purple-400"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Input-Grounding (0–1)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Verifies physical fidelity to the underlying model predictions: temperature errors (≤3°F), boundary-layer wind direction, and surface pressure regimes.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Leaderboard Table -->
+  <section id="leaderboard" class="max-w-6xl mx-auto px-4 py-12 space-y-6">
+    <div class="text-center space-y-2">
+      <h2 class="text-2xl font-bold text-white">🏆 Benchmark Leaderboard</h2>
+      <p class="text-xs text-slate-400">Comprehensive evaluation on held-out NWS forecast offices (BOX Boston & MRX Morristown).</p>
+    </div>
+
+    <div class="glass-panel rounded-2xl overflow-x-auto border border-slate-800">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-900/90 text-slate-400 uppercase font-mono tracking-wider border-b border-slate-800">
+          <tr>
+            <th class="py-3.5 px-4 font-semibold">Model / Baseline</th>
+            <th class="py-3.5 px-4 font-semibold text-emerald-400">Met-Align (%)</th>
+            <th class="py-3.5 px-4 font-semibold text-blue-400">Style-Align (0–1)</th>
+            <th class="py-3.5 px-4 font-semibold text-purple-400">Input-Grounding (0–1)</th>
+            <th class="py-3.5 px-4 font-semibold">Input Paradigm</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800 font-mono">
+          <tr class="bg-blue-950/20 font-bold text-white">
+            <td class="py-3.5 px-4">🏛 Human NWS Meteorologist (Reference)</td>
+            <td class="py-3.5 px-4 text-emerald-400">100.0%</td>
+            <td class="py-3.5 px-4 text-blue-400">1.000</td>
+            <td class="py-3.5 px-4 text-purple-400">1.000</td>
+            <td class="py-3.5 px-4 text-slate-400 font-normal">Full Multi-Timestep NWP</td>
+          </tr>
+          <tr class="bg-slate-800/40 font-semibold text-white">
+            <td class="py-3.5 px-4 flex items-center space-x-1.5">
+              <span class="text-amber-400">★</span>
+              <span>AFDBench (v3 SFT Multi-Timestep)</span>
+            </td>
+            <td class="py-3.5 px-4 text-emerald-400 font-bold">19.91%</td>
+            <td class="py-3.5 px-4 text-blue-400">0.433</td>
+            <td class="py-3.5 px-4 text-purple-400">0.587</td>
+            <td class="py-3.5 px-4 text-slate-300 font-normal">7-Timestep WeatherNext 2</td>
+          </tr>
+          <tr class="bg-slate-800/20 font-semibold text-white">
+            <td class="py-3.5 px-4 flex items-center space-x-1.5">
+              <span class="text-amber-400">★</span>
+              <span>AFDBench (v3 GRPO Multi-Timestep)</span>
+            </td>
+            <td class="py-3.5 px-4 text-emerald-400 font-bold">18.68%</td>
+            <td class="py-3.5 px-4 text-blue-400 font-bold">0.463</td>
+            <td class="py-3.5 px-4 text-purple-400">0.597</td>
+            <td class="py-3.5 px-4 text-slate-300 font-normal">7-Timestep WeatherNext 2</td>
+          </tr>
+          <tr class="text-slate-300">
+            <td class="py-3.5 px-4">AFDBench (v2 GRPO Single-Timestep)</td>
+            <td class="py-3.5 px-4 text-slate-400">13.73%</td>
+            <td class="py-3.5 px-4 text-blue-400 font-bold">0.619</td>
+            <td class="py-3.5 px-4 text-purple-400 font-bold">0.940</td>
+            <td class="py-3.5 px-4 text-slate-400 font-normal">Single-Timestep WeatherNext 2</td>
+          </tr>
+          <tr class="text-slate-400">
+            <td class="py-3.5 px-4">Qwen2.5-7B-Instruct (Zero-Shot)</td>
+            <td class="py-3.5 px-4">11.32%</td>
+            <td class="py-3.5 px-4">0.329</td>
+            <td class="py-3.5 px-4">0.847</td>
+            <td class="py-3.5 px-4 font-normal">Multi-Timestep Raw JSON</td>
+          </tr>
+          <tr class="text-slate-400">
+            <td class="py-3.5 px-4">Hermes-3-Llama-3.1-8B (Zero-Shot)</td>
+            <td class="py-3.5 px-4">12.84%</td>
+            <td class="py-3.5 px-4">0.338</td>
+            <td class="py-3.5 px-4">0.812</td>
+            <td class="py-3.5 px-4 font-normal">Multi-Timestep Raw JSON</td>
+          </tr>
+          <tr class="text-slate-400">
+            <td class="py-3.5 px-4">Mistral-7B-Instruct-v0.3 (Zero-Shot)</td>
+            <td class="py-3.5 px-4">12.95%</td>
+            <td class="py-3.5 px-4">0.327</td>
+            <td class="py-3.5 px-4">0.804</td>
+            <td class="py-3.5 px-4 font-normal">Multi-Timestep Raw JSON</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Figures Grid -->
+  <section id="dataset" class="max-w-6xl mx-auto px-4 py-12 space-y-8">
+    <h2 class="text-2xl font-bold text-white text-center">🗺 Spatial Coverage & Training Dynamics</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="glass-panel p-5 rounded-2xl space-y-3">
+        <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+          <i data-lucide="map" class="w-4 h-4 text-cyan-400"></i>
+          <span>13 NWS Weather Forecast Offices Spatially Distributed</span>
+        </h3>
+        <img src="figures/station_map.png" alt="NWS Station Map" class="rounded-xl border border-slate-800 w-full object-cover">
+        <p class="text-xs text-slate-400">Coverage spanning New England, Appalachian mountains, Gulf coast, Great Plains, and Pacific Northwest.</p>
+      </div>
+
+      <div class="glass-panel p-5 rounded-2xl space-y-3">
+        <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+          <i data-lucide="trending-up" class="w-4 h-4 text-purple-400"></i>
+          <span>GRPO Domain Rewards & Entropy Dynamics</span>
+        </h3>
+        <img src="figures/training_curves.png" alt="GRPO Training Curves" class="rounded-xl border border-slate-800 w-full object-cover">
+        <p class="text-xs text-slate-400">Progression across 3 domain rewards (Temperature, Synoptic, Format) showing steady policy learning without entropy collapse.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citation Section -->
+  <section id="citation" class="max-w-4xl mx-auto px-4 py-12 space-y-4">
+    <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+      <i data-lucide="quote" class="w-4 h-4 text-blue-400"></i>
+      <span>Citation</span>
+    </h2>
+    <div class="relative">
+      <pre class="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code>@inproceedings{singh2026afdbench,
+  title={AFDBench: A Reasoning-First AI Scientist for National Weather Service Forecast Discussions},
+  author={Singh, Manmeet and Luitel, Somnath and Singh, Prabhjot and Banga, Manraaj and Sudharsan, Naveen and Durkee, Josh},
+  booktitle={ICML Workshop on AI Scientists: Tools, Co-authors, or Founders?},
+  year={2026}
+}</code></pre>
+      <button onclick="navigator.clipboard.writeText(document.querySelector('pre code').innerText); alert('BibTeX copied to clipboard!');" class="absolute top-3 right-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1">
+        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+        <span>Copy</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+    <p>© 2026 AFDBench Research Group • Western Kentucky University & Collaborators</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
