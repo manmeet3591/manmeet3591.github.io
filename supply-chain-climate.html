@@ -246,7 +246,7 @@ header{
 .leaflet-bottom .leaflet-control{margin-bottom:8px}
 .leaflet-left .leaflet-control{margin-left:8px}
 .leaflet-right .leaflet-control{margin-right:8px}
-.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}
+.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200;filter:invert(100%) hue-rotate(180deg) brightness(90%) contrast(88%)}.leaflet-overlay-pane{z-index:400}
 .leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}
 .leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}
 .leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:grab}
@@ -793,10 +793,10 @@ function positionTooltip(e) {
 function hideTooltip() { tooltip.classList.remove('visible'); }
 
 // â”€â”€ Leaflet Maps â”€â”€
-const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
+const tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const tileOpts = {
-  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-  subdomains: 'abcd', maxZoom: 19, minZoom: 2
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 19, minZoom: 2
 };
 
 const mapIndia = L.map('mapIndia', {scrollWheelZoom: false, zoomControl: false, minZoom: 4, maxZoom: 9});
