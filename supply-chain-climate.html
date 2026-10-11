@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
-/* ── Token system ── dark-first; ocean-console palette */
+/* â”€â”€ Token system â”€â”€ dark-first; ocean-console palette */
 :root {
   --bg:       #05101D;
   --surf1:    #0B1829;
@@ -43,10 +43,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:var(--body);background:var(--bg);color:var(--text1);font-size:14px;line-height:1.5;overflow:hidden}
 
-/* ── App shell ── */
+/* â”€â”€ App shell â”€â”€ */
 .app{display:flex;flex-direction:column;height:100%}
 
-/* ── Header ── */
+/* â”€â”€ Header â”€â”€ */
 header{
   background:var(--surf1);border-bottom:1px solid var(--border);
   padding:0 18px;flex-shrink:0;
@@ -68,7 +68,7 @@ header{
 .dot.pulse{animation:pulse-dot 1.8s infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 
-/* ── Alert ticker ── */
+/* â”€â”€ Alert ticker â”€â”€ */
 .ticker{background:var(--surf1);border-bottom:1px solid var(--border);height:28px;overflow:hidden;flex-shrink:0}
 .ticker-inner{display:flex;align-items:center;height:100%;padding:0 18px;gap:0}
 .ticker-label{font-size:10px;font-weight:600;letter-spacing:.8px;color:var(--warn);text-transform:uppercase;white-space:nowrap;padding-right:16px;border-right:1px solid var(--border);margin-right:16px}
@@ -83,7 +83,7 @@ header{
 .badge.flood{background:#A87FE822;color:#A87FE8;border:1px solid #A87FE844}
 @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ── Layer controls ── */
+/* â”€â”€ Layer controls â”€â”€ */
 .layer-bar{
   background:var(--surf1);border-bottom:1px solid var(--border);
   display:flex;align-items:center;gap:8px;padding:0 18px;height:38px;flex-shrink:0
@@ -105,7 +105,7 @@ header{
 .layer-sep{width:1px;height:20px;background:var(--border)}
 .map-ts{margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)}
 
-/* ── Map hero ── */
+/* â”€â”€ Map hero â”€â”€ */
 .map-hero{
   flex:0 0 auto;
   display:flex;gap:0;
@@ -134,7 +134,7 @@ header{
 .map-svg-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:12px}
 .map-svg-wrap svg{width:100%;height:100%;max-width:100%;max-height:100%}
 
-/* ── Map legend ── */
+/* â”€â”€ Map legend â”€â”€ */
 .map-legend{
   background:var(--surf1);border-top:1px solid var(--border);
   height:34px;display:flex;align-items:center;gap:16px;padding:0 18px;flex-shrink:0;
@@ -144,7 +144,7 @@ header{
 .ml-swatch{width:10px;height:10px;border-radius:2px}
 .ml-dot{width:8px;height:8px;border-radius:50%}
 
-/* ── Tab nav ── */
+/* â”€â”€ Tab nav â”€â”€ */
 .tab-nav{
   display:flex;border-bottom:1px solid var(--border);
   background:var(--surf1);flex-shrink:0;height:42px;
@@ -161,12 +161,12 @@ header{
 .tab-btn:hover{color:var(--text1)}
 .tab-btn.active{color:var(--text1);border-bottom-color:var(--accent)}
 
-/* ── Content panels ── */
+/* â”€â”€ Content panels â”€â”€ */
 .content{flex:1;overflow-y:auto;overflow-x:hidden}
 .tab-panel{display:none;padding:16px 18px;max-width:1600px;margin:0 auto}
 .tab-panel.active{display:block}
 
-/* ── Cards ── */
+/* â”€â”€ Cards â”€â”€ */
 .section-title{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px}
@@ -186,7 +186,7 @@ header{
 .badge-warn{background:#F5A62322;color:#F5A623;border:1px solid #F5A62344}
 .badge-good{background:#00D48A22;color:#00D48A;border:1px solid #00D48A44}
 
-/* ── Charts ── */
+/* â”€â”€ Charts â”€â”€ */
 .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
 .chart-card{background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px}
@@ -194,7 +194,7 @@ header{
 .chart-sub{font-size:10px;color:var(--text2);font-weight:400;margin-left:6px}
 .chart-wrap{position:relative;height:160px}
 
-/* ── Flood table ── */
+/* â”€â”€ Flood table â”€â”€ */
 .ftable{width:100%;border-collapse:collapse;font-size:12px}
 .ftable th{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);padding:6px 10px;border-bottom:1px solid var(--border);text-align:left;font-weight:500}
 .ftable td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text1)}
@@ -205,7 +205,7 @@ header{
 .inund-fill{height:100%;border-radius:2px}
 .risk-chip{display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mono)}
 
-/* ── S2S outlook ── */
+/* â”€â”€ S2S outlook â”€â”€ */
 .s2s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px}
 .s2s-card{background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:10px}
 .s2s-week{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
@@ -217,7 +217,7 @@ header{
 .s2s-bar-fill{height:100%;border-radius:2px}
 .s2s-bar-val{width:26px;color:var(--text2);text-align:right;font-family:var(--mono)}
 
-/* ── Tooltip ── */
+/* â”€â”€ Tooltip â”€â”€ */
 #mapTooltip{
   position:fixed;z-index:9999;pointer-events:none;
   background:rgba(10,24,45,.95);backdrop-filter:blur(12px);
@@ -234,7 +234,7 @@ header{
 .tt-val{color:var(--text1);font-family:var(--mono);font-size:11px;font-weight:500}
 .tt-div{height:1px;background:var(--border);margin:5px 0}
 
-/* ── Leaflet core (inlined) ── */
+/* â”€â”€ Leaflet core (inlined) â”€â”€ */
 .leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
 .leaflet-container{overflow:hidden;background:#040E1A;outline-offset:1px;font-family:var(--body)}
 .leaflet-tile{visibility:hidden}.leaflet-tile-loaded{visibility:inherit}
@@ -269,7 +269,7 @@ header{
 .leaflet-control-attribution a{color:var(--text2);text-decoration:none}
 .leaflet-div-icon{background:transparent;border:none}
 
-/* ── Leaflet marker animation ── */
+/* â”€â”€ Leaflet marker animation â”€â”€ */
 @keyframes ring-pulse-lf{
   0%{transform:scale(.4);opacity:.9}
   60%{transform:scale(1.8);opacity:0}
@@ -279,7 +279,7 @@ header{
 .lf-ring.fast{animation-duration:1.5s}
 .lf-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid rgba(255,255,255,.75);position:relative;z-index:1}
 
-/* ── Map leaf container ── */
+/* â”€â”€ Map leaf container â”€â”€ */
 .map-leaf{flex:1;position:relative;min-height:180px}
 
 /* Responsive */
@@ -305,14 +305,14 @@ header{
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon">🌍</div>
+      <div class="logo-icon">ðŸŒ</div>
       <div class="logo-text">
         <span>ChairCo Climate</span>
         <span class="logo-sub">Supply Chain Intelligence</span>
       </div>
     </div>
     <div class="hdiv"></div>
-    <div class="header-meta">India · United States · Operational Network</div>
+    <div class="header-meta">India Â· United States Â· Operational Network</div>
     <div class="status-pills">
       <div class="spill red"><span class="dot pulse"></span>3 Critical</div>
       <div class="spill amber"><span class="dot pulse"></span>5 Advisory</div>
@@ -324,7 +324,7 @@ header{
 <!-- Alert ticker -->
 <div class="ticker">
   <div class="ticker-inner">
-    <div class="ticker-label">⚡ ALERTS</div>
+    <div class="ticker-label">âš¡ ALERTS</div>
     <div class="ticker-track">
       <div class="ticker-content" id="tickerContent"></div>
     </div>
@@ -334,7 +334,7 @@ header{
 <!-- Layer bar -->
 <div class="layer-bar">
   <span class="layer-label">Overlay:</span>
-  <button class="lbtn n active" onclick="setLayer('nowcast')"><span class="li" style="background:#5B9CF5"></span>Nowcast 0–3 hr</button>
+  <button class="lbtn n active" onclick="setLayer('nowcast')"><span class="li" style="background:#5B9CF5"></span>Nowcast 0â€“3 hr</button>
   <button class="lbtn f" onclick="setLayer('flood')"><span class="li" style="background:#A87FE8"></span>Flood Risk (OPERA/S1)</button>
   <button class="lbtn s" onclick="setLayer('s2s')"><span class="li" style="background:#2BD4C4"></span>S2S Outlook</button>
   <button class="lbtn m" onclick="setLayer('medium')"><span class="li" style="background:#F07D3A"></span>Medium Range</button>
@@ -348,8 +348,8 @@ header{
   <!-- India panel -->
   <div class="map-panel" id="panelIndia">
     <div class="map-panel-header">
-      <div class="map-panel-title">🇮🇳 India Operations</div>
-      <div class="map-panel-sub" id="indiaSubtitle">Nowcast · 4 nodes</div>
+      <div class="map-panel-title">ðŸ‡®ðŸ‡³ India Operations</div>
+      <div class="map-panel-sub" id="indiaSubtitle">Nowcast Â· 4 nodes</div>
     </div>
     <div id="mapIndia" class="map-leaf"></div>
   </div>
@@ -357,8 +357,8 @@ header{
   <!-- US panel -->
   <div class="map-panel" id="panelUS">
     <div class="map-panel-header">
-      <div class="map-panel-title">🇺🇸 US Distribution</div>
-      <div class="map-panel-sub" id="usSubtitle">Nowcast · 4 nodes</div>
+      <div class="map-panel-title">ðŸ‡ºðŸ‡¸ US Distribution</div>
+      <div class="map-panel-sub" id="usSubtitle">Nowcast Â· 4 nodes</div>
     </div>
     <div id="mapUS" class="map-leaf"></div>
   </div>
@@ -373,15 +373,15 @@ header{
   <div class="ml-item"><div class="ml-swatch" style="background:#A87FE866;border:1px solid #A87FE8"></div>Flood Inundation (OPERA/S1)</div>
   <div class="ml-item"><div class="ml-swatch" style="background:#2BD4C444;border:1px solid #2BD4C4"></div>S2S Anomaly</div>
   <div class="ml-item"><div class="ml-swatch" style="background:#F5A62344;border:1px solid #F5A623"></div>Precip Anomaly</div>
-  <span style="margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)">Data: ECMWF IFS · OPERA DSWx-S1 · NCEP · Mock prototype</span>
+  <span style="margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)">Data: ECMWF IFS Â· OPERA DSWx-S1 Â· NCEP Â· Mock prototype</span>
 </div>
 
 <!-- Tab nav -->
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('nowcast')"><span class="tbi">⚡</span>Nowcast 0–3 hr</button>
-  <button class="tab-btn" onclick="switchTab('forecast')"><span class="tbi">📈</span>1–15 Day Forecast</button>
-  <button class="tab-btn" onclick="switchTab('flood')"><span class="tbi">🌊</span>Flood Risk (OPERA)</button>
-  <button class="tab-btn" onclick="switchTab('s2s')"><span class="tbi">🌀</span>S2S Outlook</button>
+  <button class="tab-btn active" onclick="switchTab('nowcast')"><span class="tbi">âš¡</span>Nowcast 0â€“3 hr</button>
+  <button class="tab-btn" onclick="switchTab('forecast')"><span class="tbi">ðŸ“ˆ</span>1â€“15 Day Forecast</button>
+  <button class="tab-btn" onclick="switchTab('flood')"><span class="tbi">ðŸŒŠ</span>Flood Risk (OPERA)</button>
+  <button class="tab-btn" onclick="switchTab('s2s')"><span class="tbi">ðŸŒ€</span>S2S Outlook</button>
 </div>
 
 <!-- Content -->
@@ -389,7 +389,7 @@ header{
 
   <!-- Nowcast tab -->
   <div class="tab-panel active" id="tab-nowcast">
-    <div class="section-title" style="margin-top:2px">🇮🇳 India — Nowcast Conditions</div>
+    <div class="section-title" style="margin-top:2px">ðŸ‡®ðŸ‡³ India â€” Nowcast Conditions</div>
     <div class="cards-grid">
       <div class="card sev-crit">
         <div class="card-loc">JNPT Mumbai Port</div>
@@ -400,7 +400,7 @@ header{
       <div class="card sev-crit">
         <div class="card-loc">Kolkata Hub</div>
         <div class="card-val">187<span class="card-unit">mm/6hr</span></div>
-        <div class="card-desc">Extreme rainfall. Flood inundation confirmed SAR — 2.1m depth.</div>
+        <div class="card-desc">Extreme rainfall. Flood inundation confirmed SAR â€” 2.1m depth.</div>
         <div class="card-badge badge-crit">CRITICAL</div>
       </div>
       <div class="card sev-warn">
@@ -411,12 +411,12 @@ header{
       </div>
       <div class="card sev-good">
         <div class="card-loc">Rajasthan Plant</div>
-        <div class="card-val">31<span class="card-unit">°C</span></div>
+        <div class="card-val">31<span class="card-unit">Â°C</span></div>
         <div class="card-desc">Clear skies, 8 km/h NW breeze. Ops normal. Heat advisory watch.</div>
         <div class="card-badge badge-good">CLEAR</div>
       </div>
     </div>
-    <div class="section-title">🇺🇸 United States — Nowcast Conditions</div>
+    <div class="section-title">ðŸ‡ºðŸ‡¸ United States â€” Nowcast Conditions</div>
     <div class="cards-grid">
       <div class="card sev-crit">
         <div class="card-loc">Chicago DC</div>
@@ -433,12 +433,12 @@ header{
       <div class="card sev-warn">
         <div class="card-loc">New Jersey DC</div>
         <div class="card-val">42<span class="card-unit">kt gusts</span></div>
-        <div class="card-desc">Coastal storm, storm surge 0.8m. Container yard delays 3–5 hrs.</div>
+        <div class="card-desc">Coastal storm, storm surge 0.8m. Container yard delays 3â€“5 hrs.</div>
         <div class="card-badge badge-warn">ADVISORY</div>
       </div>
       <div class="card sev-good">
         <div class="card-loc">Los Angeles DC</div>
-        <div class="card-val">22<span class="card-unit">°C</span></div>
+        <div class="card-val">22<span class="card-unit">Â°C</span></div>
         <div class="card-desc">Clear, 14 km/h SW breeze. All ops normal. Marine layer clearing.</div>
         <div class="card-badge badge-good">CLEAR</div>
       </div>
@@ -447,25 +447,25 @@ header{
 
   <!-- Forecast tab -->
   <div class="tab-panel" id="tab-forecast">
-    <div class="section-title" style="margin-top:2px">IFS HRES · 1–7 Day Short Range</div>
+    <div class="section-title" style="margin-top:2px">IFS HRES Â· 1â€“7 Day Short Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India Nodes — Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-title">India Nodes â€” Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaRain"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">US Nodes — Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-title">US Nodes â€” Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
         <div class="chart-wrap"><canvas id="chartUSWind"></canvas></div>
       </div>
     </div>
-    <div class="section-title">ECMWF ENS · 8–15 Day Medium Range</div>
+    <div class="section-title">ECMWF ENS Â· 8â€“15 Day Medium Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India — Temperature Anomaly (°C) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">India â€” Temperature Anomaly (Â°C) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaTemp"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">US — Precipitation Anomaly (%) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">US â€” Precipitation Anomaly (%) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartUSPrecip"></canvas></div>
       </div>
     </div>
@@ -473,7 +473,7 @@ header{
 
   <!-- Flood tab -->
   <div class="tab-panel" id="tab-flood">
-    <div class="section-title" style="margin-top:2px">OPERA DSWx-S1 — Sentinel-1 SAR Flood Inundation · 30m Resolution</div>
+    <div class="section-title" style="margin-top:2px">OPERA DSWx-S1 â€” Sentinel-1 SAR Flood Inundation Â· 30m Resolution</div>
     <table class="ftable">
       <thead>
         <tr>
@@ -493,11 +493,11 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:84%;background:#F5455A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">412 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">412 kmÂ²</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">2.1 m</td>
-          <td style="color:#F5455A">▲ Rising</td>
+          <td style="color:#F5455A">â–² Rising</td>
           <td style="color:var(--text2)">Operations suspended. Road access closed.</td>
           <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">CRITICAL</span></td>
         </tr>
@@ -507,12 +507,12 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:62%;background:#F5A623"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">218 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">218 kmÂ²</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.8 m</td>
-          <td style="color:#F5A623">► Stable</td>
-          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6�38 hr.</td>
+          <td style="color:#F5A623">â–º Stable</td>
+          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6â‚38 hr.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">ADVISORY</span></td>
         </tr>
         <tr>
@@ -521,13 +521,13 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:71%;background:#F5455A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">683 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">683 kmÂ²</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">1.6 m</td>
-          <td style="color:#F5A623">▼ Receding</td>
+          <td style="color:#F5A623">â–¼ Receding</td>
           <td style="color:var(--text2)">I-10 W limited. Atlanta routing via I-20.</td>
-          <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HB�H5�pan></td>
+          <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HBÇH5•pan></td>
         </tr>
         <tr>
           <td><strong>NJ Coastal Strip</strong></td>
@@ -535,11 +535,11 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:38%;background:#F5A623"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">89 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">89 kmÂ²</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.4 m</td>
-          <td style="color:#F5A623">► Stable</td>
+          <td style="color:#F5A623">â–º Stable</td>
           <td style="color:var(--text2)">Minor parking area flooding. DC ops unaffected.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">LOW</span></td>
         </tr>
@@ -549,36 +549,36 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:3%;background:#00D48A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">—</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">â€”</span>
             </div>
           </td>
-          <td style="font-family:var(--mono);color:var(--text2)">—</td>
-          <td style="color:#00D48A">✓ Clear</td>
+          <td style="font-family:var(--mono);color:var(--text2)">â€”</td>
+          <td style="color:#00D48A">âœ“ Clear</td>
           <td style="color:var(--text2)">No inundation detected. All ops normal.</td>
           <td><span class="risk-chip" style="background:#00D48A22;color:#00D48A;border:1px solid #00D48A44">CLEAR</span></td>
         </tr>
       </tbody>
     </table>
     <div style="margin-top:12px;padding:10px 14px;background:var(--surf1);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text2)">
-      <strong style="color:var(--text1)">Data provenance:</strong> OPERA DSWx-S1 v1.0 · Sentinel-1 C-band SAR (VV polarization) · 30 m spatial resolution · ~6-day revisit. Processed via ASF DAAC. Depth estimated from flood duration model. All values provisional prototype mock data.
+      <strong style="color:var(--text1)">Data provenance:</strong> OPERA DSWx-S1 v1.0 Â· Sentinel-1 C-band SAR (VV polarization) Â· 30 m spatial resolution Â· ~6-day revisit. Processed via ASF DAAC. Depth estimated from flood duration model. All values provisional prototype mock data.
     </div>
   </div>
 
   <!-- S2S tab -->
   <div class="tab-panel" id="tab-s2s">
-    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S — Sub-Seasonal Outlook · Weeks 2–6</div>
+    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S â€” Sub-Seasonal Outlook Â· Weeks 2â€“6</div>
     <div class="s2s-grid">
       <div class="s2s-card">
         <div class="s2s-week">Week 2</div>
-        <div class="s2s-range">Oct 17–23, 2026</div>
+        <div class="s2s-range">Oct 17â€“23, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:72%;background:#F5A623"></div></div>
             <div class="s2s-bar-val" style="color:#F5A623">+72%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:35%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+35%</div>
           </div>
@@ -587,15 +587,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 3</div>
-        <div class="s2s-range">Oct 24–30, 2026</div>
+        <div class="s2s-range">Oct 24â€“30, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:58%;background:#F5A623"></div></div>
             <div class="s2s-bar-val" style="color:#F5A623">+58%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:52%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+52%</div>
           </div>
@@ -604,15 +604,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 4</div>
-        <div class="s2s-range">Oct 31–Nov 6, 2026</div>
+        <div class="s2s-range">Oct 31â€“Nov 6, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:32%;background:#2BD4C4"></div></div>
             <div class="s2s-bar-val" style="color:#2BD4C4">+32%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:44%;background:#F07D3A"></div></div>
             <div class="s2s-bar-val" style="color:#F07D3A">-44%</div>
           </div>
@@ -621,15 +621,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 5</div>
-        <div class="s2s-range">Nov 7–13, 2026</div>
+        <div class="s2s-range">Nov 7â€“13, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:20%;background:#2BD4C4"></div></div>
             <div class="s2s-bar-val" style="color:#2BD4C4">+20%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:28%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+28%</div>
           </div>
@@ -638,15 +638,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 6</div>
-        <div class="s2s-range">Nov 14–20, 2026</div>
+        <div class="s2s-range">Nov 14â€“20, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:15%;background:#7A9DC0"></div></div>
             <div class="s2s-bar-val" style="color:var(--text2)">+15%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:18%;background:#7A9DC0"></div></div>
             <div class="s2s-bar-val" style="color:var(--text2)">+18%</div>
           </div>
@@ -654,23 +654,23 @@ header{
         <div style="font-size:9px;color:var(--text3);margin-top:5px">Confidence: 38% (low)</div>
       </div>
     </div>
-    <div class="section-title">Predicted MJO Phase · Weeks 2–6</div>
+    <div class="section-title">Predicted MJO Phase Â· Weeks 2â€“6</div>
     <div style="background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:11px;color:var(--text2)">
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">India Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>🔴 <strong style="color:#F5A623">Week 2:</strong> Continued wet anomaly over Bay of Bengal. Kolkata port disruption 70% probability.</div>
-            <div>🟡 <strong style="color:#F5A623">Week 3:</strong> MJO Phase 3 active. Rajasthan harvest transport delay risk 45%.</div>
-            <div>🟢 <strong style="color:#00D48A">Week 4+:</strong> Monsoon withdrawal likely. Conditions improving across all nodes.</div>
+            <div>ðŸ”´ <strong style="color:#F5A623">Week 2:</strong> Continued wet anomaly over Bay of Bengal. Kolkata port disruption 70% probability.</div>
+            <div>ðŸŸ¡ <strong style="color:#F5A623">Week 3:</strong> MJO Phase 3 active. Rajasthan harvest transport delay risk 45%.</div>
+            <div>ðŸŸ¢ <strong style="color:#00D48A">Week 4+:</strong> Monsoon withdrawal likely. Conditions improving across all nodes.</div>
           </div>
         </div>
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">US Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>🔴 <strong style="color:#5B9CF5">Week 2:</strong> La Niña pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
-            <div>🟡 <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
-            <div>🟢 <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
+            <div>ðŸ”´ <strong style="color:#5B9CF5">Week 2:</strong> La NiÃ±a pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
+            <div>ðŸŸ¡ <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
+            <div>ðŸŸ¢ <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
           </div>
         </div>
       </div>
@@ -681,24 +681,24 @@ header{
 </div><!-- .app -->
 
 <script>
-// ── Timestamp ──
+// â”€â”€ Timestamp â”€â”€
 (function(){
-  document.getElementById('mapTs').textContent = '🕐 ' + new Date().toUTCString().replace('GMT','UTC');
+  document.getElementById('mapTs').textContent = 'ðŸ• ' + new Date().toUTCString().replace('GMT','UTC');
 })();
 
-// ── Alert ticker ──
+// â”€â”€ Alert ticker â”€â”€
 const alerts = [
-  {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt — Port ops suspended'},
-  {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall — SAR flood confirmed 2.1m depth'},
-  {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell — Tornado watch, hail 8.9cm, ops halted'},
-  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 km² — rising'},
-  {badge:'ADVISORY',cls:'oarn',text:'Pune Manufacturing: 34mm/hr heavy showers — Lightning advisory active'},
-  {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch — Loading dock access 40% capacity'},
-  {badge:'ADVISORY',cls:'oarn',text:'New Jersey DC: Coastal storm — Storm surge 0.8m, container yard delays 3–5hr'},
-  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km² inundated — I-10 W limited'},
-  {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected — Rajasthan week 3 clearing'},
-  {badge:'INFO',cls:'info',text:'ECMWF ENS: La Niña SST anomaly -1.2°C Niño-3.4 — Elevated US storm risk'},
-  {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2 — Bay of Bengal enhanced convection'},
+  {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt â€” Port ops suspended'},
+  {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall â€” SAR flood confirmed 2.1m depth'},
+  {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell â€” Tornado watch, hail 8.9cm, ops halted'},
+  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 kmÂ² â€” rising'},
+  {badge:'ADVISORY',cls:'oarn',text:'Pune Manufacturing: 34mm/hr heavy showers â€” Lightning advisory active'},
+  {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch â€” Loading dock access 40% capacity'},
+  {badge:'ADVISORY',cls:'oarn',text:'New Jersey DC: Coastal storm â€” Storm surge 0.8m, container yard delays 3â€“5hr'},
+  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 kmÂ² inundated â€” I-10 W limited'},
+  {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected â€” Rajasthan week 3 clearing'},
+  {badge:'INFO',cls:'info',text:'ECMWF ENS: La NiÃ±a SST anomaly -1.2Â°C NiÃ±o-3.4 â€” Elevated US storm risk'},
+  {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2 â€” Bay of Bengal enhanced convection'},
 ];
 const tc = document.getElementById('tickerContent');
 [...alerts,...alerts].forEach(a => {
@@ -708,67 +708,67 @@ const tc = document.getElementById('tickerContent');
   tc.appendChild(el);
 });
 
-// ── Node data ──
+// â”€â”€ Node data â”€â”€
 const nodeData = {
   rajasthan: {
     name: 'Rajasthan Manufacturing',
-    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'✅ Ops Normal'}],
-    flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'✅ Clear'}],
-    s2s:     [{k:'Week 2–3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
-    medium:  [{k:'Day 8–15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2°C'}],
+    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31Â°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'âœ… Ops Normal'}],
+    flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'âœ… Clear'}],
+    s2s:     [{k:'Week 2â€“3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
+    medium:  [{k:'Day 8â€“15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2Â°C'}],
   },
   pune: {
     name: 'Pune Manufacturing',
-    nowcast: [{k:'Condition',v:'Heavy Rain ⚠️'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active — 8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'⚠️ Monitoring'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor — 12 km²'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'⚠️ Low'}],
-    s2s:     [{k:'Week 2–3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 ± 3d'},{k:'Confidence',v:'65%'}],
-    medium:  [{k:'Day 8–10',v:'Continued wet'},{k:'Day 11–15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
+    nowcast: [{k:'Condition',v:'Heavy Rain âš ï¸'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active â€” 8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'âš ï¸ Monitoring'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor â€” 12 kmÂ²'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'âš ï¸ Low'}],
+    s2s:     [{k:'Week 2â€“3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 Â± 3d'},{k:'Confidence',v:'65%'}],
+    medium:  [{k:'Day 8â€“10',v:'Continued wet'},{k:'Day 11â€“15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
   },
   jnpt: {
     name: 'JNPT Mumbai Port',
-    nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'⛔ Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
-    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1–6 affected'},{k:'Risk',v:'🔴 Critical'}],
+    nowcast: [{k:'Condition',v:'CRITICAL ðŸ”´'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'â›” Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
+    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1â€“6 affected'},{k:'Risk',v:'ðŸ”´ Critical'}],
     s2s:     [{k:'Week 2',v:'Continued disruption'},{k:'Week 3',v:'Improving'},{k:'Alt routing',v:'Nhava Sheva barge'}],
-    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9–15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
+    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9â€“15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
   },
   kolkata: {
     name: 'Kolkata Distribution Hub',
-    nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'⛔ Closed'},{k:'Status',v:'⛔ Ops Suspended'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km² inundated'},{k:'Trend',v:'🔴 Rising'},{k:'Depth',v:'2.1 m peak'}],
-    s2s:     [{k:'Week 2–3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2–3',v:'High'}],
-    medium:  [{k:'Day 8–12',v:'Continued heavy rain'},{k:'Day 13–15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
+    nowcast: [{k:'Condition',v:'CRITICAL ðŸ”´'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'â›” Closed'},{k:'Status',v:'â›” Ops Suspended'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 kmÂ² inundated'},{k:'Trend',v:'ðŸ”´ Rising'},{k:'Depth',v:'2.1 m peak'}],
+    s2s:     [{k:'Week 2â€“3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2â€“3',v:'High'}],
+    medium:  [{k:'Day 8â€“12',v:'Continued heavy rain'},{k:'Day 13â€“15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
   },
   'los-angeles': {
     name: 'Los Angeles DC',
-    nowcast: [{k:'Condition',v:'Clear ✅'},{k:'Temp',v:'22°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'✅ Ops Normal'}],
-    flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'✅ Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
-    s2s:     [{k:'Week 4–6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'✅ Favorable'}],
-    medium:  [{k:'Day 8–15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8°C'}],
+    nowcast: [{k:'Condition',v:'Clear âœ…'},{k:'Temp',v:'22Â°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'âœ… Ops Normal'}],
+    flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'âœ… Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
+    s2s:     [{k:'Week 4â€“6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'âœ… Favorable'}],
+    medium:  [{k:'Day 8â€“15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8Â°C'}],
   },
   chicago: {
     name: 'Chicago Distribution Center',
-    nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Tornado watch',v:'⚠️ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'⛔ Ops Halted'}],
-    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'⛔ Blocked'},{k:'Risk',v:'🔴 Critical'}],
-    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Niña signal',v:'Strong'},{k:'Week 3–4',v:'Gradual improvement'}],
-    medium:  [{k:'Day 8–10',v:'Storm track clearing'},{k:'Day 11–15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
+    nowcast: [{k:'Condition',v:'CRITICAL ðŸ”´'},{k:'Tornado watch',v:'âš ï¸ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'â›” Ops Halted'}],
+    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'â›” Blocked'},{k:'Risk',v:'ðŸ”´ Critical'}],
+    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La NiÃ±a signal',v:'Strong'},{k:'Week 3â€“4',v:'Gradual improvement'}],
+    medium:  [{k:'Day 8â€“10',v:'Storm track clearing'},{k:'Day 11â€“15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
   },
   atlanta: {
     name: 'Atlanta Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'⚠️ Degraded Ops'}],
+    nowcast: [{k:'Condition',v:'Advisory âš ï¸'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'âš ï¸ Degraded Ops'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Near vicinity',v:'Mississippi Delta impact'},{k:'Access roads',v:'I-20 rerouting'}],
-    s2s:     [{k:'Week 2–3',v:'La Niña enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
-    medium:  [{k:'Day 8–12',v:'Below-normal precip'},{k:'Day 13–15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
+    s2s:     [{k:'Week 2â€“3',v:'La NiÃ±a enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
+    medium:  [{k:'Day 8â€“12',v:'Below-normal precip'},{k:'Day 13â€“15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
   },
   newjersey: {
     name: 'New Jersey Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3–5 hours'},{k:'Status',v:'⚠️ Reduced capacity'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km²'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'⚠️ Low'}],
-    s2s:     [{k:'Week 2–3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Niña impact',v:'Moderate'}],
-    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9–15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
+    nowcast: [{k:'Condition',v:'Advisory âš ï¸'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3â€“5 hours'},{k:'Status',v:'âš ï¸ Reduced capacity'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 kmÂ²'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'âš ï¸ Low'}],
+    s2s:     [{k:'Week 2â€“3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La NiÃ±a impact',v:'Moderate'}],
+    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9â€“15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
   },
 };
 
-// ── Tooltip helpers ──
+// â”€â”€ Tooltip helpers â”€â”€
 const tooltip = document.getElementById('mapTooltip');
 const ttLoc   = document.getElementById('ttLoc');
 const ttBody  = document.getElementById('ttBody');
@@ -792,8 +792,8 @@ function positionTooltip(e) {
 }
 function hideTooltip() { tooltip.classList.remove('visible'); }
 
-// ── Leaflet Maps ──
-const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+// â”€â”€ Leaflet Maps â”€â”€
+const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
 const tileOpts = {
   attribution: '&copy; <a href="https://openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
   subdomains: 'abcd', maxZoom: 19, minZoom: 2
@@ -809,7 +809,7 @@ mapUS.setView([38, -96], 4);
 L.tileLayer(tileUrl, tileOpts).addTo(mapUS);
 L.control.zoom({position: 'bottomright'}).addTo(mapUS);
 
-// ── Node marker factory ──
+// â”€â”€ Node marker factory â”€â”€
 function addNode(map, lat, lng, color, nodeId, fastPulse) {
   const icon = L.divIcon({
     className: '',
@@ -839,7 +839,7 @@ addNode(mapUS, 41.88,  -87.63, '#F5455A', 'chicago',     true);
 addNode(mapUS, 33.75,  -84.39, '#F5A623', 'atlanta',     false);
 addNode(mapUS, 40.70,  -74.17, '#F5A623', 'newjersey',   false);
 
-// ── Weather overlay circles ──
+// â”€â”€ Weather overlay circles â”€â”€
 const overlayDefs = {
   nowcast: {
     india: [
@@ -912,12 +912,12 @@ function showOverlays(layerName) {
   });
 }
 
-// ── Layer switching ──
+// â”€â”€ Layer switching â”€â”€
 const subtitles = {
-  nowcast: {india:'Nowcast 0–3 hr · 4 nodes', us:'Nowcast 0–3 hr · 4 nodes'},
-  flood:   {india:'Flood Risk (OPERA/S1) · Active', us:'Flood Risk (OPERA/S1) · Active'},
-  s2s:     {india:'S2S Outlook · Wk 2–6', us:'S2S Outlook · Wk 2–6'},
-  medium:  {india:'Medium Range 8–15d · ENS', us:'Medium Range 8–15d · ENS'},
+  nowcast: {india:'Nowcast 0â€“3 hr Â· 4 nodes', us:'Nowcast 0â€“3 hr Â· 4 nodes'},
+  flood:   {india:'Flood Risk (OPERA/S1) Â· Active', us:'Flood Risk (OPERA/S1) Â· Active'},
+  s2s:     {india:'S2S Outlook Â· Wk 2â€“6', us:'S2S Outlook Â· Wk 2â€“6'},
+  medium:  {india:'Medium Range 8â€“15d Â· ENS', us:'Medium Range 8â€“15d Â· ENS'},
 };
 function setLayer(layer) {
   showOverlays(layer);
@@ -936,7 +936,7 @@ showOverlays('nowcast');
 // Ensure Leaflet knows its container size after layout settles
 setTimeout(() => { mapIndia.invalidateSize(); mapUS.invalidateSize(); }, 120);
 
-// ── Tab switching ──
+// â”€â”€ Tab switching â”€â”€
 function switchTab(tab) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -950,7 +950,7 @@ function switchTab(tab) {
   setTimeout(() => { mapIndia.invalidateSize(); mapUS.invalidateSize(); }, 60);
 }
 
-// ── Charts ──
+// â”€â”€ Charts â”€â”€
 const chartDefaults = {
   responsive: true, maintainAspectRatio: false,
   plugins: {legend:{labels:{color:'#7A9DC0',font:{family:'Outfit',size:11},boxWidth:12,padding:12}}},
@@ -997,10 +997,10 @@ new Chart(document.getElementById('chartIndiaTemp'), {
     labels: days15,
     datasets:[
       {label:'India Mean',data:[2.1,2.4,2.2,1.8,1.5,1.2,0.8,0.4],borderColor:'#F07D3A',backgroundColor:'#F07D3A22',borderWidth:2,tension:0.4,fill:true,pointRadius:3},
-      {label:'India p10–p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
+      {label:'India p10â€“p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
     ]
   },
-  options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'°C anomaly',color:'#3D5E7A'}}}}
+  options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'Â°C anomaly',color:'#3D5E7A'}}}}
 });
 
 new Chart(document.getElementById('chartUSPrecip'), {
