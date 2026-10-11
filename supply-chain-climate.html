@@ -6,6 +6,7 @@
 <title>Supply Chain Climate Intelligence</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 /* ── Token system ── dark-first; ocean-console palette */
 :root {
@@ -233,20 +234,53 @@ header{
 .tt-val{color:var(--text1);font-family:var(--mono);font-size:11px;font-weight:500}
 .tt-div{height:1px;background:var(--border);margin:5px 0}
 
-/* ── Marker animations ── */
-@keyframes ring-pulse{
-  0%{r:12;opacity:.8;stroke-width:2}
-  70%{r:26;opacity:0;stroke-width:1}
-  100%{r:12;opacity:0;stroke-width:2}
+/* ── Leaflet core (inlined) ── */
+.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
+.leaflet-container{overflow:hidden;background:#040E1A;outline-offset:1px;font-family:var(--body)}
+.leaflet-tile{visibility:hidden}.leaflet-tile-loaded{visibility:inherit}
+.leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none}
+.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}
+.leaflet-control{float:left;clear:both;pointer-events:auto;position:relative;z-index:800}
+.leaflet-right .leaflet-control{float:right}
+.leaflet-top .leaflet-control{margin-top:8px}
+.leaflet-bottom .leaflet-control{margin-bottom:8px}
+.leaflet-left .leaflet-control{margin-left:8px}
+.leaflet-right .leaflet-control{margin-right:8px}
+.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}
+.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}
+.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}
+.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:grab}
+.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive{cursor:grabbing}
+.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}
+.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive{pointer-events:auto}
+.leaflet-zoom-anim .leaflet-zoom-animated{transition:transform .25s cubic-bezier(0,0,.25,1)}
+.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile{transition:none}
+.leaflet-zoom-animated{transform-origin:0 0}
+.leaflet-fade-anim .leaflet-popup{opacity:0;transition:opacity .2s linear}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}
+.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.7)}
+.leaflet-bar a,.leaflet-bar a:hover{background:var(--surf2);border-bottom:1px solid var(--border);width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:var(--text2)}
+.leaflet-bar a:hover{background:var(--surf3);color:var(--text1)}
+.leaflet-bar a:first-child{border-radius:4px 4px 0 0}
+.leaflet-bar a:last-child{border-radius:0 0 4px 4px;border-bottom:none}
+.leaflet-bar a.leaflet-disabled{cursor:default;background:var(--surf1);color:var(--text3)}
+.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px/26px 'Lucida Console',Monaco,monospace}
+.leaflet-control-attribution{background:rgba(5,16,29,.75);color:var(--text3);padding:0 5px;font-size:9px;line-height:1.4;border-radius:3px 0 0 0}
+.leaflet-control-attribution a{color:var(--text2);text-decoration:none}
+.leaflet-div-icon{background:transparent;border:none}
+
+/* ── Leaflet marker animation ── */
+@keyframes ring-pulse-lf{
+  0%{transform:scale(.4);opacity:.9}
+  60%{transform:scale(1.8);opacity:0}
+  100%{transform:scale(.4);opacity:0}
 }
-@keyframes ring-pulse-s{
-  0%{r:9;opacity:.6;stroke-width:1.5}
-  70%{r:20;opacity:0;stroke-width:1}
-  100%{r:9;opacity:0;stroke-width:1.5}
-}
-.pulse-ring{animation:ring-pulse 2s ease-out infinite}
-.pulse-ring.fast{animation-duration:1.4s}
-.pulse-ring-s{animation:ring-pulse-s 2.4s ease-out infinite}
+.lf-ring{position:absolute;inset:0;border-radius:50%;border:2px solid currentColor;animation:ring-pulse-lf 2.2s ease-out infinite}
+.lf-ring.fast{animation-duration:1.5s}
+.lf-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid rgba(255,255,255,.75);position:relative;z-index:1}
+
+/* ── Map leaf container ── */
+.map-leaf{flex:1;position:relative;min-height:180px}
 
 /* Responsive */
 @media(max-width:600px){
@@ -317,281 +351,7 @@ header{
       <div class="map-panel-title">🇮🇳 India Operations</div>
       <div class="map-panel-sub" id="indiaSubtitle">Nowcast · 4 nodes</div>
     </div>
-    <div class="map-svg-wrap">
-      <svg id="svgIndia" viewBox="0 0 320 420" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <!-- Ocean gradient -->
-          <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#040E1C"/>
-            <stop offset="100%" stop-color="#020A14"/>
-          </linearGradient>
-
-          <!-- Weather blob gradients (Nowcast) -->
-          <radialGradient id="blobWarnIN" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F5A623" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobCritIN" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F5455A" stop-opacity="0.5"/>
-            <stop offset="100%" stop-color="#F5455A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobGoodIN" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#00D48A" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#00D48A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobFloodIN" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.65"/>
-            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobS2SIN" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#2BD4C4" stop-opacity="0.4"/>
-            <stop offset="50%" stop-color="#F5A623" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#2BD4C4" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobMedIN" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F07D3A" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#F07D3A" stop-opacity="0"/>
-          </radialGradient>
-
-          <!-- Flood gradient big -->
-          <radialGradient id="blobFloodIN2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.7"/>
-            <stop offset="60%" stop-color="#7B4FD0" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
-          </radialGradient>
-
-          <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
-          <filter id="blur12"><feGaussianBlur stdDeviation="12"/></filter>
-          <filter id="glow4"><feGaussianBlur stdDeviation="4"/></filter>
-
-          <!-- India state shimmer gradient -->
-          <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#14315A"/>
-            <stop offset="100%" stop-color="#0E2240"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Ocean background -->
-        <rect width="320" height="420" fill="url(#oceanGrad)"/>
-
-        <!-- Subtle lat/lon grid -->
-        <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
-          <line x1="0" y1="105" x2="320" y2="105"/><!-- 30°N -->
-          <line x1="0" y1="167" x2="320" y2="167"/><!-- 25°N -->
-          <line x1="0" y1="230" x2="320" y2="230"/><!-- 20°N -->
-          <line x1="0" y1="292" x2="320" y2="292"/><!-- 15°N -->
-          <line x1="0" y1="355" x2="320" y2="355"/><!-- 10°N -->
-          <line x1="80" y1="0" x2="80" y2="420"/><!-- 75°E -->
-          <line x1="158" y1="0" x2="158" y2="420"/><!-- 83°E -->
-          <line x1="236" y1="0" x2="236" y2="420"/><!-- 91°E -->
-        </g>
-
-        <!-- Neighboring countries (background) -->
-        <!-- Pakistan (simplified) -->
-        <path d="M 18,45 L 30,35 L 60,20 L 80,18 L 78,40 L 72,68 L 68,85 L 58,95 L 40,110 L 20,120 L 10,105 L 5,80 Z"
-              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
-        <!-- Nepal/Bhutan strip -->
-        <path d="M 118,95 L 185,88 L 220,92 L 222,105 L 185,110 L 118,108 Z"
-              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
-        <!-- Bangladesh -->
-        <path d="M 220,105 L 242,105 L 248,118 L 250,140 L 240,155 L 225,158 L 218,140 L 218,118 Z"
-              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
-        <!-- Myanmar (partial) -->
-        <path d="M 252,100 L 270,95 L 285,110 L 288,140 L 275,165 L 260,170 L 255,155 L 248,130 L 250,115 Z"
-              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
-        <!-- Sri Lanka -->
-        <path d="M 147,388 Q 155,380 163,385 Q 168,395 163,405 Q 155,412 147,406 Q 142,398 147,388 Z"
-              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
-
-        <!-- India main body — carefully crafted smooth outline -->
-        <!-- Using coordinate transform: x=(lon-67)*9.5, y=(37.5-lat)*12.8 -->
-        <!-- viewBox 320x420, lon 67-101, lat 7.5-37.5 -->
-        <path id="indiaPath" d="
-          M 62,8
-          C 68,5 76,4 86,8
-          L 100,10
-          C 115,12 128,16 135,22
-          L 148,28
-          C 160,30 175,28 185,32
-          C 198,36 208,44 220,48
-          C 228,52 236,52 242,55
-          C 250,58 260,62 268,70
-          L 278,82
-          C 284,90 288,100 286,112
-          C 284,122 278,130 272,138
-          L 260,152
-          C 252,162 245,170 238,178
-          C 228,188 218,196 210,206
-          L 202,216
-          C 196,226 192,238 190,250
-          C 188,260 188,270 186,280
-          C 184,290 180,300 175,308
-          L 168,318
-          C 162,328 155,336 148,344
-          L 140,352
-          C 135,358 130,365 125,372
-          C 120,379 114,386 108,390
-          L 100,396
-          C 94,400 88,404 82,405
-          C 76,406 70,404 65,399
-          L 58,392
-          C 53,386 49,378 46,370
-          L 42,360
-          C 38,350 35,340 33,330
-          C 30,318 29,306 28,294
-          C 27,282 26,270 25,258
-          C 24,246 23,234 22,222
-          L 20,210
-          C 18,198 14,186 10,174
-          C 6,162 3,150 2,138
-          L 2,126
-          C 2,114 5,102 10,92
-          C 14,82 20,74 26,66
-          L 34,58
-          C 40,50 48,44 55,38
-          C 58,32 60,20 62,8 Z
-        " fill="url(#landGrad)" stroke="#1E3F6A" stroke-width="1.2"/>
-
-        <!-- India northeast region (Assam/northeast states) -->
-        <path d="M 240,55 L 260,48 L 278,44 L 300,46 L 312,55 L 316,68 L 308,80 L 296,90 L 282,98 L 270,100 L 260,92 L 250,84 L 240,72 L 238,62 Z"
-              fill="url(#landGrad)" stroke="#1E3F6A" stroke-width="1.0"/>
-
-        <!-- Kashmir region (northern J&K) -->
-        <path d="M 62,8 C 60,4 62,0 68,0 L 90,0 C 102,0 114,3 122,8 C 130,12 134,18 135,22 L 128,16 C 115,12 100,10 86,8 L 76,4 Z"
-              fill="url(#landGrad)" stroke="#1E3F6A" stroke-width="0.8"/>
-
-        <!-- State boundaries (subtle) -->
-        <g stroke="#1A3B60" stroke-width="0.6" fill="none" opacity="0.7">
-          <!-- Rajasthan-Gujarat line -->
-          <path d="M 25,125 L 38,135 L 42,155 L 40,175"/>
-          <!-- MP line -->
-          <path d="M 90,130 L 130,120 L 168,128 L 190,145"/>
-          <!-- Maharashtra line -->
-          <path d="M 60,198 L 100,188 L 140,190 L 170,200"/>
-          <!-- Andhra/Karnataka line -->
-          <path d="M 70,275 L 110,268 L 150,272 L 180,265"/>
-          <!-- Bihar/UP line -->
-          <path d="M 118,108 L 155,112 L 185,110"/>
-        </g>
-
-        <!-- Weather overlay blobs — Nowcast layer -->
-        <g id="layer-nowcast-india">
-          <!-- Mumbai/JNPT: warning (cyclone) -->
-          <ellipse cx="57" cy="232" rx="58" ry="52" fill="url(#blobWarnIN)" filter="url(#blur12)" opacity="0.9"/>
-          <!-- Kolkata: critical (flood risk) -->
-          <ellipse cx="210" cy="192" rx="52" ry="46" fill="url(#blobCritIN)" filter="url(#blur12)" opacity="0.85"/>
-          <!-- Rajasthan: clear -->
-          <ellipse cx="62" cy="148" rx="48" ry="42" fill="url(#blobGoodIN)" filter="url(#blur8)" opacity="0.7"/>
-          <!-- Pune: advisory -->
-          <ellipse cx="75" cy="248" rx="40" ry="36" fill="url(#blobWarnIN)" filter="url(#blur8)" opacity="0.5"/>
-        </g>
-
-        <!-- Flood overlay -->
-        <g id="layer-flood-india" style="display:none">
-          <!-- Kolkata/WB major flooding -->
-          <ellipse cx="212" cy="195" rx="68" ry="60" fill="url(#blobFloodIN2)" filter="url(#blur12)" opacity="1"/>
-          <!-- Assam NE flooding -->
-          <ellipse cx="275" cy="70" rx="45" ry="36" fill="url(#blobFloodIN)" filter="url(#blur8)" opacity="0.8"/>
-          <!-- Bihar partial -->
-          <ellipse cx="170" cy="140" rx="38" ry="30" fill="url(#blobFloodIN)" filter="url(#blur8)" opacity="0.5"/>
-        </g>
-
-        <!-- S2S overlay -->
-        <g id="layer-s2s-india" style="display:none">
-          <!-- Warm/wet over south India (week 3-6) -->
-          <ellipse cx="100" cy="310" rx="90" ry="80" fill="url(#blobS2SIN)" filter="url(#blur12)" opacity="0.9"/>
-          <!-- Dry anomaly NW -->
-          <ellipse cx="45" cy="145" rx="55" ry="48" fill="url(#blobMedIN)" filter="url(#blur12)" opacity="0.5"/>
-        </g>
-
-        <!-- Medium range overlay -->
-        <g id="layer-medium-india" style="display:none">
-          <!-- 8-15 day frontal system -->
-          <ellipse cx="130" cy="180" rx="100" ry="75" fill="url(#blobMedIN)" filter="url(#blur12)" opacity="0.7"/>
-          <ellipse cx="60" cy="120" rx="55" ry="45" fill="url(#blobGoodIN)" filter="url(#blur12)" opacity="0.5"/>
-        </g>
-
-        <!-- Node markers (always visible) -->
-
-        <!-- Rajasthan (26.3N, 73.1E) → x=(73.1-67)*9.5=58, y=(37.5-26.3)*12.8=143 -->
-        <g class="node-group" data-node="rajasthan" style="cursor:pointer">
-          <circle cx="58" cy="143" r="20" fill="transparent" class="hit-area"/>
-          <circle cx="58" cy="143" r="24" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
-          <circle cx="58" cy="143" r="8" fill="#00D48A" opacity="0.2" filter="url(#glow4)"/>
-          <circle cx="58" cy="143" r="5" fill="#00D48A"/>
-          <circle cx="58" cy="143" r="3" fill="#fff" opacity="0.7"/>
-          <text x="68" y="139" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">RAJASTHAN MFG</text>
-          <text x="68" y="149" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">26.3°N 73.1°E</text>
-        </g>
-
-        <!-- Pune (18.5N, 73.9E) → x=(73.9-67)*9.5=65, y=(37.5-18.5)*12.8=243 -->
-        <g class="node-group" data-node="pune" style="cursor:pointer">
-          <circle cx="65" cy="243" r="20" fill="transparent" class="hit-area"/>
-          <circle cx="65" cy="243" r="24" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring fast" opacity="0.6"/>
-          <circle cx="65" cy="243" r="9" fill="#F5A623" opacity="0.2" filter="url(#glow4)"/>
-          <circle cx="65" cy="243" r="5.5" fill="#F5A623"/>
-          <circle cx="65" cy="243" r="3" fill="#fff" opacity="0.7"/>
-          <text x="75" y="239" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">PUNE MFG</text>
-          <text x="75" y="249" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.5°N 73.9°E</text>
-        </g>
-
-        <!-- JNPT Mumbai (18.9N, 72.9E) → x=(72.9-67)*9.5=56, y=(37.5-18.9)*12.8=238 -->
-        <g class="node-group" data-node="jnpt" style="cursor:pointer">
-          <circle cx="48" cy="228" r="20" fill="transparent" class="hit-area"/>
-          <circle cx="48" cy="228" r="26" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
-          <circle cx="48" cy="228" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4)"/>
-          <circle cx="48" cy="228" r="6" fill="#F5455A"/>
-          <circle cx="48" cy="228" r="3" fill="#fff" opacity="0.8"/>
-          <text x="22" y="218" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">JNPT PORT</text>
-          <text x="22" y="228" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.9°N 72.9°E</text>
-        </g>
-
-        <!-- Kolkata (22.5N, 88.4E) → x=(88.4-67)*9.5=203, y=(37.5-22.5)*12.8=192 -->
-        <g class="node-group" data-node="kolkata" style="cursor:pointer">
-          <circle cx="203" cy="192" r="20" fill="transparent" class="hit-area"/>
-          <circle cx="203" cy="192" r="26" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring" opacity="0.7"/>
-          <circle cx="203" cy="192" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4)"/>
-          <circle cx="203" cy="192" r="6" fill="#F5455A"/>
-          <circle cx="203" cy="192" r="3" fill="#fff" opacity="0.8"/>
-          <text x="213" y="188" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">KOLKATA</text>
-          <text x="213" y="198" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">22.5°N 88.4°E</text>
-        </g>
-
-        <!-- Compass rose -->
-        <g transform="translate(295,385)" opacity="0.4">
-          <text x="0" y="0" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="Outfit,sans-serif">N</text>
-          <line x1="0" y1="2" x2="0" y2="10" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="0" y1="6" x2="-6" y2="12" stroke="#7A9DC0" stroke-width="0.8"/>
-          <line x1="0" y1="6" x2="6" y2="12" stroke="#7A9DC0" stroke-width="0.8"/>
-        </g>
-
-        <!-- Scale bar -->
-        <g transform="translate(12,408)" opacity="0.5">
-          <line x1="0" y1="0" x2="47" y2="0" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="0" y1="-3" x2="0" y2="3" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="47" y1="-3" x2="47" y2="3" stroke="#7A9DC0" stroke-width="1"/>
-          <text x="23" y="-4" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="DM Mono,monospace">500 km</text>
-        </g>
-
-        <!-- Coastline shimmer effect -->
-        <path d="
-          M 62,8 C 68,5 76,4 86,8 L 100,10 C 115,12 128,16 135,22 L 148,28
-          C 160,30 175,28 185,32 C 198,36 208,44 220,48 C 228,52 236,52 242,55
-          C 250,58 260,62 268,70 L 278,82 C 284,90 288,100 286,112
-          C 284,122 278,130 272,138 L 260,152 C 252,162 245,170 238,178
-          C 228,188 218,196 210,206 L 202,216 C 196,226 192,238 190,250
-          C 188,260 188,270 186,280 C 184,290 180,300 175,308 L 168,318
-          C 162,328 155,336 148,344 L 140,352 C 135,358 130,365 125,372
-          C 120,379 114,386 108,390 L 100,396 C 94,400 88,404 82,405
-          C 76,406 70,404 65,399 L 58,392 C 53,386 49,378 46,370 L 42,360
-          C 38,350 35,340 33,330 C 30,318 29,306 28,294 C 27,282 26,270 25,258
-          C 24,246 23,234 22,222 L 20,210 C 18,198 14,186 10,174
-          C 6,162 3,150 2,138 L 2,126 C 2,114 5,102 10,92
-          C 14,82 20,74 26,66 L 34,58 C 40,50 48,44 55,38 C 58,32 60,20 62,8 Z
-        " fill="none" stroke="rgba(0,194,255,0.15)" stroke-width="1.5"/>
-
-      </svg>
-    </div>
+    <div id="mapIndia" class="map-leaf"></div>
   </div>
 
   <!-- US panel -->
@@ -600,274 +360,7 @@ header{
       <div class="map-panel-title">🇺🇸 US Distribution</div>
       <div class="map-panel-sub" id="usSubtitle">Nowcast · 4 nodes</div>
     </div>
-    <div class="map-svg-wrap">
-      <svg id="svgUS" viewBox="0 0 460 310" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="oceanGradUS" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#040E1C"/>
-            <stop offset="100%" stop-color="#020A14"/>
-          </linearGradient>
-          <linearGradient id="landGradUS" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#14315A"/>
-            <stop offset="100%" stop-color="#0E2240"/>
-          </linearGradient>
-
-          <!-- Weather blobs US Nowcast -->
-          <radialGradient id="blobCritUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F5455A" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#F5455A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobWarnUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F5A623" stop-opacity="0.5"/>
-            <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobGoodUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#00D48A" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#00D48A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobFloodUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.55"/>
-            <stop offset="60%" stop-color="#7B4FD0" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobS2SUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#5B9CF5" stop-opacity="0.45"/>
-            <stop offset="60%" stop-color="#2BD4C4" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#5B9CF5" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobMedUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F07D3A" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#F07D3A" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="blur8us"><feGaussianBlur stdDeviation="8"/></filter>
-          <filter id="blur14us"><feGaussianBlur stdDeviation="14"/></filter>
-          <filter id="glow4us"><feGaussianBlur stdDeviation="4"/></filter>
-        </defs>
-
-        <!-- Ocean background -->
-        <rect width="460" height="310" fill="url(#oceanGradUS)"/>
-
-        <!-- Lat/lon grid -->
-        <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
-          <line x1="0" y1="23" x2="460" y2="23"/><!-- 48°N -->
-          <line x1="0" y1="81" x2="460" y2="81"/><!-- 43°N -->
-          <line x1="0" y1="139" x2="460" y2="139"/><!-- 38°N -->
-          <line x1="0" y1="197" x2="460" y2="197"/><!-- 33°N -->
-          <line x1="0" y1="255" x2="460" y2="255"/><!-- 28°N -->
-          <line x1="92" y1="0" x2="92" y2="310"/><!-- -112°W -->
-          <line x1="183" y1="0" x2="183" y2="310"/><!-- -99°W -->
-          <line x1="275" y1="0" x2="275" y2="310"/><!-- -86°W -->
-          <line x1="367" y1="0" x2="367" y2="310"/><!-- -73°W -->
-        </g>
-
-        <!-- Canada (top border strip) -->
-        <path d="M 0,0 L 460,0 L 460,18 L 380,14 L 310,10 L 240,8 L 160,10 L 80,14 L 0,18 Z"
-              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
-        <!-- Mexico -->
-        <path d="M 0,310 L 460,310 L 460,280 L 420,272 L 380,268 L 340,265 L 300,268 L 250,272 L 220,278 L 180,282 L 140,280 L 100,275 L 60,268 L 20,268 L 0,272 Z"
-              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
-
-        <!-- Contiguous US — careful smooth path -->
-        <!-- Coordinate transform: x=(lon+125)*5.85, y=(50-lat)*12 -->
-        <!-- viewBox 460x310, lon -125 to -66, lat 24 to 50 -->
-        <path id="usPath" d="
-          M 5,22
-          C 20,16 35,14 55,12
-          L 90,10
-          C 115,8 140,8 160,10
-          L 200,12
-          C 225,12 248,12 268,14
-          L 298,14
-          C 318,14 338,14 358,12
-          L 390,8
-          C 410,5 430,4 450,6
-          L 458,8
-          L 458,42
-          C 455,50 450,56 444,60
-          L 435,66
-          C 428,70 422,75 418,82
-          C 414,88 412,95 410,102
-          L 408,112
-          C 406,122 404,132 400,140
-          C 396,148 390,154 384,160
-          L 375,168
-          C 368,176 362,184 356,192
-          L 348,202
-          C 342,212 336,222 330,230
-          L 322,240
-          C 316,250 310,260 305,268
-          L 298,275
-          C 292,280 285,283 278,282
-          L 268,280
-          C 260,278 252,272 244,266
-          L 236,258
-          C 228,250 220,242 212,235
-          L 205,228
-          C 198,222 190,217 182,214
-          L 172,212
-          C 162,210 150,210 140,208
-          L 128,205
-          C 118,202 108,198 100,193
-          L 92,188
-          C 82,183 72,178 62,174
-          L 50,170
-          C 40,167 30,165 20,162
-          L 8,158
-          C 4,150 2,138 2,124
-          L 2,95
-          C 2,80 4,65 8,52
-          L 5,22 Z
-        " fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1.2"/>
-
-        <!-- Florida peninsula -->
-        <path d="M 348,202 C 352,210 355,218 358,228 C 361,238 362,248 360,258 C 358,268 354,276 350,282 C 345,288 339,292 334,290 C 329,288 325,282 323,276 C 320,268 320,258 322,248 C 324,238 328,228 330,218 L 330,230 L 322,240"
-              fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1"/>
-
-        <!-- Great Lakes (simplified blue fills) -->
-        <g fill="#050F1E" stroke="#0D2540" stroke-width="0.5" opacity="0.8">
-          <!-- Lake Superior -->
-          <ellipse cx="298" cy="52" rx="38" ry="14"/>
-          <!-- Lake Michigan -->
-          <ellipse cx="318" cy="82" rx="12" ry="22"/>
-          <!-- Lake Huron -->
-          <ellipse cx="338" cy="68" rx="14" ry="18"/>
-          <!-- Lake Erie -->
-          <ellipse cx="355" cy="92" rx="16" ry="7"/>
-          <!-- Lake Ontario -->
-          <ellipse cx="378" cy="88" rx="11" ry="6"/>
-        </g>
-
-        <!-- State borders (subtle) -->
-        <g stroke="#1A3B60" stroke-width="0.6" fill="none" opacity="0.65">
-          <!-- East coast states vertical lines -->
-          <path d="M 408,112 L 410,140 L 408,160 L 405,180 L 400,200"/>
-          <!-- Mississippi River rough -->
-          <path d="M 285,55 C 282,80 280,110 278,140 C 276,168 274,195 272,218 C 270,240 268,260 265,275"/>
-          <!-- Ohio/Tennessee line -->
-          <path d="M 330,118 L 300,120 L 270,122 L 240,118"/>
-          <!-- Kansas/Missouri -->
-          <path d="M 240,110 L 240,155 L 242,185"/>
-          <!-- Rockies region -->
-          <path d="M 155,25 L 152,80 L 150,140 L 148,190"/>
-          <!-- TX border -->
-          <path d="M 215,178 L 218,210 L 222,240 L 225,268"/>
-        </g>
-
-        <!-- Weather overlays — Nowcast -->
-        <g id="layer-nowcast-us">
-          <!-- Chicago: critical (severe storms) -->
-          <ellipse cx="310" cy="98" rx="55" ry="48" fill="url(#blobCritUS)" filter="url(#blur14us)" opacity="0.9"/>
-          <!-- Atlanta: warning (heavy rain) -->
-          <ellipse cx="338" cy="190" rx="52" ry="44" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.85"/>
-          <!-- LA: clear -->
-          <ellipse cx="50" cy="160" rx="45" ry="38" fill="url(#blobGoodUS)" filter="url(#blur8us)" opacity="0.65"/>
-          <!-- NJ: advisory -->
-          <ellipse cx="404" cy="118" rx="40" ry="35" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.6"/>
-        </g>
-
-        <!-- Flood overlay US -->
-        <g id="layer-flood-us" style="display:none">
-          <!-- Mississippi Delta / SE flooding -->
-          <ellipse cx="295" cy="215" rx="65" ry="52" fill="url(#blobFloodUS)" filter="url(#blur14us)" opacity="0.9"/>
-          <!-- NJ/Northeast coastal -->
-          <ellipse cx="406" cy="122" rx="45" ry="36" fill="url(#blobFloodUS)" filter="url(#blur8us)" opacity="0.7"/>
-        </g>
-
-        <!-- S2S overlay US -->
-        <g id="layer-s2s-us" style="display:none">
-          <!-- Cool/wet anomaly eastern US (week 3-6) -->
-          <ellipse cx="360" cy="140" rx="100" ry="82" fill="url(#blobS2SUS)" filter="url(#blur14us)" opacity="0.8"/>
-          <!-- Warm/dry western -->
-          <ellipse cx="100" cy="145" rx="80" ry="65" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.5"/>
-        </g>
-
-        <!-- Medium range overlay US -->
-        <g id="layer-medium-us" style="display:none">
-          <!-- Frontal system tracking NE -->
-          <ellipse cx="280" cy="130" rx="120" ry="85" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.65"/>
-          <ellipse cx="80" cy="148" rx="65" ry="50" fill="url(#blobGoodUS)" filter="url(#blur14us)" opacity="0.4"/>
-        </g>
-
-        <!-- Node markers -->
-
-        <!-- Los Angeles (34.05N, 118.24W) → x=(-118.24+125)*5.85=40, y=(50-34.05)*12=191 -->
-        <g class="node-group" data-node="los-angeles" style="cursor:pointer">
-          <circle cx="40" cy="162" r="22" fill="transparent"/>
-          <circle cx="40" cy="162" r="22" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
-          <circle cx="40" cy="162" r="8" fill="#00D48A" opacity="0.2" filter="url(#glow4us)"/>
-          <circle cx="40" cy="162" r="5" fill="#00D48A"/>
-          <circle cx="40" cy="162" r="2.5" fill="#fff" opacity="0.7"/>
-          <text x="50" y="158" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">LOS ANGELES DC</text>
-          <text x="50" y="168" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">34.1°N 118.2°W</text>
-        </g>
-
-        <!-- Chicago (41.88N, 87.63W) → x=(-87.63+125)*5.85=218, y=(50-41.88)*12=97 -->
-        <g class="node-group" data-node="chicago" style="cursor:pointer">
-          <circle cx="220" cy="98" r="22" fill="transparent"/>
-          <circle cx="220" cy="98" r="28" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
-          <circle cx="220" cy="98" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4us)"/>
-          <circle cx="220" cy="98" r="6" fill="#F5455A"/>
-          <circle cx="220" cy="98" r="3" fill="#fff" opacity="0.8"/>
-          <text x="230" y="94" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">CHICAGO DC</text>
-          <text x="230" y="104" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">41.9°N 87.6°W</text>
-        </g>
-
-        <!-- Atlanta (33.75N, 84.39W) → x=(-84.39+125)*5.85=237, y=(50-33.75)*12=195 -->
-        <g class="node-group" data-node="atlanta" style="cursor:pointer">
-          <circle cx="238" cy="195" r="22" fill="transparent"/>
-          <circle cx="238" cy="195" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring" opacity="0.65"/>
-          <circle cx="238" cy="195" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
-          <circle cx="238" cy="195" r="5.5" fill="#F5A623"/>
-          <circle cx="238" cy="195" r="3" fill="#fff" opacity="0.7"/>
-          <text x="248" y="191" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">ATLANTA DC</text>
-          <text x="248" y="201" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">33.8°N 84.4°W</text>
-        </g>
-
-        <!-- New Jersey (40.7N, 74.17W) → x=(-74.17+125)*5.85=297, y=(50-40.7)*12=112 -->
-        <g class="node-group" data-node="newjersey" style="cursor:pointer">
-          <circle cx="298" cy="112" r="22" fill="transparent"/>
-          <circle cx="298" cy="112" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring-s" opacity="0.6"/>
-          <circle cx="298" cy="112" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
-          <circle cx="298" cy="112" r="5.5" fill="#F5A623"/>
-          <circle cx="298" cy="112" r="3" fill="#fff" opacity="0.7"/>
-          <text x="305" y="106" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">NEW JERSEY DC</text>
-          <text x="305" y="116" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">40.7°N 74.2°W</text>
-        </g>
-
-        <!-- Compass -->
-        <g transform="translate(438,292)" opacity="0.4">
-          <text x="0" y="0" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="Outfit,sans-serif">N</text>
-          <line x1="0" y1="2" x2="0" y2="10" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="0" y1="6" x2="-5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
-          <line x1="0" y1="6" x2="5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
-        </g>
-
-        <!-- Scale bar -->
-        <g transform="translate(12,302)" opacity="0.5">
-          <line x1="0" y1="0" x2="58" y2="0" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="0" y1="-3" x2="0" y2="3" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="58" y1="-3" x2="58" y2="3" stroke="#7A9DC0" stroke-width="1"/>
-          <text x="29" y="-4" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="DM Mono,monospace">1000 km</text>
-        </g>
-
-        <!-- Coastline glow -->
-        <path d="
-          M 5,22 C 20,16 35,14 55,12 L 90,10 C 115,8 140,8 160,10 L 200,12
-          C 225,12 248,12 268,14 L 298,14 C 318,14 338,14 358,12 L 390,8
-          C 410,5 430,4 450,6 L 458,8 L 458,42 C 455,50 450,56 444,60 L 435,66
-          C 428,70 422,75 418,82 C 414,88 412,95 410,102 L 408,112
-          C 406,122 404,132 400,140 C 396,148 390,154 384,160 L 375,168
-          C 368,176 362,184 356,192 L 348,202 C 342,212 336,222 330,230 L 322,240
-          C 316,250 310,260 305,268 L 298,275 C 292,280 285,283 278,282 L 268,280
-          C 260,278 252,272 244,266 L 236,258 C 228,250 220,242 212,235 L 205,228
-          C 198,222 190,217 182,214 L 172,212 C 162,210 150,210 140,208 L 128,205
-          C 118,202 108,198 100,193 L 92,188 C 82,183 72,178 62,174 L 50,170
-          C 40,167 30,165 20,162 L 8,158 C 4,150 2,138 2,124 L 2,95
-          C 2,80 4,65 8,52 L 5,22 Z
-        " fill="none" stroke="rgba(0,194,255,0.12)" stroke-width="1.5"/>
-
-      </svg>
-    </div>
+    <div id="mapUS" class="map-leaf"></div>
   </div>
 
 </div>
@@ -1019,7 +512,7 @@ header{
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.8 m</td>
           <td style="color:#F5A623">► Stable</td>
-          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6–8 hr.</td>
+          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6�38 hr.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">ADVISORY</span></td>
         </tr>
         <tr>
@@ -1034,7 +527,7 @@ header{
           <td style="font-family:var(--mono);color:#A87FE8">1.6 m</td>
           <td style="color:#F5A623">▼ Receding</td>
           <td style="color:var(--text2)">I-10 W limited. Atlanta routing via I-20.</td>
-          <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HIGH</span></td>
+          <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HB�H5�pan></td>
         </tr>
         <tr>
           <td><strong>NJ Coastal Strip</strong></td>
@@ -1190,9 +683,7 @@ header{
 <script>
 // ── Timestamp ──
 (function(){
-  const now = new Date();
-  const fmt = d => d.toUTCString().replace('GMT','UTC');
-  document.getElementById('mapTs').textContent = '🕐 ' + fmt(now);
+  document.getElementById('mapTs').textContent = '🕐 ' + new Date().toUTCString().replace('GMT','UTC');
 })();
 
 // ── Alert ticker ──
@@ -1201,16 +692,15 @@ const alerts = [
   {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall — SAR flood confirmed 2.1m depth'},
   {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell — Tornado watch, hail 8.9cm, ops halted'},
   {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 km² — rising'},
-  {badge:'ADVISORY',cls:'warn',text:'Pune Manufacturing: 34mm/hr heavy showers — Lightning advisory active'},
+  {badge:'ADVISORY',cls:'oarn',text:'Pune Manufacturing: 34mm/hr heavy showers — Lightning advisory active'},
   {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch — Loading dock access 40% capacity'},
-  {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm — Storm surge 0.8m, container yard delays 3–5hr'},
+  {badge:'ADVISORY',cls:'oarn',text:'New Jersey DC: Coastal storm — Storm surge 0.8m, container yard delays 3–5hr'},
   {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km² inundated — I-10 W limited'},
   {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected — Rajasthan week 3 clearing'},
   {badge:'INFO',cls:'info',text:'ECMWF ENS: La Niña SST anomaly -1.2°C Niño-3.4 — Elevated US storm risk'},
   {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2 — Bay of Bengal enhanced convection'},
 ];
 const tc = document.getElementById('tickerContent');
-// Double for seamless loop
 [...alerts,...alerts].forEach(a => {
   const el = document.createElement('div');
   el.className = 't-item';
@@ -1218,56 +708,7 @@ const tc = document.getElementById('tickerContent');
   tc.appendChild(el);
 });
 
-// ── Layer switching ──
-let currentLayer = 'nowcast';
-const layerIds = {
-  nowcast: ['layer-nowcast-india','layer-nowcast-us'],
-  flood:   ['layer-flood-india','layer-flood-us'],
-  s2s:     ['layer-s2s-india','layer-s2s-us'],
-  medium:  ['layer-medium-india','layer-medium-us'],
-};
-const subtitles = {
-  nowcast: {india:'Nowcast 0–3 hr · 4 nodes', us:'Nowcast 0–3 hr · 4 nodes'},
-  flood:   {india:'Flood Risk (OPERA/S1) · Active', us:'Flood Risk (OPERA/S1) · Active'},
-  s2s:     {india:'S2S Outlook · Wk 2–6', us:'S2S Outlook · Wk 2–6'},
-  medium:  {india:'Medium Range 8–15d · ENS', us:'Medium Range 8–15d · ENS'},
-};
-
-function setLayer(layer) {
-  // Hide all
-  Object.values(layerIds).flat().forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.style.display = 'none';
-  });
-  // Show selected
-  (layerIds[layer]||[]).forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.style.display = '';
-  });
-  // Update buttons
-  document.querySelectorAll('.lbtn').forEach(b => b.classList.remove('active'));
-  const keys = {nowcast:'n',flood:'f',s2s:'s',medium:'m'};
-  document.querySelector('.lbtn.' + (keys[layer]||'n'))?.classList.add('active');
-  // Update subtitles
-  const sub = subtitles[layer] || subtitles.nowcast;
-  document.getElementById('indiaSubtitle').textContent = sub.india;
-  document.getElementById('usSubtitle').textContent = sub.us;
-  currentLayer = layer;
-}
-
-// ── Tab switching ──
-function switchTab(tab) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + tab)?.classList.add('active');
-  event.currentTarget.classList.add('active');
-}
-
-// ── Map tooltip ──
-const tooltip = document.getElementById('mapTooltip');
-const ttLoc = document.getElementById('ttLoc');
-const ttBody = document.getElementById('ttBody');
-
+// ── Node data ──
 const nodeData = {
   rajasthan: {
     name: 'Rajasthan Manufacturing',
@@ -1327,12 +768,18 @@ const nodeData = {
   },
 };
 
+// ── Tooltip helpers ──
+const tooltip = document.getElementById('mapTooltip');
+const ttLoc   = document.getElementById('ttLoc');
+const ttBody  = document.getElementById('ttBody');
+let currentLayer = 'nowcast';
+
 function showTooltip(e, nodeId) {
   const data = nodeData[nodeId];
   if(!data) return;
-  const layerRows = data[currentLayer] || data.nowcast;
+  const rows = data[currentLayer] || data.nowcast;
   ttLoc.textContent = data.name;
-  ttBody.innerHTML = layerRows.map(r =>
+  ttBody.innerHTML  = rows.map(r =>
     `<div class="tt-row"><span class="tt-key">${r.k}</span><span class="tt-val">${r.v}</span></div>`
   ).join('');
   positionTooltip(e);
@@ -1340,18 +787,168 @@ function showTooltip(e, nodeId) {
 }
 function positionTooltip(e) {
   const x = e.clientX + 14, y = e.clientY - 10;
-  const tw = 240, th = 140;
-  const vw = window.innerWidth, vh = window.innerHeight;
-  tooltip.style.left = (x + tw > vw ? x - tw - 28 : x) + 'px';
-  tooltip.style.top  = (y + th > vh ? y - th : y) + 'px';
+  tooltip.style.left = (x + 240 > window.innerWidth  ? x - 268 : x) + 'px';
+  tooltip.style.top  = (y + 140 > window.innerHeight ? y - 140 : y) + 'px';
 }
 function hideTooltip() { tooltip.classList.remove('visible'); }
 
-document.querySelectorAll('.node-group').forEach(g => {
-  g.addEventListener('mouseenter', e => showTooltip(e, g.dataset.node));
-  g.addEventListener('mousemove', positionTooltip);
-  g.addEventListener('mouseleave', hideTooltip);
-});
+// ── Leaflet Maps ──
+const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+const tileOpts = {
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  subdomains: 'abcd', maxZoom: 19, minZoom: 2
+};
+
+const mapIndia = L.map('mapIndia', {scrollWheelZoom: false, zoomControl: false, minZoom: 4, maxZoom: 9});
+mapIndia.setView([22, 80], 5);
+L.tileLayer(tileUrl, tileOpts).addTo(mapIndia);
+L.control.zoom({position: 'bottomright'}).addTo(mapIndia);
+
+const mapUS = L.map('mapUS', {scrollWheelZoom: false, zoomControl: false, minZoom: 3, maxZoom: 9});
+mapUS.setView([38, -96], 4);
+L.tileLayer(tileUrl, tileOpts).addTo(mapUS);
+L.control.zoom({position: 'bottomright'}).addTo(mapUS);
+
+// ── Node marker factory ──
+function addNode(map, lat, lng, color, nodeId, fastPulse) {
+  const icon = L.divIcon({
+    className: '',
+    html: `<div style="position:relative;width:32px;height:32px;display:flex;align-items:center;justify-content:center">
+      <div class="lf-ring${fastPulse ? ' fast' : ''}" style="color:${color}"></div>
+      <div class="lf-dot" style="background:${color};box-shadow:0 0 10px ${color}99"></div>
+    </div>`,
+    iconSize: [32, 32],
+    iconAnchor: [16, 16]
+  });
+  const m = L.marker([lat, lng], {icon, zIndexOffset: 100}).addTo(map);
+  m.on('mouseover', e => showTooltip(e.originalEvent, nodeId));
+  m.on('mousemove', e => positionTooltip(e.originalEvent));
+  m.on('mouseout',  hideTooltip);
+  return m;
+}
+
+// India supply chain nodes
+addNode(mapIndia, 26.3,  73.1, '#00D48A', 'rajasthan',   false);
+addNode(mapIndia, 18.5,  73.9, '#F5A623', 'pune',        true);
+addNode(mapIndia, 18.9,  72.9, '#F5455A', 'jnpt',        true);
+addNode(mapIndia, 22.5,  88.4, '#F5455A', 'kolkata',     false);
+
+// US distribution centers
+addNode(mapUS, 34.05, -118.24, '#00D48A', 'los-angeles', false);
+addNode(mapUS, 41.88,  -87.63, '#F5455A', 'chicago',     true);
+addNode(mapUS, 33.75,  -84.39, '#F5A623', 'atlanta',     false);
+addNode(mapUS, 40.70,  -74.17, '#F5A623', 'newjersey',   false);
+
+// ── Weather overlay circles ──
+const overlayDefs = {
+  nowcast: {
+    india: [
+      {lat:18.85, lng:72.9,  r:270000, color:'#F5A623', op:0.30},
+      {lat:22.5,  lng:88.4,  r:250000, color:'#F5455A', op:0.32},
+      {lat:26.3,  lng:73.1,  r:230000, color:'#00D48A', op:0.18},
+      {lat:18.5,  lng:73.9,  r:170000, color:'#F5A623', op:0.22},
+    ],
+    us: [
+      {lat:41.88, lng:-87.63, r:500000, color:'#F5455A', op:0.28},
+      {lat:33.75, lng:-84.39, r:450000, color:'#F5A623', op:0.25},
+      {lat:34.05, lng:-118.24,r:400000, color:'#00D48A', op:0.18},
+      {lat:40.70, lng:-74.17, r:360000, color:'#F5A623', op:0.22},
+    ]
+  },
+  flood: {
+    india: [
+      {lat:22.5,  lng:88.4,  r:400000, color:'#A87FE8', op:0.45},
+      {lat:26.2,  lng:91.7,  r:300000, color:'#A87FE8', op:0.35},
+      {lat:25.6,  lng:85.1,  r:250000, color:'#A87FE8', op:0.25},
+    ],
+    us: [
+      {lat:32.0, lng:-90.0,  r:600000, color:'#A87FE8', op:0.40},
+      {lat:40.7, lng:-74.17, r:400000, color:'#A87FE8', op:0.35},
+    ]
+  },
+  s2s: {
+    india: [
+      {lat:14.5, lng:78.0, r:700000, color:'#2BD4C4', op:0.28},
+      {lat:26.0, lng:70.0, r:480000, color:'#F07D3A', op:0.22},
+    ],
+    us: [
+      {lat:38.0, lng:-82.0,  r:900000, color:'#5B9CF5', op:0.25},
+      {lat:38.0, lng:-114.0, r:750000, color:'#F07D3A', op:0.22},
+    ]
+  },
+  medium: {
+    india: [
+      {lat:22.0, lng:79.0, r:850000, color:'#F07D3A', op:0.28},
+      {lat:27.0, lng:72.0, r:480000, color:'#00D48A', op:0.18},
+    ],
+    us: [
+      {lat:37.0, lng:-93.0,  r:1100000, color:'#F07D3A', op:0.25},
+      {lat:37.0, lng:-116.0, r:600000,  color:'#00D48A', op:0.18},
+    ]
+  },
+};
+
+let activeCircles = [];
+function clearOverlays() {
+  activeCircles.forEach(({map, circle}) => map.removeLayer(circle));
+  activeCircles = [];
+}
+function showOverlays(layerName) {
+  clearOverlays();
+  const defs = overlayDefs[layerName] || overlayDefs.nowcast;
+  (defs.india || []).forEach(d => {
+    const c = L.circle([d.lat, d.lng], {
+      radius: d.r, weight: 0,
+      fillColor: d.color, fillOpacity: d.op, interactive: false
+    }).addTo(mapIndia);
+    activeCircles.push({map: mapIndia, circle: c});
+  });
+  (defs.us || []).forEach(d => {
+    const c = L.circle([d.lat, d.lng], {
+      radius: d.r, weight: 0,
+      fillColor: d.color, fillOpacity: d.op, interactive: false
+    }).addTo(mapUS);
+    activeCircles.push({map: mapUS, circle: c});
+  });
+}
+
+// ── Layer switching ──
+const subtitles = {
+  nowcast: {india:'Nowcast 0–3 hr · 4 nodes', us:'Nowcast 0–3 hr · 4 nodes'},
+  flood:   {india:'Flood Risk (OPERA/S1) · Active', us:'Flood Risk (OPERA/S1) · Active'},
+  s2s:     {india:'S2S Outlook · Wk 2–6', us:'S2S Outlook · Wk 2–6'},
+  medium:  {india:'Medium Range 8–15d · ENS', us:'Medium Range 8–15d · ENS'},
+};
+function setLayer(layer) {
+  showOverlays(layer);
+  document.querySelectorAll('.lbtn').forEach(b => b.classList.remove('active'));
+  const keys = {nowcast:'n', flood:'f', s2s:'s', medium:'m'};
+  document.querySelector('.lbtn.' + (keys[layer] || 'n'))?.classList.add('active');
+  const sub = subtitles[layer] || subtitles.nowcast;
+  document.getElementById('indiaSubtitle').textContent = sub.india;
+  document.getElementById('usSubtitle').textContent    = sub.us;
+  currentLayer = layer;
+}
+
+// Init nowcast overlays
+showOverlays('nowcast');
+
+// Ensure Leaflet knows its container size after layout settles
+setTimeout(() => { mapIndia.invalidateSize(); mapUS.invalidateSize(); }, 120);
+
+// ── Tab switching ──
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('tab-' + tab);
+  if (panel) panel.classList.add('active');
+  event.currentTarget.classList.add('active');
+  // Sync map layer when switching to map tabs
+  const layerMap = {nowcast:'nowcast', flood:'flood', s2s:'s2s'};
+  if (layerMap[tab]) setLayer(layerMap[tab]);
+  // Re-invalidate map size in case tab was hidden during init
+  setTimeout(() => { mapIndia.invalidateSize(); mapUS.invalidateSize(); }, 60);
+}
 
 // ── Charts ──
 const chartDefaults = {
