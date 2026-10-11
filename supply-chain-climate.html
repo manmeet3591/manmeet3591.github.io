@@ -271,14 +271,14 @@ header{
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon">🌍</div>
+      <div class="logo-icon" style="color:#fff;font-weight:700;letter-spacing:-.5px;font-size:13px">SC</div>
       <div class="logo-text">
         <span>ChairCo Climate</span>
         <span class="logo-sub">Supply Chain Intelligence</span>
       </div>
     </div>
     <div class="hdiv"></div>
-    <div class="header-meta">India · United States · Operational Network</div>
+    <div class="header-meta">United States · India · Operational Network</div>
     <div class="status-pills">
       <div class="spill red"><span class="dot pulse"></span>3 Critical</div>
       <div class="spill amber"><span class="dot pulse"></span>5 Advisory</div>
@@ -300,7 +300,7 @@ header{
 <!-- Layer bar -->
 <div class="layer-bar">
   <span class="layer-label">Overlay:</span>
-  <button class="lbtn n active" onclick="setLayer('nowcast')"><span class="li" style="background:#5B9CF5"></span>Nowcast 0–3 hr</button>
+  <button class="lbtn n active" onclick="setLayer('nowcast')"><span class="li" style="background:#5B9CF5"></span>Nowcast 0-3 hr</button>
   <button class="lbtn f" onclick="setLayer('flood')"><span class="li" style="background:#A87FE8"></span>Flood Risk (OPERA/S1)</button>
   <button class="lbtn s" onclick="setLayer('s2s')"><span class="li" style="background:#2BD4C4"></span>S2S Outlook</button>
   <button class="lbtn m" onclick="setLayer('medium')"><span class="li" style="background:#F07D3A"></span>Medium Range</button>
@@ -311,10 +311,286 @@ header{
 <!-- Map hero -->
 <div class="map-hero">
 
+  <!-- US panel -->
+  <div class="map-panel" id="panelUS">
+    <div class="map-panel-header">
+      <div class="map-panel-title">&#x1F1FA;&#x1F1F8; US Distribution</div>
+      <div class="map-panel-sub" id="usSubtitle">Nowcast · 4 nodes</div>
+    </div>
+    <div class="map-svg-wrap">
+      <svg id="svgUS" viewBox="0 0 460 310" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="oceanGradUS" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#040E1C"/>
+            <stop offset="100%" stop-color="#020A14"/>
+          </linearGradient>
+          <linearGradient id="landGradUS" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#14315A"/>
+            <stop offset="100%" stop-color="#0E2240"/>
+          </linearGradient>
+
+          <!-- Weather blobs US Nowcast -->
+          <radialGradient id="blobCritUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5455A" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#F5455A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobWarnUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5A623" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobGoodUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00D48A" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#00D48A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobFloodUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.55"/>
+            <stop offset="60%" stop-color="#7B4FD0" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobS2SUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#5B9CF5" stop-opacity="0.45"/>
+            <stop offset="60%" stop-color="#2BD4C4" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#5B9CF5" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobMedUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F07D3A" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#F07D3A" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="blur8us"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="blur14us"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="glow4us"><feGaussianBlur stdDeviation="4"/></filter>
+        </defs>
+
+        <!-- Ocean background -->
+        <rect width="460" height="310" fill="url(#oceanGradUS)"/>
+
+        <!-- Lat/lon grid -->
+        <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
+          <line x1="0" y1="23" x2="460" y2="23"/><!-- 48°N -->
+          <line x1="0" y1="81" x2="460" y2="81"/><!-- 43°N -->
+          <line x1="0" y1="139" x2="460" y2="139"/><!-- 38°N -->
+          <line x1="0" y1="197" x2="460" y2="197"/><!-- 33°N -->
+          <line x1="0" y1="255" x2="460" y2="255"/><!-- 28°N -->
+          <line x1="92" y1="0" x2="92" y2="310"/><!-- -112°W -->
+          <line x1="183" y1="0" x2="183" y2="310"/><!-- -99°W -->
+          <line x1="275" y1="0" x2="275" y2="310"/><!-- -86°W -->
+          <line x1="367" y1="0" x2="367" y2="310"/><!-- -73°W -->
+        </g>
+
+        <!-- Canada (top border strip) -->
+        <path d="M 0,0 L 460,0 L 460,18 L 380,14 L 310,10 L 240,8 L 160,10 L 80,14 L 0,18 Z"
+              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
+        <!-- Mexico -->
+        <path d="M 0,310 L 460,310 L 460,280 L 420,272 L 380,268 L 340,265 L 300,268 L 250,272 L 220,278 L 180,282 L 140,280 L 100,275 L 60,268 L 20,268 L 0,272 Z"
+              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
+
+        <!-- Contiguous US — careful smooth path -->
+        <!-- Coordinate transform: x=(lon+125)*5.85, y=(50-lat)*12 -->
+        <!-- viewBox 460x310, lon -125 to -66, lat 24 to 50 -->
+        <path id="usPath" d="
+          M 5,22
+          C 20,16 35,14 55,12
+          L 90,10
+          C 115,8 140,8 160,10
+          L 200,12
+          C 225,12 248,12 268,14
+          L 298,14
+          C 318,14 338,14 358,12
+          L 390,8
+          C 410,5 430,4 450,6
+          L 458,8
+          L 458,42
+          C 455,50 450,56 444,60
+          L 435,66
+          C 428,70 422,75 418,82
+          C 414,88 412,95 410,102
+          L 408,112
+          C 406,122 404,132 400,140
+          C 396,148 390,154 384,160
+          L 375,168
+          C 368,176 362,184 356,192
+          L 348,202
+          C 342,212 336,222 330,230
+          L 322,240
+          C 316,250 310,260 305,268
+          L 298,275
+          C 292,280 285,283 278,282
+          L 268,280
+          C 260,278 252,272 244,266
+          L 236,258
+          C 228,250 220,242 212,235
+          L 205,228
+          C 198,222 190,217 182,214
+          L 172,212
+          C 162,210 150,210 140,208
+          L 128,205
+          C 118,202 108,198 100,193
+          L 92,188
+          C 82,183 72,178 62,174
+          L 50,170
+          C 40,167 30,165 20,162
+          L 8,158
+          C 4,150 2,138 2,124
+          L 2,95
+          C 2,80 4,65 8,52
+          L 5,22 Z
+        " fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1.2"/>
+
+        <!-- Florida peninsula -->
+        <path d="M 348,202 C 352,210 355,218 358,228 C 361,238 362,248 360,258 C 358,268 354,276 350,282 C 345,288 339,292 334,290 C 329,288 325,282 323,276 C 320,268 320,258 322,248 C 324,238 328,228 330,218 L 330,230 L 322,240"
+              fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1"/>
+
+        <!-- Great Lakes (simplified blue fills) -->
+        <g fill="#050F1E" stroke="#0D2540" stroke-width="0.5" opacity="0.8">
+          <!-- Lake Superior -->
+          <ellipse cx="298" cy="52" rx="38" ry="14"/>
+          <!-- Lake Michigan -->
+          <ellipse cx="318" cy="82" rx="12" ry="22"/>
+          <!-- Lake Huron -->
+          <ellipse cx="338" cy="68" rx="14" ry="18"/>
+          <!-- Lake Erie -->
+          <ellipse cx="355" cy="92" rx="16" ry="7"/>
+          <!-- Lake Ontario -->
+          <ellipse cx="378" cy="88" rx="11" ry="6"/>
+        </g>
+
+        <!-- State borders (subtle) -->
+        <g stroke="#1A3B60" stroke-width="0.6" fill="none" opacity="0.65">
+          <!-- East coast states vertical lines -->
+          <path d="M 408,112 L 410,140 L 408,160 L 405,180 L 400,200"/>
+          <!-- Mississippi River rough -->
+          <path d="M 285,55 C 282,80 280,110 278,140 C 276,168 274,195 272,218 C 270,240 268,260 265,275"/>
+          <!-- Ohio/Tennessee line -->
+          <path d="M 330,118 L 300,120 L 270,122 L 240,118"/>
+          <!-- Kansas/Missouri -->
+          <path d="M 240,110 L 240,155 L 242,185"/>
+          <!-- Rockies region -->
+          <path d="M 155,25 L 152,80 L 150,140 L 148,190"/>
+          <!-- TX border -->
+          <path d="M 215,178 L 218,210 L 222,240 L 225,268"/>
+        </g>
+
+        <!-- Weather overlays — Nowcast -->
+        <g id="layer-nowcast-us">
+          <!-- Chicago: critical (severe storms) -->
+          <ellipse cx="310" cy="98" rx="55" ry="48" fill="url(#blobCritUS)" filter="url(#blur14us)" opacity="0.9"/>
+          <!-- Atlanta: warning (heavy rain) -->
+          <ellipse cx="338" cy="190" rx="52" ry="44" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.85"/>
+          <!-- LA: clear -->
+          <ellipse cx="50" cy="160" rx="45" ry="38" fill="url(#blobGoodUS)" filter="url(#blur8us)" opacity="0.65"/>
+          <!-- NJ: advisory -->
+          <ellipse cx="404" cy="118" rx="40" ry="35" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.6"/>
+        </g>
+
+        <!-- Flood overlay US -->
+        <g id="layer-flood-us" style="display:none">
+          <!-- Mississippi Delta / SE flooding -->
+          <ellipse cx="295" cy="215" rx="65" ry="52" fill="url(#blobFloodUS)" filter="url(#blur14us)" opacity="0.9"/>
+          <!-- NJ/Northeast coastal -->
+          <ellipse cx="406" cy="122" rx="45" ry="36" fill="url(#blobFloodUS)" filter="url(#blur8us)" opacity="0.7"/>
+        </g>
+
+        <!-- S2S overlay US -->
+        <g id="layer-s2s-us" style="display:none">
+          <!-- Cool/wet anomaly eastern US (week 3-6) -->
+          <ellipse cx="360" cy="140" rx="100" ry="82" fill="url(#blobS2SUS)" filter="url(#blur14us)" opacity="0.8"/>
+          <!-- Warm/dry western -->
+          <ellipse cx="100" cy="145" rx="80" ry="65" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.5"/>
+        </g>
+
+        <!-- Medium range overlay US -->
+        <g id="layer-medium-us" style="display:none">
+          <!-- Frontal system tracking NE -->
+          <ellipse cx="280" cy="130" rx="120" ry="85" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.65"/>
+          <ellipse cx="80" cy="148" rx="65" ry="50" fill="url(#blobGoodUS)" filter="url(#blur14us)" opacity="0.4"/>
+        </g>
+
+        <!-- Node markers -->
+
+        <!-- Los Angeles (34.05N, 118.24W) → x=(-118.24+125)*5.85=40, y=(50-34.05)*12=191 -->
+        <g class="node-group" data-node="los-angeles" style="cursor:pointer">
+          <circle cx="40" cy="162" r="22" fill="transparent"/>
+          <circle cx="40" cy="162" r="22" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
+          <circle cx="40" cy="162" r="8" fill="#00D48A" opacity="0.2" filter="url(#glow4us)"/>
+          <circle cx="40" cy="162" r="5" fill="#00D48A"/>
+          <circle cx="40" cy="162" r="2.5" fill="#fff" opacity="0.7"/>
+          <text x="50" y="158" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">LOS ANGELES DC</text>
+          <text x="50" y="168" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">34.1°N 118.2°W</text>
+        </g>
+
+        <!-- Chicago (41.88N, 87.63W) → x=(-87.63+125)*5.85=218, y=(50-41.88)*12=97 -->
+        <g class="node-group" data-node="chicago" style="cursor:pointer">
+          <circle cx="220" cy="98" r="22" fill="transparent"/>
+          <circle cx="220" cy="98" r="28" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
+          <circle cx="220" cy="98" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4us)"/>
+          <circle cx="220" cy="98" r="6" fill="#F5455A"/>
+          <circle cx="220" cy="98" r="3" fill="#fff" opacity="0.8"/>
+          <text x="230" y="94" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">CHICAGO DC</text>
+          <text x="230" y="104" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">41.9°N 87.6°W</text>
+        </g>
+
+        <!-- Atlanta (33.75N, 84.39W) → x=(-84.39+125)*5.85=237, y=(50-33.75)*12=195 -->
+        <g class="node-group" data-node="atlanta" style="cursor:pointer">
+          <circle cx="238" cy="195" r="22" fill="transparent"/>
+          <circle cx="238" cy="195" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring" opacity="0.65"/>
+          <circle cx="238" cy="195" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
+          <circle cx="238" cy="195" r="5.5" fill="#F5A623"/>
+          <circle cx="238" cy="195" r="3" fill="#fff" opacity="0.7"/>
+          <text x="248" y="191" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">ATLANTA DC</text>
+          <text x="248" y="201" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">33.8°N 84.4°W</text>
+        </g>
+
+        <!-- New Jersey (40.7N, 74.17W) → x=(-74.17+125)*5.85=297, y=(50-40.7)*12=112 -->
+        <g class="node-group" data-node="newjersey" style="cursor:pointer">
+          <circle cx="298" cy="112" r="22" fill="transparent"/>
+          <circle cx="298" cy="112" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring-s" opacity="0.6"/>
+          <circle cx="298" cy="112" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
+          <circle cx="298" cy="112" r="5.5" fill="#F5A623"/>
+          <circle cx="298" cy="112" r="3" fill="#fff" opacity="0.7"/>
+          <text x="305" y="106" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">NEW JERSEY DC</text>
+          <text x="305" y="116" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">40.7°N 74.2°W</text>
+        </g>
+
+        <!-- Compass -->
+        <g transform="translate(438,292)" opacity="0.4">
+          <text x="0" y="0" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="Outfit,sans-serif">N</text>
+          <line x1="0" y1="2" x2="0" y2="10" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="0" y1="6" x2="-5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
+          <line x1="0" y1="6" x2="5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
+        </g>
+
+        <!-- Scale bar -->
+        <g transform="translate(12,302)" opacity="0.5">
+          <line x1="0" y1="0" x2="58" y2="0" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="0" y1="-3" x2="0" y2="3" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="58" y1="-3" x2="58" y2="3" stroke="#7A9DC0" stroke-width="1"/>
+          <text x="29" y="-4" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="DM Mono,monospace">1000 km</text>
+        </g>
+
+        <!-- Coastline glow -->
+        <path d="
+          M 5,22 C 20,16 35,14 55,12 L 90,10 C 115,8 140,8 160,10 L 200,12
+          C 225,12 248,12 268,14 L 298,14 C 318,14 338,14 358,12 L 390,8
+          C 410,5 430,4 450,6 L 458,8 L 458,42 C 455,50 450,56 444,60 L 435,66
+          C 428,70 422,75 418,82 C 414,88 412,95 410,102 L 408,112
+          C 406,122 404,132 400,140 C 396,148 390,154 384,160 L 375,168
+          C 368,176 362,184 356,192 L 348,202 C 342,212 336,222 330,230 L 322,240
+          C 316,250 310,260 305,268 L 298,275 C 292,280 285,283 278,282 L 268,280
+          C 260,278 252,272 244,266 L 236,258 C 228,250 220,242 212,235 L 205,228
+          C 198,222 190,217 182,214 L 172,212 C 162,210 150,210 140,208 L 128,205
+          C 118,202 108,198 100,193 L 92,188 C 82,183 72,178 62,174 L 50,170
+          C 40,167 30,165 20,162 L 8,158 C 4,150 2,138 2,124 L 2,95
+          C 2,80 4,65 8,52 L 5,22 Z
+        " fill="none" stroke="rgba(0,194,255,0.12)" stroke-width="1.5"/>
+
+      </svg>
+    </div>
+  </div>
+
   <!-- India panel -->
   <div class="map-panel" id="panelIndia">
     <div class="map-panel-header">
-      <div class="map-panel-title">🇮🇳 India Operations</div>
+      <div class="map-panel-title">&#x1F1EE;&#x1F1F3; India Operations</div>
       <div class="map-panel-sub" id="indiaSubtitle">Nowcast · 4 nodes</div>
     </div>
     <div class="map-svg-wrap">
@@ -594,282 +870,6 @@ header{
     </div>
   </div>
 
-  <!-- US panel -->
-  <div class="map-panel" id="panelUS">
-    <div class="map-panel-header">
-      <div class="map-panel-title">🇺🇸 US Distribution</div>
-      <div class="map-panel-sub" id="usSubtitle">Nowcast · 4 nodes</div>
-    </div>
-    <div class="map-svg-wrap">
-      <svg id="svgUS" viewBox="0 0 460 310" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="oceanGradUS" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#040E1C"/>
-            <stop offset="100%" stop-color="#020A14"/>
-          </linearGradient>
-          <linearGradient id="landGradUS" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#14315A"/>
-            <stop offset="100%" stop-color="#0E2240"/>
-          </linearGradient>
-
-          <!-- Weather blobs US Nowcast -->
-          <radialGradient id="blobCritUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F5455A" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#F5455A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobWarnUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F5A623" stop-opacity="0.5"/>
-            <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobGoodUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#00D48A" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#00D48A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobFloodUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.55"/>
-            <stop offset="60%" stop-color="#7B4FD0" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobS2SUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#5B9CF5" stop-opacity="0.45"/>
-            <stop offset="60%" stop-color="#2BD4C4" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#5B9CF5" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobMedUS" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F07D3A" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#F07D3A" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="blur8us"><feGaussianBlur stdDeviation="8"/></filter>
-          <filter id="blur14us"><feGaussianBlur stdDeviation="14"/></filter>
-          <filter id="glow4us"><feGaussianBlur stdDeviation="4"/></filter>
-        </defs>
-
-        <!-- Ocean background -->
-        <rect width="460" height="310" fill="url(#oceanGradUS)"/>
-
-        <!-- Lat/lon grid -->
-        <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
-          <line x1="0" y1="23" x2="460" y2="23"/><!-- 48°N -->
-          <line x1="0" y1="81" x2="460" y2="81"/><!-- 43°N -->
-          <line x1="0" y1="139" x2="460" y2="139"/><!-- 38°N -->
-          <line x1="0" y1="197" x2="460" y2="197"/><!-- 33°N -->
-          <line x1="0" y1="255" x2="460" y2="255"/><!-- 28°N -->
-          <line x1="92" y1="0" x2="92" y2="310"/><!-- -112°W -->
-          <line x1="183" y1="0" x2="183" y2="310"/><!-- -99°W -->
-          <line x1="275" y1="0" x2="275" y2="310"/><!-- -86°W -->
-          <line x1="367" y1="0" x2="367" y2="310"/><!-- -73°W -->
-        </g>
-
-        <!-- Canada (top border strip) -->
-        <path d="M 0,0 L 460,0 L 460,18 L 380,14 L 310,10 L 240,8 L 160,10 L 80,14 L 0,18 Z"
-              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
-        <!-- Mexico -->
-        <path d="M 0,310 L 460,310 L 460,280 L 420,272 L 380,268 L 340,265 L 300,268 L 250,272 L 220,278 L 180,282 L 140,280 L 100,275 L 60,268 L 20,268 L 0,272 Z"
-              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
-
-        <!-- Contiguous US — careful smooth path -->
-        <!-- Coordinate transform: x=(lon+125)*5.85, y=(50-lat)*12 -->
-        <!-- viewBox 460x310, lon -125 to -66, lat 24 to 50 -->
-        <path id="usPath" d="
-          M 5,22
-          C 20,16 35,14 55,12
-          L 90,10
-          C 115,8 140,8 160,10
-          L 200,12
-          C 225,12 248,12 268,14
-          L 298,14
-          C 318,14 338,14 358,12
-          L 390,8
-          C 410,5 430,4 450,6
-          L 458,8
-          L 458,42
-          C 455,50 450,56 444,60
-          L 435,66
-          C 428,70 422,75 418,82
-          C 414,88 412,95 410,102
-          L 408,112
-          C 406,122 404,132 400,140
-          C 396,148 390,154 384,160
-          L 375,168
-          C 368,176 362,184 356,192
-          L 348,202
-          C 342,212 336,222 330,230
-          L 322,240
-          C 316,250 310,260 305,268
-          L 298,275
-          C 292,280 285,283 278,282
-          L 268,280
-          C 260,278 252,272 244,266
-          L 236,258
-          C 228,250 220,242 212,235
-          L 205,228
-          C 198,222 190,217 182,214
-          L 172,212
-          C 162,210 150,210 140,208
-          L 128,205
-          C 118,202 108,198 100,193
-          L 92,188
-          C 82,183 72,178 62,174
-          L 50,170
-          C 40,167 30,165 20,162
-          L 8,158
-          C 4,150 2,138 2,124
-          L 2,95
-          C 2,80 4,65 8,52
-          L 5,22 Z
-        " fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1.2"/>
-
-        <!-- Florida peninsula -->
-        <path d="M 348,202 C 352,210 355,218 358,228 C 361,238 362,248 360,258 C 358,268 354,276 350,282 C 345,288 339,292 334,290 C 329,288 325,282 323,276 C 320,268 320,258 322,248 C 324,238 328,228 330,218 L 330,230 L 322,240"
-              fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1"/>
-
-        <!-- Great Lakes (simplified blue fills) -->
-        <g fill="#050F1E" stroke="#0D2540" stroke-width="0.5" opacity="0.8">
-          <!-- Lake Superior -->
-          <ellipse cx="298" cy="52" rx="38" ry="14"/>
-          <!-- Lake Michigan -->
-          <ellipse cx="318" cy="82" rx="12" ry="22"/>
-          <!-- Lake Huron -->
-          <ellipse cx="338" cy="68" rx="14" ry="18"/>
-          <!-- Lake Erie -->
-          <ellipse cx="355" cy="92" rx="16" ry="7"/>
-          <!-- Lake Ontario -->
-          <ellipse cx="378" cy="88" rx="11" ry="6"/>
-        </g>
-
-        <!-- State borders (subtle) -->
-        <g stroke="#1A3B60" stroke-width="0.6" fill="none" opacity="0.65">
-          <!-- East coast states vertical lines -->
-          <path d="M 408,112 L 410,140 L 408,160 L 405,180 L 400,200"/>
-          <!-- Mississippi River rough -->
-          <path d="M 285,55 C 282,80 280,110 278,140 C 276,168 274,195 272,218 C 270,240 268,260 265,275"/>
-          <!-- Ohio/Tennessee line -->
-          <path d="M 330,118 L 300,120 L 270,122 L 240,118"/>
-          <!-- Kansas/Missouri -->
-          <path d="M 240,110 L 240,155 L 242,185"/>
-          <!-- Rockies region -->
-          <path d="M 155,25 L 152,80 L 150,140 L 148,190"/>
-          <!-- TX border -->
-          <path d="M 215,178 L 218,210 L 222,240 L 225,268"/>
-        </g>
-
-        <!-- Weather overlays — Nowcast -->
-        <g id="layer-nowcast-us">
-          <!-- Chicago: critical (severe storms) -->
-          <ellipse cx="310" cy="98" rx="55" ry="48" fill="url(#blobCritUS)" filter="url(#blur14us)" opacity="0.9"/>
-          <!-- Atlanta: warning (heavy rain) -->
-          <ellipse cx="338" cy="190" rx="52" ry="44" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.85"/>
-          <!-- LA: clear -->
-          <ellipse cx="50" cy="160" rx="45" ry="38" fill="url(#blobGoodUS)" filter="url(#blur8us)" opacity="0.65"/>
-          <!-- NJ: advisory -->
-          <ellipse cx="404" cy="118" rx="40" ry="35" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.6"/>
-        </g>
-
-        <!-- Flood overlay US -->
-        <g id="layer-flood-us" style="display:none">
-          <!-- Mississippi Delta / SE flooding -->
-          <ellipse cx="295" cy="215" rx="65" ry="52" fill="url(#blobFloodUS)" filter="url(#blur14us)" opacity="0.9"/>
-          <!-- NJ/Northeast coastal -->
-          <ellipse cx="406" cy="122" rx="45" ry="36" fill="url(#blobFloodUS)" filter="url(#blur8us)" opacity="0.7"/>
-        </g>
-
-        <!-- S2S overlay US -->
-        <g id="layer-s2s-us" style="display:none">
-          <!-- Cool/wet anomaly eastern US (week 3-6) -->
-          <ellipse cx="360" cy="140" rx="100" ry="82" fill="url(#blobS2SUS)" filter="url(#blur14us)" opacity="0.8"/>
-          <!-- Warm/dry western -->
-          <ellipse cx="100" cy="145" rx="80" ry="65" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.5"/>
-        </g>
-
-        <!-- Medium range overlay US -->
-        <g id="layer-medium-us" style="display:none">
-          <!-- Frontal system tracking NE -->
-          <ellipse cx="280" cy="130" rx="120" ry="85" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.65"/>
-          <ellipse cx="80" cy="148" rx="65" ry="50" fill="url(#blobGoodUS)" filter="url(#blur14us)" opacity="0.4"/>
-        </g>
-
-        <!-- Node markers -->
-
-        <!-- Los Angeles (34.05N, 118.24W) → x=(-118.24+125)*5.85=40, y=(50-34.05)*12=191 -->
-        <g class="node-group" data-node="los-angeles" style="cursor:pointer">
-          <circle cx="40" cy="162" r="22" fill="transparent"/>
-          <circle cx="40" cy="162" r="22" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
-          <circle cx="40" cy="162" r="8" fill="#00D48A" opacity="0.2" filter="url(#glow4us)"/>
-          <circle cx="40" cy="162" r="5" fill="#00D48A"/>
-          <circle cx="40" cy="162" r="2.5" fill="#fff" opacity="0.7"/>
-          <text x="50" y="158" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">LOS ANGELES DC</text>
-          <text x="50" y="168" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">34.1°N 118.2°W</text>
-        </g>
-
-        <!-- Chicago (41.88N, 87.63W) → x=(-87.63+125)*5.85=218, y=(50-41.88)*12=97 -->
-        <g class="node-group" data-node="chicago" style="cursor:pointer">
-          <circle cx="220" cy="98" r="22" fill="transparent"/>
-          <circle cx="220" cy="98" r="28" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
-          <circle cx="220" cy="98" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4us)"/>
-          <circle cx="220" cy="98" r="6" fill="#F5455A"/>
-          <circle cx="220" cy="98" r="3" fill="#fff" opacity="0.8"/>
-          <text x="230" y="94" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">CHICAGO DC</text>
-          <text x="230" y="104" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">41.9°N 87.6°W</text>
-        </g>
-
-        <!-- Atlanta (33.75N, 84.39W) → x=(-84.39+125)*5.85=237, y=(50-33.75)*12=195 -->
-        <g class="node-group" data-node="atlanta" style="cursor:pointer">
-          <circle cx="238" cy="195" r="22" fill="transparent"/>
-          <circle cx="238" cy="195" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring" opacity="0.65"/>
-          <circle cx="238" cy="195" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
-          <circle cx="238" cy="195" r="5.5" fill="#F5A623"/>
-          <circle cx="238" cy="195" r="3" fill="#fff" opacity="0.7"/>
-          <text x="248" y="191" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">ATLANTA DC</text>
-          <text x="248" y="201" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">33.8°N 84.4°W</text>
-        </g>
-
-        <!-- New Jersey (40.7N, 74.17W) → x=(-74.17+125)*5.85=297, y=(50-40.7)*12=112 -->
-        <g class="node-group" data-node="newjersey" style="cursor:pointer">
-          <circle cx="298" cy="112" r="22" fill="transparent"/>
-          <circle cx="298" cy="112" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring-s" opacity="0.6"/>
-          <circle cx="298" cy="112" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
-          <circle cx="298" cy="112" r="5.5" fill="#F5A623"/>
-          <circle cx="298" cy="112" r="3" fill="#fff" opacity="0.7"/>
-          <text x="305" y="106" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">NEW JERSEY DC</text>
-          <text x="305" y="116" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">40.7°N 74.2°W</text>
-        </g>
-
-        <!-- Compass -->
-        <g transform="translate(438,292)" opacity="0.4">
-          <text x="0" y="0" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="Outfit,sans-serif">N</text>
-          <line x1="0" y1="2" x2="0" y2="10" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="0" y1="6" x2="-5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
-          <line x1="0" y1="6" x2="5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
-        </g>
-
-        <!-- Scale bar -->
-        <g transform="translate(12,302)" opacity="0.5">
-          <line x1="0" y1="0" x2="58" y2="0" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="0" y1="-3" x2="0" y2="3" stroke="#7A9DC0" stroke-width="1"/>
-          <line x1="58" y1="-3" x2="58" y2="3" stroke="#7A9DC0" stroke-width="1"/>
-          <text x="29" y="-4" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="DM Mono,monospace">1000 km</text>
-        </g>
-
-        <!-- Coastline glow -->
-        <path d="
-          M 5,22 C 20,16 35,14 55,12 L 90,10 C 115,8 140,8 160,10 L 200,12
-          C 225,12 248,12 268,14 L 298,14 C 318,14 338,14 358,12 L 390,8
-          C 410,5 430,4 450,6 L 458,8 L 458,42 C 455,50 450,56 444,60 L 435,66
-          C 428,70 422,75 418,82 C 414,88 412,95 410,102 L 408,112
-          C 406,122 404,132 400,140 C 396,148 390,154 384,160 L 375,168
-          C 368,176 362,184 356,192 L 348,202 C 342,212 336,222 330,230 L 322,240
-          C 316,250 310,260 305,268 L 298,275 C 292,280 285,283 278,282 L 268,280
-          C 260,278 252,272 244,266 L 236,258 C 228,250 220,242 212,235 L 205,228
-          C 198,222 190,217 182,214 L 172,212 C 162,210 150,210 140,208 L 128,205
-          C 118,202 108,198 100,193 L 92,188 C 82,183 72,178 62,174 L 50,170
-          C 40,167 30,165 20,162 L 8,158 C 4,150 2,138 2,124 L 2,95
-          C 2,80 4,65 8,52 L 5,22 Z
-        " fill="none" stroke="rgba(0,194,255,0.12)" stroke-width="1.5"/>
-
-      </svg>
-    </div>
-  </div>
-
 </div>
 
 <!-- Map legend -->
@@ -885,8 +885,8 @@ header{
 
 <!-- Tab nav -->
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('nowcast')"><span class="tbi">⚡</span>Nowcast 0–3 hr</button>
-  <button class="tab-btn" onclick="switchTab('forecast')"><span class="tbi">📈</span>1–15 Day Forecast</button>
+  <button class="tab-btn active" onclick="switchTab('nowcast')"><span class="tbi">⚡</span>Nowcast 0-3 hr</button>
+  <button class="tab-btn" onclick="switchTab('forecast')"><span class="tbi">📈</span>1-15 Day Forecast</button>
   <button class="tab-btn" onclick="switchTab('flood')"><span class="tbi">🌊</span>Flood Risk (OPERA)</button>
   <button class="tab-btn" onclick="switchTab('s2s')"><span class="tbi">🌀</span>S2S Outlook</button>
 </div>
@@ -896,7 +896,49 @@ header{
 
   <!-- Nowcast tab -->
   <div class="tab-panel active" id="tab-nowcast">
-    <div class="section-title" style="margin-top:2px">🇮🇳 India — Nowcast Conditions</div>
+    <div class="section-title">&#x1F1FA;&#x1F1F8; United States — Nowcast Conditions</div>
+    <div class="cards-grid">
+      <div class="card sev-crit">
+        <div class="card-loc">Chicago DC</div>
+        <div class="card-val">8.9<span class="card-unit">cm hail</span></div>
+        <div class="card-desc">Severe supercell, tornado watch in effect. Roof damage risk. Ops halted.</div>
+        <div class="card-badge badge-crit">CRITICAL</div>
+      </div>
+      <div class="card sev-warn">
+        <div class="card-loc">Atlanta DC</div>
+        <div class="card-val">68<span class="card-unit">mm/3hr</span></div>
+        <div class="card-desc">Flash flood watch. Loading dock access compromised. 40% reduction.</div>
+        <div class="card-badge badge-warn">ADVISORY</div>
+      </div>
+      <div class="card sev-warn">
+        <div class="card-loc">New Jersey DC</div>
+        <div class="card-val">42<span class="card-unit">kt gusts</span></div>
+        <div class="card-desc">Coastal storm, storm surge 0.8m. Container yard delays 3-5 hrs.</div>
+        <div class="card-badge badge-warn">ADVISORY</div>
+      </div>
+      <div class="card sev-good">
+        <div class="card-loc">Los Angeles DC</div>
+        <div class="card-val">22<span class="card-unit">°C</span></div>
+        <div class="card-desc">Clear, 14 km/h SW breeze. All ops normal. Marine layer clearing.</div>
+        <div class="card-badge badge-good">CLEAR</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forecast tab -->
+  <div class="tab-panel" id="tab-forecast">
+    <div class="section-title" style="margin-top:2px">IFS HRES · 1-7 Day Short Range</div>
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-title">India Nodes — Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-wrap"><canvas id="chartIndiaRain"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">US Nodes — Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-wrap"><canvas id="chartUSWind"></canvas></div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:2px">&#x1F1EE;&#x1F1F3; India — Nowcast Conditions</div>
     <div class="cards-grid">
       <div class="card sev-crit">
         <div class="card-loc">JNPT Mumbai Port</div>
@@ -923,49 +965,7 @@ header{
         <div class="card-badge badge-good">CLEAR</div>
       </div>
     </div>
-    <div class="section-title">🇺🇸 United States — Nowcast Conditions</div>
-    <div class="cards-grid">
-      <div class="card sev-crit">
-        <div class="card-loc">Chicago DC</div>
-        <div class="card-val">8.9<span class="card-unit">cm hail</span></div>
-        <div class="card-desc">Severe supercell, tornado watch in effect. Roof damage risk. Ops halted.</div>
-        <div class="card-badge badge-crit">CRITICAL</div>
-      </div>
-      <div class="card sev-warn">
-        <div class="card-loc">Atlanta DC</div>
-        <div class="card-val">68<span class="card-unit">mm/3hr</span></div>
-        <div class="card-desc">Flash flood watch. Loading dock access compromised. 40% reduction.</div>
-        <div class="card-badge badge-warn">ADVISORY</div>
-      </div>
-      <div class="card sev-warn">
-        <div class="card-loc">New Jersey DC</div>
-        <div class="card-val">42<span class="card-unit">kt gusts</span></div>
-        <div class="card-desc">Coastal storm, storm surge 0.8m. Container yard delays 3–5 hrs.</div>
-        <div class="card-badge badge-warn">ADVISORY</div>
-      </div>
-      <div class="card sev-good">
-        <div class="card-loc">Los Angeles DC</div>
-        <div class="card-val">22<span class="card-unit">°C</span></div>
-        <div class="card-desc">Clear, 14 km/h SW breeze. All ops normal. Marine layer clearing.</div>
-        <div class="card-badge badge-good">CLEAR</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Forecast tab -->
-  <div class="tab-panel" id="tab-forecast">
-    <div class="section-title" style="margin-top:2px">IFS HRES · 1–7 Day Short Range</div>
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="chart-title">India Nodes — Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
-        <div class="chart-wrap"><canvas id="chartIndiaRain"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">US Nodes — Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
-        <div class="chart-wrap"><canvas id="chartUSWind"></canvas></div>
-      </div>
-    </div>
-    <div class="section-title">ECMWF ENS · 8–15 Day Medium Range</div>
+    <div class="section-title">ECMWF ENS · 8-15 Day Medium Range</div>
     <div class="charts-row">
       <div class="chart-card">
         <div class="chart-title">India — Temperature Anomaly (°C) <span class="chart-sub">ENS 51-member</span></div>
@@ -1019,7 +1019,7 @@ header{
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.8 m</td>
           <td style="color:#F5A623">► Stable</td>
-          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6–8 hr.</td>
+          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6-8 hr.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">ADVISORY</span></td>
         </tr>
         <tr>
@@ -1073,19 +1073,19 @@ header{
 
   <!-- S2S tab -->
   <div class="tab-panel" id="tab-s2s">
-    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S — Sub-Seasonal Outlook · Weeks 2–6</div>
+    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S — Sub-Seasonal Outlook · Weeks 2-6</div>
     <div class="s2s-grid">
       <div class="s2s-card">
         <div class="s2s-week">Week 2</div>
-        <div class="s2s-range">Oct 17–23, 2026</div>
+        <div class="s2s-range">Oct 17-23, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:72%;background:#F5A623"></div></div>
             <div class="s2s-bar-val" style="color:#F5A623">+72%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:35%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+35%</div>
           </div>
@@ -1094,15 +1094,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 3</div>
-        <div class="s2s-range">Oct 24–30, 2026</div>
+        <div class="s2s-range">Oct 24-30, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:58%;background:#F5A623"></div></div>
             <div class="s2s-bar-val" style="color:#F5A623">+58%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:52%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+52%</div>
           </div>
@@ -1111,15 +1111,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 4</div>
-        <div class="s2s-range">Oct 31–Nov 6, 2026</div>
+        <div class="s2s-range">Oct 31-Nov 6, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:32%;background:#2BD4C4"></div></div>
             <div class="s2s-bar-val" style="color:#2BD4C4">+32%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:44%;background:#F07D3A"></div></div>
             <div class="s2s-bar-val" style="color:#F07D3A">-44%</div>
           </div>
@@ -1128,15 +1128,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 5</div>
-        <div class="s2s-range">Nov 7–13, 2026</div>
+        <div class="s2s-range">Nov 7-13, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:20%;background:#2BD4C4"></div></div>
             <div class="s2s-bar-val" style="color:#2BD4C4">+20%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:28%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+28%</div>
           </div>
@@ -1145,15 +1145,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 6</div>
-        <div class="s2s-range">Nov 14–20, 2026</div>
+        <div class="s2s-range">Nov 14-20, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇮🇳</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:15%;background:#7A9DC0"></div></div>
             <div class="s2s-bar-val" style="color:var(--text2)">+15%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">🇺🇸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:18%;background:#7A9DC0"></div></div>
             <div class="s2s-bar-val" style="color:var(--text2)">+18%</div>
           </div>
@@ -1161,7 +1161,7 @@ header{
         <div style="font-size:9px;color:var(--text3);margin-top:5px">Confidence: 38% (low)</div>
       </div>
     </div>
-    <div class="section-title">Predicted MJO Phase · Weeks 2–6</div>
+    <div class="section-title">Predicted MJO Phase · Weeks 2-6</div>
     <div style="background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:11px;color:var(--text2)">
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <div style="flex:1;min-width:180px">
@@ -1203,7 +1203,7 @@ const alerts = [
   {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 km² — rising'},
   {badge:'ADVISORY',cls:'warn',text:'Pune Manufacturing: 34mm/hr heavy showers — Lightning advisory active'},
   {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch — Loading dock access 40% capacity'},
-  {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm — Storm surge 0.8m, container yard delays 3–5hr'},
+  {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm — Storm surge 0.8m, container yard delays 3-5hr'},
   {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km² inundated — I-10 W limited'},
   {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected — Rajasthan week 3 clearing'},
   {badge:'INFO',cls:'info',text:'ECMWF ENS: La Niña SST anomaly -1.2°C Niño-3.4 — Elevated US storm risk'},
@@ -1227,10 +1227,10 @@ const layerIds = {
   medium:  ['layer-medium-india','layer-medium-us'],
 };
 const subtitles = {
-  nowcast: {india:'Nowcast 0–3 hr · 4 nodes', us:'Nowcast 0–3 hr · 4 nodes'},
+  nowcast: {india:'Nowcast 0-3 hr · 4 nodes', us:'Nowcast 0-3 hr · 4 nodes'},
   flood:   {india:'Flood Risk (OPERA/S1) · Active', us:'Flood Risk (OPERA/S1) · Active'},
-  s2s:     {india:'S2S Outlook · Wk 2–6', us:'S2S Outlook · Wk 2–6'},
-  medium:  {india:'Medium Range 8–15d · ENS', us:'Medium Range 8–15d · ENS'},
+  s2s:     {india:'S2S Outlook · Wk 2-6', us:'S2S Outlook · Wk 2-6'},
+  medium:  {india:'Medium Range 8-15d · ENS', us:'Medium Range 8-15d · ENS'},
 };
 
 function setLayer(layer) {
@@ -1273,57 +1273,57 @@ const nodeData = {
     name: 'Rajasthan Manufacturing',
     nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'✅ Ops Normal'}],
     flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'✅ Clear'}],
-    s2s:     [{k:'Week 2–3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
-    medium:  [{k:'Day 8–15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2°C'}],
+    s2s:     [{k:'Week 2-3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
+    medium:  [{k:'Day 8-15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2°C'}],
   },
   pune: {
     name: 'Pune Manufacturing',
     nowcast: [{k:'Condition',v:'Heavy Rain ⚠️'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active — 8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'⚠️ Monitoring'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor — 12 km²'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'⚠️ Low'}],
-    s2s:     [{k:'Week 2–3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 ± 3d'},{k:'Confidence',v:'65%'}],
-    medium:  [{k:'Day 8–10',v:'Continued wet'},{k:'Day 11–15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
+    s2s:     [{k:'Week 2-3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 ± 3d'},{k:'Confidence',v:'65%'}],
+    medium:  [{k:'Day 8-10',v:'Continued wet'},{k:'Day 11-15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
   },
   jnpt: {
     name: 'JNPT Mumbai Port',
     nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'⛔ Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
-    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1–6 affected'},{k:'Risk',v:'🔴 Critical'}],
+    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1-6 affected'},{k:'Risk',v:'🔴 Critical'}],
     s2s:     [{k:'Week 2',v:'Continued disruption'},{k:'Week 3',v:'Improving'},{k:'Alt routing',v:'Nhava Sheva barge'}],
-    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9–15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
+    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
   },
   kolkata: {
     name: 'Kolkata Distribution Hub',
     nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'⛔ Closed'},{k:'Status',v:'⛔ Ops Suspended'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km² inundated'},{k:'Trend',v:'🔴 Rising'},{k:'Depth',v:'2.1 m peak'}],
-    s2s:     [{k:'Week 2–3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2–3',v:'High'}],
-    medium:  [{k:'Day 8–12',v:'Continued heavy rain'},{k:'Day 13–15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
+    s2s:     [{k:'Week 2-3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2-3',v:'High'}],
+    medium:  [{k:'Day 8-12',v:'Continued heavy rain'},{k:'Day 13-15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
   },
   'los-angeles': {
     name: 'Los Angeles DC',
     nowcast: [{k:'Condition',v:'Clear ✅'},{k:'Temp',v:'22°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'✅ Ops Normal'}],
     flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'✅ Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
-    s2s:     [{k:'Week 4–6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'✅ Favorable'}],
-    medium:  [{k:'Day 8–15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8°C'}],
+    s2s:     [{k:'Week 4-6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'✅ Favorable'}],
+    medium:  [{k:'Day 8-15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8°C'}],
   },
   chicago: {
     name: 'Chicago Distribution Center',
     nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Tornado watch',v:'⚠️ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'⛔ Ops Halted'}],
     flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'⛔ Blocked'},{k:'Risk',v:'🔴 Critical'}],
-    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Niña signal',v:'Strong'},{k:'Week 3–4',v:'Gradual improvement'}],
-    medium:  [{k:'Day 8–10',v:'Storm track clearing'},{k:'Day 11–15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
+    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Niña signal',v:'Strong'},{k:'Week 3-4',v:'Gradual improvement'}],
+    medium:  [{k:'Day 8-10',v:'Storm track clearing'},{k:'Day 11-15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
   },
   atlanta: {
     name: 'Atlanta Distribution Center',
     nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'⚠️ Degraded Ops'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Near vicinity',v:'Mississippi Delta impact'},{k:'Access roads',v:'I-20 rerouting'}],
-    s2s:     [{k:'Week 2–3',v:'La Niña enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
-    medium:  [{k:'Day 8–12',v:'Below-normal precip'},{k:'Day 13–15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
+    s2s:     [{k:'Week 2-3',v:'La Niña enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
+    medium:  [{k:'Day 8-12',v:'Below-normal precip'},{k:'Day 13-15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
   },
   newjersey: {
     name: 'New Jersey Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3–5 hours'},{k:'Status',v:'⚠️ Reduced capacity'}],
+    nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3-5 hours'},{k:'Status',v:'⚠️ Reduced capacity'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km²'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'⚠️ Low'}],
-    s2s:     [{k:'Week 2–3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Niña impact',v:'Moderate'}],
-    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9–15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
+    s2s:     [{k:'Week 2-3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Niña impact',v:'Moderate'}],
+    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
   },
 };
 
@@ -1400,7 +1400,7 @@ new Chart(document.getElementById('chartIndiaTemp'), {
     labels: days15,
     datasets:[
       {label:'India Mean',data:[2.1,2.4,2.2,1.8,1.5,1.2,0.8,0.4],borderColor:'#F07D3A',backgroundColor:'#F07D3A22',borderWidth:2,tension:0.4,fill:true,pointRadius:3},
-      {label:'India p10–p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
+      {label:'India p10-p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
     ]
   },
   options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'°C anomaly',color:'#3D5E7A'}}}}
