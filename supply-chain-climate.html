@@ -1417,6 +1417,9 @@ new Chart(document.getElementById('chartUSPrecip'), {
   },
   options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'% anomaly',color:'#3D5E7A'}}}}
 });
+
+// ── Init: show nowcast layer on load ──
+setLayer('nowcast');
 </script>
 </body>
 </html>
