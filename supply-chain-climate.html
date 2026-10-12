@@ -885,10 +885,10 @@ header{
 
 <!-- Tab nav -->
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('nowcast')"><span class="tbi">⚡</span>Nowcast 0-3 hr</button>
-  <button class="tab-btn" onclick="switchTab('forecast')"><span class="tbi">📈</span>1-15 Day Forecast</button>
-  <button class="tab-btn" onclick="switchTab('flood')"><span class="tbi">🌊</span>Flood Risk (OPERA)</button>
-  <button class="tab-btn" onclick="switchTab('s2s')"><span class="tbi">🌀</span>S2S Outlook</button>
+  <button class="tab-btn active" onclick="switchTab('nowcast')">Nowcast 0-3 hr</button>
+  <button class="tab-btn" onclick="switchTab('forecast')">1-15 Day Forecast</button>
+  <button class="tab-btn" onclick="switchTab('flood')">Flood Risk (OPERA)</button>
+  <button class="tab-btn" onclick="switchTab('s2s')">S2S Outlook</button>
 </div>
 
 <!-- Content -->
@@ -1167,17 +1167,17 @@ header{
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">India Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>🔴 <strong style="color:#F5A623">Week 2:</strong> Continued wet anomaly over Bay of Bengal. Kolkata port disruption 70% probability.</div>
-            <div>🟡 <strong style="color:#F5A623">Week 3:</strong> MJO Phase 3 active. Rajasthan harvest transport delay risk 45%.</div>
-            <div>🟢 <strong style="color:#00D48A">Week 4+:</strong> Monsoon withdrawal likely. Conditions improving across all nodes.</div>
+            <div>[!!] <strong style="color:#F5A623">Week 2:</strong> Continued wet anomaly over Bay of Bengal. Kolkata port disruption 70% probability.</div>
+            <div>[!] <strong style="color:#F5A623">Week 3:</strong> MJO Phase 3 active. Rajasthan harvest transport delay risk 45%.</div>
+            <div>[OK] <strong style="color:#00D48A">Week 4+:</strong> Monsoon withdrawal likely. Conditions improving across all nodes.</div>
           </div>
         </div>
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">US Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>🔴 <strong style="color:#5B9CF5">Week 2:</strong> La Nina pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
-            <div>🟡 <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
-            <div>🟢 <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
+            <div>[!!] <strong style="color:#5B9CF5">Week 2:</strong> La Nina pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
+            <div>[!] <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
+            <div>[OK] <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
           </div>
         </div>
       </div>
@@ -1286,14 +1286,14 @@ const nodeData = {
   jnpt: {
     name: 'JNPT Mumbai Port',
     nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'[X] Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
-    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1-6 affected'},{k:'Risk',v:'🔴 Critical'}],
+    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1-6 affected'},{k:'Risk',v:'[!!] Critical'}],
     s2s:     [{k:'Week 2',v:'Continued disruption'},{k:'Week 3',v:'Improving'},{k:'Alt routing',v:'Nhava Sheva barge'}],
     medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
   },
   kolkata: {
     name: 'Kolkata Distribution Hub',
     nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'⛔ Closed'},{k:'Status',v:'⛔ Ops Suspended'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km2 inundated'},{k:'Trend',v:'🔴 Rising'},{k:'Depth',v:'2.1 m peak'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km2 inundated'},{k:'Trend',v:'[!!] Rising'},{k:'Depth',v:'2.1 m peak'}],
     s2s:     [{k:'Week 2-3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2-3',v:'High'}],
     medium:  [{k:'Day 8-12',v:'Continued heavy rain'},{k:'Day 13-15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
   },
@@ -1307,7 +1307,7 @@ const nodeData = {
   chicago: {
     name: 'Chicago Distribution Center',
     nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Tornado watch',v:'⚠️ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'⛔ Ops Halted'}],
-    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'⛔ Blocked'},{k:'Risk',v:'🔴 Critical'}],
+    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'⛔ Blocked'},{k:'Risk',v:'[!!] Critical'}],
     s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Nina signal',v:'Strong'},{k:'Week 3-4',v:'Gradual improvement'}],
     medium:  [{k:'Day 8-10',v:'Storm track clearing'},{k:'Day 11-15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
   },
