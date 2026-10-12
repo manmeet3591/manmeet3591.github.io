@@ -278,7 +278,7 @@ header{
       </div>
     </div>
     <div class="hdiv"></div>
-    <div class="header-meta">United States · India · Operational Network</div>
+    <div class="header-meta">United States &middot; India &middot; Operational Network</div>
     <div class="status-pills">
       <div class="spill red"><span class="dot pulse"></span>3 Critical</div>
       <div class="spill amber"><span class="dot pulse"></span>5 Advisory</div>
@@ -315,7 +315,7 @@ header{
   <div class="map-panel" id="panelUS">
     <div class="map-panel-header">
       <div class="map-panel-title">&#x1F1FA;&#x1F1F8; US Distribution</div>
-      <div class="map-panel-sub" id="usSubtitle">Nowcast · 4 nodes</div>
+      <div class="map-panel-sub" id="usSubtitle">Nowcast &middot; 4 nodes</div>
     </div>
     <div class="map-svg-wrap">
       <svg id="svgUS" viewBox="0 0 460 310" preserveAspectRatio="xMidYMid meet">
@@ -384,7 +384,7 @@ header{
         <path d="M 0,310 L 460,310 L 460,280 L 420,272 L 380,268 L 340,265 L 300,268 L 250,272 L 220,278 L 180,282 L 140,280 L 100,275 L 60,268 L 20,268 L 0,272 Z"
               fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
 
-        <!-- Contiguous US — careful smooth path -->
+        <!-- Contiguous US  -  careful smooth path -->
         <!-- Coordinate transform: x=(lon+125)*5.85, y=(50-lat)*12 -->
         <!-- viewBox 460x310, lon -125 to -66, lat 24 to 50 -->
         <path id="usPath" d="
@@ -470,7 +470,7 @@ header{
           <path d="M 215,178 L 218,210 L 222,240 L 225,268"/>
         </g>
 
-        <!-- Weather overlays — Nowcast -->
+        <!-- Weather overlays  -  Nowcast -->
         <g id="layer-nowcast-us">
           <!-- Chicago: critical (severe storms) -->
           <ellipse cx="310" cy="98" rx="55" ry="48" fill="url(#blobCritUS)" filter="url(#blur14us)" opacity="0.9"/>
@@ -591,7 +591,7 @@ header{
   <div class="map-panel" id="panelIndia">
     <div class="map-panel-header">
       <div class="map-panel-title">&#x1F1EE;&#x1F1F3; India Operations</div>
-      <div class="map-panel-sub" id="indiaSubtitle">Nowcast · 4 nodes</div>
+      <div class="map-panel-sub" id="indiaSubtitle">Nowcast &middot; 4 nodes</div>
     </div>
     <div class="map-svg-wrap">
       <svg id="svgIndia" viewBox="0 0 320 420" preserveAspectRatio="xMidYMid meet">
@@ -679,7 +679,7 @@ header{
         <path d="M 147,388 Q 155,380 163,385 Q 168,395 163,405 Q 155,412 147,406 Q 142,398 147,388 Z"
               fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
 
-        <!-- India main body — carefully crafted smooth outline -->
+        <!-- India main body  -  carefully crafted smooth outline -->
         <!-- Using coordinate transform: x=(lon-67)*9.5, y=(37.5-lat)*12.8 -->
         <!-- viewBox 320x420, lon 67-101, lat 7.5-37.5 -->
         <path id="indiaPath" d="
@@ -750,7 +750,7 @@ header{
           <path d="M 118,108 L 155,112 L 185,110"/>
         </g>
 
-        <!-- Weather overlay blobs — Nowcast layer -->
+        <!-- Weather overlay blobs  -  Nowcast layer -->
         <g id="layer-nowcast-india">
           <!-- Mumbai/JNPT: warning (cyclone) -->
           <ellipse cx="57" cy="232" rx="58" ry="52" fill="url(#blobWarnIN)" filter="url(#blur12)" opacity="0.9"/>
@@ -880,7 +880,7 @@ header{
   <div class="ml-item"><div class="ml-swatch" style="background:#A87FE866;border:1px solid #A87FE8"></div>Flood Inundation (OPERA/S1)</div>
   <div class="ml-item"><div class="ml-swatch" style="background:#2BD4C444;border:1px solid #2BD4C4"></div>S2S Anomaly</div>
   <div class="ml-item"><div class="ml-swatch" style="background:#F5A62344;border:1px solid #F5A623"></div>Precip Anomaly</div>
-  <span style="margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)">Data: ECMWF IFS · OPERA DSWx-S1 · NCEP · Mock prototype</span>
+  <span style="margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)">Data: ECMWF IFS | OPERA DSWx-S1 | NCEP | Mock prototype</span>
 </div>
 
 <!-- Tab nav -->
@@ -896,7 +896,7 @@ header{
 
   <!-- Nowcast tab -->
   <div class="tab-panel active" id="tab-nowcast">
-    <div class="section-title">&#x1F1FA;&#x1F1F8; United States — Nowcast Conditions</div>
+    <div class="section-title">&#x1F1FA;&#x1F1F8; United States  -  Nowcast Conditions</div>
     <div class="cards-grid">
       <div class="card sev-crit">
         <div class="card-loc">Chicago DC</div>
@@ -927,18 +927,18 @@ header{
 
   <!-- Forecast tab -->
   <div class="tab-panel" id="tab-forecast">
-    <div class="section-title" style="margin-top:2px">IFS HRES · 1-7 Day Short Range</div>
+    <div class="section-title" style="margin-top:2px">IFS HRES - 1-7 Day Short Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India Nodes — Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-title">India Nodes  -  Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaRain"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">US Nodes — Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-title">US Nodes  -  Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
         <div class="chart-wrap"><canvas id="chartUSWind"></canvas></div>
       </div>
     </div>
-    <div class="section-title" style="margin-top:2px">&#x1F1EE;&#x1F1F3; India — Nowcast Conditions</div>
+    <div class="section-title" style="margin-top:2px">&#x1F1EE;&#x1F1F3; India  -  Nowcast Conditions</div>
     <div class="cards-grid">
       <div class="card sev-crit">
         <div class="card-loc">JNPT Mumbai Port</div>
@@ -949,7 +949,7 @@ header{
       <div class="card sev-crit">
         <div class="card-loc">Kolkata Hub</div>
         <div class="card-val">187<span class="card-unit">mm/6hr</span></div>
-        <div class="card-desc">Extreme rainfall. Flood inundation confirmed SAR — 2.1m depth.</div>
+        <div class="card-desc">Extreme rainfall. Flood inundation confirmed SAR  -  2.1m depth.</div>
         <div class="card-badge badge-crit">CRITICAL</div>
       </div>
       <div class="card sev-warn">
@@ -965,14 +965,14 @@ header{
         <div class="card-badge badge-good">CLEAR</div>
       </div>
     </div>
-    <div class="section-title">ECMWF ENS · 8-15 Day Medium Range</div>
+    <div class="section-title">ECMWF ENS - 8-15 Day Medium Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India — Temperature Anomaly (°C) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">India  -  Temperature Anomaly (°C) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaTemp"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">US — Precipitation Anomaly (%) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">US  -  Precipitation Anomaly (%) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartUSPrecip"></canvas></div>
       </div>
     </div>
@@ -980,7 +980,7 @@ header{
 
   <!-- Flood tab -->
   <div class="tab-panel" id="tab-flood">
-    <div class="section-title" style="margin-top:2px">OPERA DSWx-S1 — Sentinel-1 SAR Flood Inundation · 30m Resolution</div>
+    <div class="section-title" style="margin-top:2px">OPERA DSWx-S1 - Sentinel-1 SAR Flood Inundation - 30m Resolution</div>
     <table class="ftable">
       <thead>
         <tr>
@@ -1000,7 +1000,7 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:84%;background:#F5455A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">412 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">412 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">2.1 m</td>
@@ -1014,7 +1014,7 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:62%;background:#F5A623"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">218 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">218 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.8 m</td>
@@ -1028,7 +1028,7 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:71%;background:#F5455A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">683 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">683 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">1.6 m</td>
@@ -1042,7 +1042,7 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:38%;background:#F5A623"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">89 km²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">89 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.4 m</td>
@@ -1056,10 +1056,10 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:3%;background:#00D48A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">—</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)"> - </span>
             </div>
           </td>
-          <td style="font-family:var(--mono);color:var(--text2)">—</td>
+          <td style="font-family:var(--mono);color:var(--text2)"> - </td>
           <td style="color:#00D48A">✓ Clear</td>
           <td style="color:var(--text2)">No inundation detected. All ops normal.</td>
           <td><span class="risk-chip" style="background:#00D48A22;color:#00D48A;border:1px solid #00D48A44">CLEAR</span></td>
@@ -1067,13 +1067,13 @@ header{
       </tbody>
     </table>
     <div style="margin-top:12px;padding:10px 14px;background:var(--surf1);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text2)">
-      <strong style="color:var(--text1)">Data provenance:</strong> OPERA DSWx-S1 v1.0 · Sentinel-1 C-band SAR (VV polarization) · 30 m spatial resolution · ~6-day revisit. Processed via ASF DAAC. Depth estimated from flood duration model. All values provisional prototype mock data.
+      <strong style="color:var(--text1)">Data provenance:</strong> OPERA DSWx-S1 v1.0 | Sentinel-1 C-band SAR (VV polarization) | 30 m spatial resolution | ~6-day revisit. Processed via ASF DAAC. Depth estimated from flood duration model. All values provisional prototype mock data.
     </div>
   </div>
 
   <!-- S2S tab -->
   <div class="tab-panel" id="tab-s2s">
-    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S — Sub-Seasonal Outlook · Weeks 2-6</div>
+    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S - Sub-Seasonal Outlook - Weeks 2-6</div>
     <div class="s2s-grid">
       <div class="s2s-card">
         <div class="s2s-week">Week 2</div>
@@ -1161,7 +1161,7 @@ header{
         <div style="font-size:9px;color:var(--text3);margin-top:5px">Confidence: 38% (low)</div>
       </div>
     </div>
-    <div class="section-title">Predicted MJO Phase · Weeks 2-6</div>
+    <div class="section-title">Predicted MJO Phase - Weeks 2-6</div>
     <div style="background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:11px;color:var(--text2)">
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <div style="flex:1;min-width:180px">
@@ -1175,7 +1175,7 @@ header{
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">US Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>🔴 <strong style="color:#5B9CF5">Week 2:</strong> La Niña pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
+            <div>🔴 <strong style="color:#5B9CF5">Week 2:</strong> La Nina pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
             <div>🟡 <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
             <div>🟢 <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
           </div>
@@ -1197,17 +1197,17 @@ header{
 
 // ── Alert ticker ──
 const alerts = [
-  {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt — Port ops suspended'},
-  {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall — SAR flood confirmed 2.1m depth'},
-  {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell — Tornado watch, hail 8.9cm, ops halted'},
-  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 km² — rising'},
-  {badge:'ADVISORY',cls:'warn',text:'Pune Manufacturing: 34mm/hr heavy showers — Lightning advisory active'},
-  {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch — Loading dock access 40% capacity'},
-  {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm — Storm surge 0.8m, container yard delays 3-5hr'},
-  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km² inundated — I-10 W limited'},
-  {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected — Rajasthan week 3 clearing'},
-  {badge:'INFO',cls:'info',text:'ECMWF ENS: La Niña SST anomaly -1.2°C Niño-3.4 — Elevated US storm risk'},
-  {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2 — Bay of Bengal enhanced convection'},
+  {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt  -  Port ops suspended'},
+  {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall  -  SAR flood confirmed 2.1m depth'},
+  {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell  -  Tornado watch, hail 8.9cm, ops halted'},
+  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 km2  -  rising'},
+  {badge:'ADVISORY',cls:'warn',text:'Pune Manufacturing: 34mm/hr heavy showers  -  Lightning advisory active'},
+  {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch  -  Loading dock access 40% capacity'},
+  {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm  -  Storm surge 0.8m, container yard delays 3-5hr'},
+  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km2 inundated  -  I-10 W limited'},
+  {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected  -  Rajasthan week 3 clearing'},
+  {badge:'INFO',cls:'info',text:'ECMWF ENS: La Nina SST anomaly -1.2°C Nino-3.4  -  Elevated US storm risk'},
+  {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2  -  Bay of Bengal enhanced convection'},
 ];
 const tc = document.getElementById('tickerContent');
 // Double for seamless loop
@@ -1227,10 +1227,10 @@ const layerIds = {
   medium:  ['layer-medium-india','layer-medium-us'],
 };
 const subtitles = {
-  nowcast: {india:'Nowcast 0-3 hr · 4 nodes', us:'Nowcast 0-3 hr · 4 nodes'},
-  flood:   {india:'Flood Risk (OPERA/S1) · Active', us:'Flood Risk (OPERA/S1) · Active'},
-  s2s:     {india:'S2S Outlook · Wk 2-6', us:'S2S Outlook · Wk 2-6'},
-  medium:  {india:'Medium Range 8-15d · ENS', us:'Medium Range 8-15d · ENS'},
+  nowcast: {india:'Nowcast 0-3 hr - 4 nodes', us:'Nowcast 0-3 hr - 4 nodes'},
+  flood:   {india:'Flood Risk (OPERA/S1) - Active', us:'Flood Risk (OPERA/S1) - Active'},
+  s2s:     {india:'S2S Outlook - Wk 2-6', us:'S2S Outlook - Wk 2-6'},
+  medium:  {india:'Medium Range 8-15d - ENS', us:'Medium Range 8-15d - ENS'},
 };
 
 function setLayer(layer) {
@@ -1271,58 +1271,58 @@ const ttBody = document.getElementById('ttBody');
 const nodeData = {
   rajasthan: {
     name: 'Rajasthan Manufacturing',
-    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'✅ Ops Normal'}],
+    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'[OK] Ops Normal'}],
     flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'✅ Clear'}],
     s2s:     [{k:'Week 2-3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
     medium:  [{k:'Day 8-15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2°C'}],
   },
   pune: {
     name: 'Pune Manufacturing',
-    nowcast: [{k:'Condition',v:'Heavy Rain ⚠️'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active — 8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'⚠️ Monitoring'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor — 12 km²'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'⚠️ Low'}],
+    nowcast: [{k:'Condition',v:'Heavy Rain [!]'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active  -  8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'⚠️ Monitoring'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor  -  12 km2'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'⚠️ Low'}],
     s2s:     [{k:'Week 2-3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 ± 3d'},{k:'Confidence',v:'65%'}],
     medium:  [{k:'Day 8-10',v:'Continued wet'},{k:'Day 11-15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
   },
   jnpt: {
     name: 'JNPT Mumbai Port',
-    nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'⛔ Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'[X] Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
     flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1-6 affected'},{k:'Risk',v:'🔴 Critical'}],
     s2s:     [{k:'Week 2',v:'Continued disruption'},{k:'Week 3',v:'Improving'},{k:'Alt routing',v:'Nhava Sheva barge'}],
     medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
   },
   kolkata: {
     name: 'Kolkata Distribution Hub',
-    nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'⛔ Closed'},{k:'Status',v:'⛔ Ops Suspended'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km² inundated'},{k:'Trend',v:'🔴 Rising'},{k:'Depth',v:'2.1 m peak'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'⛔ Closed'},{k:'Status',v:'⛔ Ops Suspended'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km2 inundated'},{k:'Trend',v:'🔴 Rising'},{k:'Depth',v:'2.1 m peak'}],
     s2s:     [{k:'Week 2-3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2-3',v:'High'}],
     medium:  [{k:'Day 8-12',v:'Continued heavy rain'},{k:'Day 13-15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
   },
   'los-angeles': {
     name: 'Los Angeles DC',
-    nowcast: [{k:'Condition',v:'Clear ✅'},{k:'Temp',v:'22°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'✅ Ops Normal'}],
+    nowcast: [{k:'Condition',v:'Clear ✅'},{k:'Temp',v:'22°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'[OK] Ops Normal'}],
     flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'✅ Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
     s2s:     [{k:'Week 4-6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'✅ Favorable'}],
     medium:  [{k:'Day 8-15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8°C'}],
   },
   chicago: {
     name: 'Chicago Distribution Center',
-    nowcast: [{k:'Condition',v:'CRITICAL 🔴'},{k:'Tornado watch',v:'⚠️ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'⛔ Ops Halted'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Tornado watch',v:'⚠️ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'⛔ Ops Halted'}],
     flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'⛔ Blocked'},{k:'Risk',v:'🔴 Critical'}],
-    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Niña signal',v:'Strong'},{k:'Week 3-4',v:'Gradual improvement'}],
+    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Nina signal',v:'Strong'},{k:'Week 3-4',v:'Gradual improvement'}],
     medium:  [{k:'Day 8-10',v:'Storm track clearing'},{k:'Day 11-15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
   },
   atlanta: {
     name: 'Atlanta Distribution Center',
     nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'⚠️ Degraded Ops'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Near vicinity',v:'Mississippi Delta impact'},{k:'Access roads',v:'I-20 rerouting'}],
-    s2s:     [{k:'Week 2-3',v:'La Niña enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
+    s2s:     [{k:'Week 2-3',v:'La Nina enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
     medium:  [{k:'Day 8-12',v:'Below-normal precip'},{k:'Day 13-15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
   },
   newjersey: {
     name: 'New Jersey Distribution Center',
     nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3-5 hours'},{k:'Status',v:'⚠️ Reduced capacity'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km²'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'⚠️ Low'}],
-    s2s:     [{k:'Week 2-3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Niña impact',v:'Moderate'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km2'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'⚠️ Low'}],
+    s2s:     [{k:'Week 2-3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Nina impact',v:'Moderate'}],
     medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
   },
 };
