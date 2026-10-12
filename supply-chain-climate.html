@@ -290,7 +290,7 @@ header{
 <!-- Alert ticker -->
 <div class="ticker">
   <div class="ticker-inner">
-    <div class="ticker-label">⚡ ALERTS</div>
+    <div class="ticker-label">ALERTS</div>
     <div class="ticker-track">
       <div class="ticker-content" id="tickerContent"></div>
     </div>
@@ -1192,7 +1192,7 @@ header{
 (function(){
   const now = new Date();
   const fmt = d => d.toUTCString().replace('GMT','UTC');
-  document.getElementById('mapTs').textContent = '🕐 ' + fmt(now);
+  document.getElementById('mapTs').textContent = fmt(now);
 })();
 
 // ── Alert ticker ──
