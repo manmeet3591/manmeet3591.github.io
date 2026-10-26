@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learnings from GridFM @ Harvard</title>
+<meta name="description" content="A visual primer on power grids and power flow, plus what was presented at the 5th Workshop on Foundation Models of the Electric Grid (Harvard, March 2026).">
+<style>
+:root{--bg:#fbfaf7;--surface-1:#f3f1ea;--surface-2:#ffffff;--text-primary:#1f1e1c;--text-secondary:#5f5e5a;--text-muted:#888780;--border:#e2dfd5;--border-strong:#c9c6bb;--accent:#185FA5;--accent-bg:#E6F1FB;--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--surface-1:#1f1e1c;--surface-2:#232220;--text-primary:#ecebe6;--text-secondary:#b4b2a9;--text-muted:#888780;--border:#33322f;--border-strong:#4a4945;--accent:#85B7EB;--accent-bg:#0C447C;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text-primary);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.7}
+main{max-width:780px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:34px;line-height:1.2;margin:0 0 8px;font-weight:600}
+h2{font-size:26px;line-height:1.3;margin:64px 0 12px;padding-top:12px;border-top:1px solid var(--border);font-weight:600}
+h3{font-size:20px;margin:36px 0 8px;font-weight:600}
+h4{font-size:17px;margin:24px 0 4px;font-weight:600}
+p{margin:0 0 14px}
+a{color:var(--accent)}
+.sub{color:var(--text-secondary);font-size:18px;margin-bottom:6px}
+.meta{color:var(--text-muted);font-size:14px}
+.part{font-size:13px;letter-spacing:.06em;color:var(--text-muted);margin:72px 0 -48px;text-transform:uppercase}
+table{border-collapse:collapse;width:100%;margin:12px 0 20px;font-size:15px;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+th{font-weight:600;background:var(--surface-1)}
+ul,ol{padding-left:22px;margin:0 0 14px}
+li{margin:4px 0}
+.callout{background:var(--surface-1);border-left:3px solid var(--accent);padding:12px 16px;margin:16px 0;border-radius:0}
+.toc{background:var(--surface-1);border-radius:12px;padding:16px 20px;margin:24px 0}
+.toc ol{margin:0}
+.widget{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0 22px}
+.widget .cap{font-size:13px;color:var(--text-secondary);margin-top:8px}
+.widget button{font:inherit;font-size:14px;padding:5px 12px;border-radius:8px;border:1px solid var(--border-strong);background:var(--surface-1);color:var(--text-primary);cursor:pointer}
+.widget input[type=range]{width:100%}
+.ctl{display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;align-items:center;font-size:14px;color:var(--text-secondary)}
+.row{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--text-secondary);margin:8px 0}
+svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.th{font-size:14px;font-weight:500;fill:var(--text-primary)}.ts{font-size:12px;fill:var(--text-secondary)}.t{font-size:14px;fill:var(--text-primary)}
+.arr{stroke:var(--text-secondary);stroke-width:1.5;fill:none}
+.c-teal>rect,.c-teal>circle{fill:#E1F5EE;stroke:#0F6E56}.c-teal>.th{fill:#085041}.c-teal>.ts{fill:#0F6E56}
+.c-purple>rect,.c-purple>circle{fill:#EEEDFE;stroke:#534AB7}.c-purple>.th{fill:#3C3489}.c-purple>.ts{fill:#534AB7}
+.c-coral>rect,.c-coral>circle{fill:#FAECE7;stroke:#993C1D}.c-coral>.th{fill:#712B13}.c-coral>.ts{fill:#993C1D}
+@media (prefers-color-scheme:dark){
+.c-teal>rect,.c-teal>circle{fill:#085041;stroke:#5DCAA5}.c-teal>.th{fill:#E1F5EE}.c-teal>.ts{fill:#9FE1CB}
+.c-purple>rect,.c-purple>circle{fill:#3C3489;stroke:#AFA9EC}.c-purple>.th{fill:#EEEDFE}.c-purple>.ts{fill:#CECBF6}
+.c-coral>rect,.c-coral>circle{fill:#712B13;stroke:#F0997B}.c-coral>.th{fill:#FAECE7}.c-coral>.ts{fill:#F5C4B3}}
+.mono{font-family:var(--font-mono);font-size:13px}
+footer{color:var(--text-muted);font-size:14px;margin-top:64px;border-top:1px solid var(--border);padding-top:16px}
+</style>
+</head>
+<body>
+<main>
+<h1>Learnings from GridFM @ Harvard</h1>
+<p class="sub">A visual primer on how power grids work, why "power flow" needs numerical methods, and what the grid foundation model community presented at Harvard in March 2026.</p>
+<p class="meta">Manmeet Singh · October 2026</p>
+
+<p>In March 2026, about 200 researchers, utilities, national labs and companies met at Harvard SEAS for the <a href="https://gridfm.org/harvard/">5th Workshop on Foundation Models of the Electric Grid</a> (GridFM). I went through every talk page, all 43 slide decks, the poster abstracts and the full recordings of all three days. These are my notes. Because the conference assumes you already think like a power engineer, the first part is a from-scratch course on the basics, written for people (like me) who come from outside electrical engineering. Everything with a slider is interactive.</p>
+
+<div class="toc"><strong>Contents</strong>
+<ol>
+<li><a href="#basics">The basics: a short course</a> — four quantities, the smallest grid, why numerical methods, AC vs DC, what a "power flow case" is</li>
+<li><a href="#conference">The conference</a> — what grid foundation models are, the models and benchmarks, every session, themes and disagreements</li>
+<li><a href="#tutorials">The tutorials</a> — universal graph learning, PowSyBl, and the rest</li>
+<li><a href="#resources">Open models, datasets and code</a></li>
+<li><a href="#directions">Open research directions</a></li>
+<li><a href="#sources">Sources</a></li>
+</ol></div>
+
+<p class="part">Part 1</p>
+<h2 id="basics">The basics: a short course</h2>
+
+<h3>Lesson 1: Electricity in four quantities</h3>
+<p>Picture water in pipes. The analogy is imperfect but carries surprisingly far.</p>
+<table>
+<tr><th>Electricity</th><th>Water picture</th><th>Unit</th></tr>
+<tr><td><strong>Voltage</strong> (V)</td><td>Pressure</td><td>volts</td></tr>
+<tr><td><strong>Current</strong> (I)</td><td>How much water flows per second</td><td>amps</td></tr>
+<tr><td><strong>Resistance</strong> (R)</td><td>How narrow or long the pipe is</td><td>ohms</td></tr>
+<tr><td><strong>Power</strong> (P)</td><td>Useful work delivered: pressure × flow</td><td>watts, megawatts (MW)</td></tr>
+</table>
+<p>Two rules are enough to start:</p>
+<ul>
+<li><strong>Ohm's law:</strong> flow through a pipe depends on the <em>pressure difference</em> across it. Current = (voltage at one end − voltage at the other) ÷ resistance. No difference, no flow.</li>
+<li><strong>Power = voltage × current.</strong> A town that uses 150 MW needs voltage × current at the town to equal 150 MW.</li>
+</ul>
+<p>One consequence explains why transmission towers carry 138,000–765,000 volts while your socket gives 120: the energy wasted heating a line grows with the <em>square</em> of the current. To deliver the same power with less current, raise the voltage. Double the voltage, halve the current, quarter the losses.</p>
+
+<h3>Lesson 2: The smallest grid, and the exact problem</h3>
+<p>One power plant, one line, one town. The plant holds its end of the line at normal voltage (call it 100%). The line has some resistance. The town uses some amount of power. <strong>Question: what is the voltage at the town?</strong> That is a power flow problem, the whole field in miniature.</p>
+<p>Write down what we know:</p>
+<ol>
+<li>Current in the line = (100% − V<sub>town</sub>) ÷ R: the pressure drop pushes the flow.</li>
+<li>Power reaching the town = V<sub>town</sub> × current: power is voltage times current.</li>
+<li>That power must equal the town's demand.</li>
+</ol>
+<p>Substitute 1 into 2 and you get: <strong>power = V<sub>town</sub> × (100% − V<sub>town</sub>) ÷ R</strong>. The unknown appears <em>twice, multiplied by itself</em>, because power is voltage times current and the current itself depends on the voltage. That self-multiplication is what engineers mean when they say "the power flow equations are nonlinear." It is the root of everything that follows.</p>
+<p>Plot "power the line can deliver" against "town voltage" and you get a hill, not a straight line. Drag the demand and click through the solver:</p>
+
+<div class="widget">
+<div class="ctl"><span>Town demand</span><input type="range" id="w2d" min="20" max="300" value="150" oninput="w2reset()"><span id="w2dv" style="min-width:60px;text-align:right"></span></div>
+<div style="display:flex;gap:10px;margin:10px 0 4px"><button onclick="w2step()">Newton step</button><button onclick="w2reset()">Restart from 100%</button></div>
+<svg id="w2plot" width="100%" viewBox="0 0 680 330" role="img" aria-label="Hill-shaped curve of deliverable power versus town voltage, a horizontal demand line, and Newton iterations"></svg>
+<div id="w2status" style="font-size:14px;margin-top:4px"></div>
+<div id="w2tbl" class="mono" style="color:var(--text-secondary);margin-top:6px"></div>
+</div>
+<script>
+(function(){
+const P=v=>1000*v*(1-v), dP=v=>1000*(1-2*v);
+const sx=v=>70+v/1.05*570, sy=p=>280-p/300*240;
+let steps=[1.0], D=150, done='';
+window.w2reset=function(){D=+document.getElementById('w2d').value;steps=[1.0];done='';draw();};
+window.w2step=function(){
+ if(done)return;
+ const v=steps[steps.length-1],m=P(v)-D,s=dP(v);
+ if(Math.abs(m)<1e-6){done='conv';draw();return;}
+ if(Math.abs(s)<1e-9||steps.length>12){done='div';draw();return;}
+ const vn=v-m/s; steps.push(vn);
+ if(vn<-0.3||vn>1.4)done='div'; else if(Math.abs(P(vn)-D)<0.01)done='conv';
+ if(!done&&steps.length>12)done='div';
+ draw();
+};
+function draw(){
+ document.getElementById('w2dv').textContent=D+' MW';
+ let s='';const ax='stroke="var(--border-strong)" stroke-width="0.5"';
+ s+=`<line x1="70" y1="280" x2="645" y2="280" ${ax}/><line x1="70" y1="40" x2="70" y2="280" ${ax}/>`;
+ [0,0.25,0.5,0.75,1].forEach(v=>{s+=`<text class="ts" x="${sx(v)}" y="298" text-anchor="middle">${Math.round(v*100)}%</text>`;});
+ [0,100,200,300].forEach(p=>{s+=`<text class="ts" x="62" y="${sy(p)+4}" text-anchor="end">${p}</text>`;});
+ s+=`<text class="ts" x="357" y="320" text-anchor="middle">Voltage at the town (100% = normal)</text><text class="ts" x="78" y="32">Power delivered (MW)</text>`;
+ let pts=[];for(let v=0;v<=1.0001;v+=0.01)pts.push(`${sx(v).toFixed(1)},${sy(P(v)).toFixed(1)}`);
+ s+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#1D9E75" stroke-width="2"/>`;
+ s+=`<text x="${sx(0.5)}" y="${sy(250)-10}" text-anchor="middle" style="font-size:12px;fill:#1D9E75">Most the line can ever deliver: 250 MW</text>`;
+ s+=`<line x1="70" y1="${sy(D)}" x2="645" y2="${sy(D)}" stroke="#D85A30" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+ s+=`<text x="640" y="${sy(D)-6}" text-anchor="end" style="font-size:12px;fill:#D85A30">Town wants ${D} MW</text>`;
+ const disc=1-4*D/1000;
+ if(disc>=0){const vh=(1+Math.sqrt(disc))/2,vl=(1-Math.sqrt(disc))/2;
+  s+=`<circle cx="${sx(vh)}" cy="${sy(D)}" r="6" fill="none" stroke="#1D9E75" stroke-width="2"/><circle cx="${sx(vl)}" cy="${sy(D)}" r="6" fill="none" stroke="#888780" stroke-width="2"/>`;
+  s+=`<text x="${sx(vh)}" y="${sy(D)+22}" text-anchor="middle" style="font-size:12px;fill:#1D9E75">Normal: ${Math.round(vh*100)}%</text><text class="ts" x="${sx(vl)}" y="${sy(D)+22}" text-anchor="middle">Low twin: ${Math.round(vl*100)}%</text>`;}
+ for(let i=0;i<steps.length;i++){const v=steps[i];if(v<-0.3||v>1.4)break;
+  const x=sx(Math.max(-0.05,Math.min(1.1,v))),y=sy(Math.max(-30,Math.min(320,P(v))));
+  if(i+1<steps.length){const vn=steps[i+1];if(vn>=-0.3&&vn<=1.4){const xn=sx(Math.max(-0.05,Math.min(1.1,vn)));
+   s+=`<line x1="${x}" y1="${y}" x2="${xn}" y2="${sy(D)}" stroke="#BA7517" stroke-width="1.5"/><line x1="${xn}" y1="${sy(D)}" x2="${xn}" y2="${sy(Math.max(-30,Math.min(320,P(vn))))}" stroke="#BA7517" stroke-width="1" stroke-dasharray="3 3"/>`;}}
+  s+=`<circle cx="${x}" cy="${y}" r="4.5" fill="#EF9F27"/>`;}
+ document.getElementById('w2plot').innerHTML=s;
+ document.getElementById('w2status').textContent=done==='conv'?`Converged in ${steps.length-1} steps: the town sits at ${(steps[steps.length-1]*100).toFixed(1)}% voltage.`
+  :done==='div'?(disc<0?'No solution exists: the line cannot deliver this much. The solver "fails to converge".':'The guesses wandered off: the solver diverged.')
+  :(steps.length===1?'Start: guess the town is at 100% voltage (a "flat start"). Click Newton step.':'Each step: treat the curve as a straight line at the current guess, jump to where that line meets the demand, re-measure.');
+ document.getElementById('w2tbl').innerHTML=steps.map((v,i)=>`step ${i}: guess ${(v*100).toFixed(2)}% → off by ${(P(v)-D).toFixed(2)} MW`).join('<br>');
+}
+w2reset();
+})();
+</script>
+
+<p>What the hill tells you:</p>
+<ul>
+<li><strong>Low demand is easy.</strong> The demand line crosses the hill far to the right; the town's voltage is barely below normal.</li>
+<li><strong>There are two answers, not one.</strong> The right-hand crossing is the real, healthy operating point. The left one is a mathematically valid "twin" at very low voltage with huge current and losses; the grid cannot operate there. A solver started from a bad guess can land on the wrong twin.</li>
+<li><strong>There is a ceiling.</strong> Above 250 MW the demand line never touches the hill: no voltage makes this line deliver that much. Real grids approaching that peak (the "nose") experience <em>voltage collapse</em>, one of the ways blackouts happen. Cases near the nose are what benchmarks call "close to infeasible."</li>
+</ul>
+
+<h3>Lesson 3: Why numerical methods?</h3>
+<p>For this one-line grid you need nothing clever: the equation is a quadratic, and the school formula solves it exactly. So why do grid engineers iterate?</p>
+<p><strong>Because a real grid is this tangle, thousands of times over.</strong> The power at every node depends on its own voltage multiplied by each neighbour's voltage, so changing one voltage changes every equation that touches it. In AC grids (lesson 4) each node also has a second unknown, a timing angle, which appears inside sines and cosines. A 2,000-node grid means about 4,000 unknowns in 4,000 tangled equations, to be solved simultaneously. There is no formula for that, just as there is no general formula for the roots of polynomials beyond degree four.</p>
+<p>So you do what the widget above does: <strong>guess, then correct</strong>. Newton's method in four moves:</p>
+<ol>
+<li><strong>Guess.</strong> "Every voltage is normal" is called a <em>flat start</em>.</li>
+<li><strong>Measure how wrong you are</strong> (the "mismatch"): at that guess the line would deliver X MW, but the town wants Y.</li>
+<li><strong>Pretend the curve is a straight line</strong> using its slope where you stand, and jump to where that line meets the demand.</li>
+<li><strong>Repeat</strong> until the mismatch is tiny. Each step roughly doubles the number of correct digits, so 3–6 steps usually suffice.</li>
+</ol>
+<p>Drag the demand toward 250 MW and step again: near the top of the hill the slope flattens, jumps overshoot, and it takes more steps. Past 250, it never settles. That is what "the solver failed to converge" means, and the painful ambiguity is whether it failed because <em>no answer exists</em> or because <em>the starting guess was bad</em>.</p>
+<div class="callout"><strong>Why machine learning enters the picture.</strong> On a real grid, step 3 is not one division; it is solving thousands of simultaneous linear equations (the multi-dimensional slope, called the <em>Jacobian</em>). A few of those per case is fine. But operators re-solve the problem for every possible equipment failure, every hour of a planning study and every storm scenario: millions of cases. Grid foundation models learn the shape of the hill from millions of solved examples and jump almost straight to the answer, while Newton's method remains the referee and the fallback.</div>
+<p>One connection worth noticing: the "DC approximation" you will see everywhere is essentially step 3 done once from the flat start, with no repeats. One straight-line jump. That is why it is instant, and why it is wrong when the grid is heavily loaded.</p>
+
+<h3>Lesson 4: AC versus DC</h3>
+<p><strong>DC (direct current)</strong> pushes steadily in one direction. A battery is DC: its + end is always +. Phones, laptops, solar panels, car batteries and the chips inside data centres all run on DC.</p>
+<p><strong>AC (alternating current)</strong> swings back and forth like a wave: in North America the voltage reverses 60 times per second (60 Hz), in Europe 50. Almost the entire grid is AC. The current sloshes back and forth in the wires, yet energy still moves steadily from plant to town, the way a saw blade goes back and forth but the cut keeps advancing.</p>
+<p>Why the grid chose AC:</p>
+<ol>
+<li><strong>Transformers.</strong> Lesson 1 said long lines need very high voltage, while homes need low voltage for safety. A transformer steps AC voltage up or down with no moving parts, but it only works with a changing voltage. This is why AC won the 1880s "war of the currents."</li>
+<li><strong>Generators make AC naturally:</strong> a spinning magnet past a coil produces a wave.</li>
+<li><strong>Breakers:</strong> AC current crosses zero 120 times a second, which makes it easier to interrupt.</li>
+</ol>
+<p>DC still lives on the grid: inside devices, in batteries and solar panels (connected through <em>inverters</em>, power electronics that turn DC into AC), and in high-voltage DC (HVDC) links for very long or undersea cables.</p>
+
+<h4>The big new idea: every voltage is a wave with a size and a timing</h4>
+<p>In an AC grid every node's voltage is a wave, and they all swing at exactly 60 Hz together, but not perfectly in step. Each node's wave is shifted slightly in time; that shift is its <strong>phase angle</strong>. So each node has two numbers: a <em>magnitude</em> (how high the wave swings) and an <em>angle</em> (how early or late it is). The surprise: <strong>in AC, real power flows mainly because of the timing difference, not the size difference.</strong> Compare:</p>
+
+<div class="widget">
+<div class="row"><label><input type="radio" name="w3mode" value="dc" onchange="w3draw()"> DC</label><label><input type="radio" name="w3mode" value="ac" checked onchange="w3draw()"> AC</label></div>
+<div class="ctl"><span id="w3slab">Timing shift</span><input type="range" id="w3s" min="0" max="150" value="30" oninput="w3draw()"><span id="w3sv" style="min-width:52px;text-align:right"></span></div>
+<svg id="w3pl" width="100%" viewBox="0 0 680 290" role="img" aria-label="Voltage at plant and town over time, and power transferred"></svg>
+<div id="w3msg" style="font-size:14px"></div>
+</div>
+<script>
+(function(){
+window.w3draw=function(){
+ const mode=document.querySelector('input[name=w3mode]:checked').value,s=+document.getElementById('w3s').value;
+ const L0=50,L1=390,yc=135,A=70; let g='';const ax='stroke="var(--border-strong)" stroke-width="0.5"';
+ g+=`<line x1="${L0}" y1="${yc}" x2="${L1}" y2="${yc}" ${ax}/><line x1="${L0}" y1="45" x2="${L0}" y2="225" ${ax}/>`;
+ g+=`<text class="ts" x="${(L0+L1)/2}" y="250" text-anchor="middle">Time (two cycles = 1/30 of a second)</text><text class="ts" x="${L0+6}" y="40">Voltage</text>`;
+ const R0=440,R1=640,ry0=225,ry1=55; let P;
+ if(mode==='ac'){
+  document.getElementById('w3slab').textContent='Timing shift';document.getElementById('w3sv').textContent=s+'°';
+  const d=s*Math.PI/180; let a=[],b=[];
+  for(let i=0;i<=200;i++){const t=i/200*4*Math.PI,x=L0+(L1-L0)*i/200;a.push(`${x.toFixed(1)},${(yc-A*Math.sin(t)).toFixed(1)}`);b.push(`${x.toFixed(1)},${(yc-A*0.97*Math.sin(t-d)).toFixed(1)}`);}
+  g+=`<polyline points="${a.join(' ')}" fill="none" stroke="#1D9E75" stroke-width="2"/><polyline points="${b.join(' ')}" fill="none" stroke="#7F77DD" stroke-width="2"/>`;
+  g+=`<text x="${L1}" y="58" text-anchor="end" style="font-size:12px;fill:#1D9E75">Plant (ahead)</text><text x="${L1}" y="74" text-anchor="end" style="font-size:12px;fill:#7F77DD">Town (behind)</text>`;
+  P=500*Math.sin(d);
+  let h=[];for(let k=0;k<=180;k+=3){h.push(`${(R0+(R1-R0)*k/180).toFixed(1)},${(ry0-(ry0-ry1)*Math.max(0,Math.sin(k*Math.PI/180))).toFixed(1)}`);}
+  g+=`<polyline points="${h.join(' ')}" fill="none" stroke="#D85A30" stroke-width="2"/><circle cx="${R0+(R1-R0)*s/180}" cy="${ry0-(ry0-ry1)*Math.max(0,Math.sin(d))}" r="6" fill="#EF9F27"/>`;
+  [0,90,180].forEach(k=>g+=`<text class="ts" x="${R0+(R1-R0)*k/180}" y="${ry0+18}" text-anchor="middle">${k}°</text>`);
+  g+=`<text class="ts" x="${(R0+R1)/2}" y="250" text-anchor="middle">Timing shift</text>`;
+ } else {
+  document.getElementById('w3slab').textContent='Town voltage drop';document.getElementById('w3sv').textContent=(s/15).toFixed(1)+'%';
+  const vb=1-s/1500;
+  g+=`<line x1="${L0}" y1="${yc-A}" x2="${L1}" y2="${yc-A}" stroke="#1D9E75" stroke-width="2"/><line x1="${L0}" y1="${yc-A*vb}" x2="${L1}" y2="${yc-A*vb}" stroke="#7F77DD" stroke-width="2"/>`;
+  g+=`<text x="${L1}" y="${yc-A-8}" text-anchor="end" style="font-size:12px;fill:#1D9E75">Plant: 100%</text><text x="${L1}" y="${yc-A*vb+16}" text-anchor="end" style="font-size:12px;fill:#7F77DD">Town: ${(vb*100).toFixed(1)}%</text>`;
+  P=(10/3)*s*vb;
+  let h=[];for(let k=0;k<=150;k+=3){const v=1-k/1500;h.push(`${(R0+(R1-R0)*k/150).toFixed(1)},${(ry0-(ry0-ry1)*((10/3)*k*v)/500).toFixed(1)}`);}
+  g+=`<polyline points="${h.join(' ')}" fill="none" stroke="#D85A30" stroke-width="2"/><circle cx="${R0+(R1-R0)*s/150}" cy="${ry0-(ry0-ry1)*P/500}" r="6" fill="#EF9F27"/>`;
+  g+=`<text class="ts" x="${(R0+R1)/2}" y="250" text-anchor="middle">Voltage difference</text>`;
+ }
+ g+=`<line x1="${R0}" y1="${ry0}" x2="${R1}" y2="${ry0}" ${ax}/><line x1="${R0}" y1="${ry1-10}" x2="${R0}" y2="${ry0}" ${ax}/><text class="ts" x="${R0+6}" y="40">Power to town (MW)</text>`;
+ document.getElementById('w3pl').innerHTML=g;
+ document.getElementById('w3msg').textContent=mode==='dc'
+  ?`DC: ${Math.round(P)} MW flows because the plant's voltage is higher than the town's (lesson 1's pressure difference).`
+  :(s<=90?`AC: ${Math.round(P)} MW flows from plant to town because the plant's wave runs ${s}° ahead. More shift, more power, up to the top of the hill at 90°.`
+   :`AC: past 90° the hill turns down. More shift now means LESS power: generators lose step with each other. This is how grids go unstable.`);
+};
+w3draw();
+})();
+</script>
+<p>A picture for the angle: imagine every generator in a region as a runner on a circular track, all running exactly 60 laps a second, tied together by elastic ropes (the transmission lines). A runner slightly ahead stretches the rope and pulls the others along; that pull is power flowing. More lead, more stretch, more power, until the rope effectively snaps past the top of the hill and a generator slips out of step ("loss of synchronism"). Real lines usually run at shifts of 10–30°, far from the top.</p>
+<p><strong>Why the AC equations are hard:</strong> power on every line contains a sine of the angle difference, multiplied by both voltage magnitudes. Lesson 2's self-multiplication is still there, now with a sine on top, two unknowns per node, coupled across thousands of nodes.</p>
+<div class="callout"><strong>A confusing name.</strong> "DC power flow" does <em>not</em> mean a DC grid. It is a shortcut for solving an AC grid that assumes every voltage magnitude is exactly 100% and that angle shifts are small, so the sine curve can be treated as a straight line. Look at the AC hill near 0°: it is almost straight, which is why the shortcut works there and degrades on heavily loaded days.</div>
+
+<h4>How does an oscillating voltage move energy?</h4>
+<p>Here is the mechanism, layer by layer. (1) Every node's voltage oscillates at 60 Hz with slightly different timing. (2) Because the two ends of a line are out of step, at almost every instant there is a voltage difference across the line, itself a wave. (3) That difference pushes current back and forth through the line. (4) At the plant end, power at each instant is voltage × current. Most of the time they point the same way and energy goes in; briefly they point opposite ways and a little comes back. On average, energy ratchets one way: from the leading node to the lagging one.</p>
+
+<div class="widget">
+<div class="ctl"><span>Timing shift</span><input type="range" id="w4d" min="0" max="120" value="30" oninput="w4draw()"><span id="w4dv" style="min-width:40px;text-align:right"></span></div>
+<svg id="w4pl" width="100%" viewBox="0 0 680 370" role="img" aria-label="Voltage waves, line current and instantaneous power leaving the plant"></svg>
+<div id="w4msg" style="font-size:14px"></div>
+</div>
+<script>
+(function(){
+window.w4draw=function(){
+ const dd=+document.getElementById('w4d').value,d=dd*Math.PI/180;document.getElementById('w4dv').textContent=dd+'°';
+ const L0=60,L1=640,N=240;let g='';const X=i=>L0+(L1-L0)*i/N,T=i=>i/N*4*Math.PI;
+ const ax=y=>`<line x1="${L0}" y1="${y}" x2="${L1}" y2="${y}" stroke="var(--border-strong)" stroke-width="0.5"/>`;
+ const y1=75,y2=190,y3=310;g+=ax(y1)+ax(y2)+ax(y3);
+ g+=`<text class="ts" x="${L0}" y="22">1. Voltage at each end</text><text class="ts" x="${L0}" y="138">2. Current sloshing in the line</text><text class="ts" x="${L0}" y="250">3. Power leaving the plant (voltage × current)</text>`;
+ let a=[],b=[],c=[];const amp=2*Math.sin(d/2);
+ for(let i=0;i<=N;i++){const t=T(i);a.push(`${X(i).toFixed(1)},${(y1-38*Math.sin(t)).toFixed(1)}`);b.push(`${X(i).toFixed(1)},${(y1-38*Math.sin(t-d)).toFixed(1)}`);c.push(`${X(i).toFixed(1)},${(y2-20*amp*Math.sin(t-d/2)).toFixed(1)}`);}
+ g+=`<polyline points="${a.join(' ')}" fill="none" stroke="#1D9E75" stroke-width="2"/><polyline points="${b.join(' ')}" fill="none" stroke="#7F77DD" stroke-width="2"/>`;
+ g+=`<text x="${L1}" y="22" text-anchor="end" style="font-size:12px;fill:#1D9E75">Plant</text><text x="${L1-50}" y="22" text-anchor="end" style="font-size:12px;fill:#7F77DD">Town</text>`;
+ g+=`<polyline points="${c.join(' ')}" fill="none" stroke="#BA7517" stroke-width="2"/>`;
+ for(let i=0;i<N;i++){const t=T(i+0.5),p=Math.sin(t)*amp*Math.sin(t-d/2),h=22*p;
+  g+=`<rect x="${X(i).toFixed(1)}" y="${(p>0?y3-h:y3).toFixed(1)}" width="${((L1-L0)/N+0.3).toFixed(1)}" height="${Math.abs(h).toFixed(1)}" fill="${p>0?'#1D9E75':'#D85A30'}" opacity="0.75"/>`;}
+ const avg=Math.sin(d)/2;
+ g+=`<line x1="${L0}" y1="${y3-22*avg}" x2="${L1}" y2="${y3-22*avg}" stroke="var(--text-primary)" stroke-width="1" stroke-dasharray="5 4"/><text class="t" x="${L1}" y="${y3-22*avg-6}" text-anchor="end" style="font-size:12px">Average</text>`;
+ g+=`<text x="${L0}" y="362" style="font-size:12px;fill:#1D9E75">Green: energy pushed toward the town</text><text x="${L1}" y="362" text-anchor="end" style="font-size:12px;fill:#D85A30">Coral: a little sloshes back</text>`;
+ document.getElementById('w4pl').innerHTML=g;
+ document.getElementById('w4msg').textContent=dd===0?'No timing shift: no voltage difference across the line, no current, no power.'
+  :`Net energy flows plant → town at ${Math.round(Math.sin(d)*100)}% of the line's maximum. Green outweighs coral, so energy ratchets forward even though the current reverses 120 times a second.`;
+};
+w4draw();
+})();
+</script>
+<p>Note that the <em>current</em> also oscillates; nothing travels one way down the wire. Electrons barely move, jiggling by a tiny fraction of a millimetre. What travels from plant to town is <strong>energy</strong>, carried by the electromagnetic field around the wires.</p>
+
+<h4>"But if current runs backward half the time, how does the town keep its power?"</h4>
+<p>Three layers to the answer. First, <strong>current reversing is not energy reversing</strong>: when the current flips, the voltage flips at the same moment, and negative × negative is positive. At the town end of an ordinary load, power is never negative. Second, the coral slices above are at the <em>plant</em> end: the line stores a little energy in its magnetic field, like a spring, and some of it pushes back each cycle (this stored, sloshing energy is <em>reactive power</em>). Third, on a single wire the town's power does dip to zero 120 times a second, and that is why grids use <strong>three phases</strong>:</p>
+
+<div class="widget">
+<div class="row"><label><input type="radio" name="w5m" value="1" checked onchange="w5draw()"> One phase</label><label><input type="radio" name="w5m" value="3" onchange="w5draw()"> Three phases</label></div>
+<svg id="w5pl" width="100%" viewBox="0 0 680 330" role="img" aria-label="Voltage and current at the town flip together; one phase delivers pulsing power, three phases sum to steady power"></svg>
+<div id="w5msg" style="font-size:14px"></div>
+</div>
+<script>
+(function(){
+window.w5draw=function(){
+ const m=document.querySelector('input[name=w5m]:checked').value,L0=60,L1=640,N=240;let g='';
+ const X=i=>L0+(L1-L0)*i/N,T=i=>i/N*4*Math.PI,y1=80,y2=265;
+ g+=`<line x1="${L0}" y1="${y1}" x2="${L1}" y2="${y1}" stroke="var(--border-strong)" stroke-width="0.5"/><line x1="${L0}" y1="${y2}" x2="${L1}" y2="${y2}" stroke="var(--border-strong)" stroke-width="0.5"/>`;
+ g+=`<text class="ts" x="${L0}" y="24">Voltage and current at the town (they flip together)</text><text class="ts" x="${L0}" y="140">Power received by the town</text>`;
+ let v=[],c=[];for(let i=0;i<=N;i++){const t=T(i);v.push(`${X(i).toFixed(1)},${(y1-40*Math.sin(t)).toFixed(1)}`);c.push(`${X(i).toFixed(1)},${(y1-26*Math.sin(t)).toFixed(1)}`);}
+ g+=`<polyline points="${v.join(' ')}" fill="none" stroke="#1D9E75" stroke-width="2"/><polyline points="${c.join(' ')}" fill="none" stroke="#BA7517" stroke-width="2" stroke-dasharray="5 3"/>`;
+ g+=`<text x="${L1}" y="24" text-anchor="end" style="font-size:12px;fill:#1D9E75">Voltage</text><text x="${L1-60}" y="24" text-anchor="end" style="font-size:12px;fill:#BA7517">Current</text>`;
+ const cols=['#1D9E75','#7F77DD','#D85A30'],ph=m==='3'?[0,2*Math.PI/3,4*Math.PI/3]:[0];
+ ph.forEach((p,k)=>{let q=[];for(let i=0;i<=N;i++){q.push(`${X(i).toFixed(1)},${(y2-50*Math.sin(T(i)-p)**2).toFixed(1)}`);}
+  g+=`<polyline points="${q.join(' ')}" fill="none" stroke="${cols[k]}" stroke-width="${m==='3'?1.5:2}" opacity="${m==='3'?0.8:1}"/>`;});
+ if(m==='3'){g+=`<line x1="${L0}" y1="${y2-75}" x2="${L1}" y2="${y2-75}" stroke="var(--text-primary)" stroke-width="2.5"/><text class="t" x="${L1}" y="${y2-83}" text-anchor="end" style="font-size:12px">Total of all three: perfectly steady</text>`;}
+ g+=`<text class="ts" x="${L0}" y="${y2+20}">Zero line: power never goes below it</text>`;
+ document.getElementById('w5pl').innerHTML=g;
+ document.getElementById('w5msg').textContent=m==='1'?'One phase: power pulses 120 times a second and touches zero, but never goes negative. The town only ever receives.'
+  :'Three phases, each a third of a cycle apart: when one dips to zero the other two are near their peaks. The sum is flat.';
+};
+w5draw();
+})();
+</script>
+<p>A single house gets one or two phases, so its power really does dip; you never notice because devices have small "flywheels": filaments stay hot, motors keep spinning, and electronics convert AC to DC and smooth it with capacitors. A whole town, spread evenly across the three phases, draws steady power, so generators see a smooth load. That is also why power lines come in sets of three.</p>
+
+<h3>Putting it together: what is a "power flow case"?</h3>
+<p>A <strong>power flow (PF) case</strong> is one snapshot of a grid handed to a solver: the map (which places connect, how "easy" each line is), the demand at each town, the output of each power plant (one plant is left free to make up the rest), and which lines are in service. The solver returns how much power flows on every line and in which direction, the voltage at every node, and whether any limit is broken. Every slider position below is one PF case. (This widget uses the simplified "DC" approximation.)</p>
+
+<div class="widget">
+<svg width="100%" viewBox="0 0 680 330" role="img" aria-label="Two power plants and one town connected by three lines; line thickness shows flow, coral means overloaded">
+<line id="w1lAB" x1="210" y1="80" x2="470" y2="80" stroke-linecap="round"/>
+<line id="w1lAC" x1="160" y1="102" x2="300" y2="248" stroke-linecap="round"/>
+<line id="w1lBC" x1="520" y1="102" x2="380" y2="248" stroke-linecap="round"/>
+<text id="w1tAB" class="ts" x="340" y="62" text-anchor="middle"></text>
+<text id="w1tAC" class="ts" x="215" y="190" text-anchor="end"></text>
+<text id="w1tBC" class="ts" x="465" y="190" text-anchor="start"></text>
+<g class="c-teal"><rect x="90" y="58" width="120" height="44" rx="8" stroke-width="0.5"/><text class="th" x="150" y="73" text-anchor="middle" dominant-baseline="central">Plant A</text><text id="w1gA" class="ts" x="150" y="91" text-anchor="middle" dominant-baseline="central"></text></g>
+<g class="c-teal"><rect x="470" y="58" width="120" height="44" rx="8" stroke-width="0.5"/><text class="th" x="530" y="73" text-anchor="middle" dominant-baseline="central">Plant B</text><text id="w1gB" class="ts" x="530" y="91" text-anchor="middle" dominant-baseline="central"></text></g>
+<g class="c-purple"><rect x="280" y="248" width="120" height="44" rx="8" stroke-width="0.5"/><text class="th" x="340" y="263" text-anchor="middle" dominant-baseline="central">Town C</text><text id="w1dC" class="ts" x="340" y="281" text-anchor="middle" dominant-baseline="central"></text></g>
+<text id="w1msg" class="ts" x="340" y="318" text-anchor="middle"></text>
+</svg>
+<div class="ctl" style="margin-top:8px"><span>Town C demand</span><input type="range" id="w1sD" min="0" max="300" value="150" oninput="w1run()"><span id="w1vD" style="min-width:56px;text-align:right"></span>
+<span>Plant B output</span><input type="range" id="w1sG" min="0" max="150" value="60" oninput="w1run()"><span id="w1vG" style="min-width:56px;text-align:right"></span></div>
+<div class="row"><span>Lines in service:</span><label><input type="checkbox" id="w1cAB" checked onchange="w1run()"> A–B</label><label><input type="checkbox" id="w1cAC" checked onchange="w1run()"> A–C</label><label><input type="checkbox" id="w1cBC" checked onchange="w1run()"> B–C</label><span style="color:var(--text-muted)">Each line can carry 100 MW</span></div>
+</div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+function setLine(id,on,f,label,tid){const l=$(id),t=$(tid);
+ if(!on){l.setAttribute('stroke','#888780');l.setAttribute('stroke-width','1.5');l.setAttribute('stroke-dasharray','4 5');l.setAttribute('opacity','0.5');t.textContent='Out of service';return;}
+ const a=Math.abs(f),over=a>100;l.removeAttribute('stroke-dasharray');l.setAttribute('opacity','1');
+ l.setAttribute('stroke',over?'#D85A30':'#888780');l.setAttribute('stroke-width',String(Math.min(14,1.5+a/14)));
+ t.textContent=a<0.5?'0 MW':(Math.round(a)+' MW '+label(f)+(over?' (overloaded)':''));}
+window.w1run=function(){
+ const D=+$('w1sD').value,G=+$('w1sG').value,ab=$('w1cAB').checked?1:0,ac=$('w1cAC').checked?1:0,bc=$('w1cBC').checked?1:0;
+ $('w1vD').textContent=D+' MW';$('w1vG').textContent=G+' MW';
+ const Bbb=ab+bc,Bcc=ac+bc,Bbc=-bc,det=Bbb*Bcc-Bbc*Bbc;
+ if(Math.abs(det)<1e-9){['w1lAB','w1lAC','w1lBC'].forEach((id,i)=>setLine(id,[ab,ac,bc][i],0,()=>'',['w1tAB','w1tAC','w1tBC'][i]));
+  $('w1gA').textContent='?';$('w1gB').textContent=G+' MW';$('w1dC').textContent='needs '+D+' MW';$('w1msg').textContent='Part of the grid is cut off (an island): this case has no solution.';return;}
+ const tb=(Bcc*G+Bbc*D)/det,tc=(-Bbb*D-Bbc*G)/det;
+ const fAB=-tb*ab,fAC=-tc*ac,fBC=(tb-tc)*bc;
+ setLine('w1lAB',ab,fAB,f=>f>0?'A→B':'B→A','w1tAB');setLine('w1lAC',ac,fAC,f=>f>0?'A→C':'C→A','w1tAC');setLine('w1lBC',bc,fBC,f=>f>0?'B→C':'C→B','w1tBC');
+ $('w1gA').textContent='makes up the rest: '+Math.round(D-G)+' MW';$('w1gB').textContent=G+' MW';$('w1dC').textContent='uses '+D+' MW';
+ const over=[[ab,fAB],[ac,fAC],[bc,fBC]].some(([o,f])=>o&&Math.abs(f)>100);
+ $('w1msg').textContent=over?'Solved, but a line is overloaded: this case is unsafe.':'Solved: every line is within its limit.';};
+w1run();
+})();
+</script>
+<p>Things to try: raise the town's demand and watch power reach it over <em>both</em> routes without anyone routing it (physics splits the flow). Untick line A–C: that is an <strong>N-1 case</strong>, the same grid with one element out, and the remaining route may overload. "N-2" means two out. Untick two lines and the grid islands.</p>
+<p>That is the whole vocabulary of the conference. Operators solve huge numbers of these cases (for every possible failure, every few minutes). <strong>Optimal power flow (OPF)</strong> adds one more question: which plants should produce how much so the total cost is lowest without breaking any limit. Grid foundation models are neural networks trained on millions of solved PF and OPF cases to answer new ones much faster.</p>
+
+<p class="part">Part 2</p>
+<h2 id="conference">The conference</h2>
+<p>The 5th GridFM workshop ran March 17–19, 2026 at Harvard SEAS in Allston, hosted by Harvard's Power and AI Initiative. Earlier editions were at IBM Yorktown Heights, Imperial College, Argonne and RWTH Aachen; the 6th is in Porto (October 29–30, 2026). The organizers come from IBM Research, Hydro-Québec, Brookhaven and Stony Brook, MIT, NERC, NRECA, Imperial, INESC TEC, Cornell, Texas A&amp;M, NLR (formerly NREL), CU Boulder, Argonne and Dartmouth.</p>
+
+<h3>What a grid foundation model is</h3>
+<p>In this community a "grid foundation model" mostly means a <strong>graph neural network pre-trained on millions of solved grid cases</strong>, which emulates the solvers operators already use (power flow, optimal power flow, state estimation) across many grid topologies, then gets fine-tuned per grid. It is not a language model; LLMs appear as a separate "agentic" track that calls these models and classical tools. The founding perspective is <a href="https://arxiv.org/abs/2407.09434">Hamann et al., "Foundation models for the electric power grid" (Joule, 2024)</a>, which judges success on speed, accuracy, data efficiency, generalizability and robustness to topology changes.</p>
+<p><strong>State estimation</strong>, the third core task, means recovering the full grid state from sparse, noisy sensor readings.</p>
+
+<table>
+<tr><th>Model</th><th>Who</th><th>What it is</th><th>Headline</th></tr>
+<tr><td><a href="https://arxiv.org/abs/2608.09921">GENCO</a></td><td>IBM Research, Hydro-Québec, Stony Brook (via LF Energy)</td><td>20M-parameter heterogeneous graph transformer with constraint-enforcing layers; one model for PF, OPF and SE</td><td>OPF about 35× faster than a classical solver on a 2,000-bus grid with ≤0.2% optimality gap on IEEE 118; open weights</td></tr>
+<tr><td><a href="https://www.microsoft.com/en-us/research/blog/gridsfm-a-new-small-foundation-model-for-the-electric-grid/">GridSFM</a></td><td>Microsoft Research</td><td>Hierarchical graph model for AC-OPF that also predicts whether a case is feasible; trained on grids rebuilt from OpenStreetMap, EIA and Census data</td><td>About 99% feasibility accuracy and roughly 500–1,500× faster than the IPOPT solver in the talk; released openly in May 2026</td></tr>
+<tr><td><a href="https://huggingface.co/argonne/LUMINA-2M">LUMINA</a></td><td>Argonne (DOE multi-lab)</td><td>Benchmark and open model for multi-topology AC-OPF</td><td>Fine-tuning cut training steps by 49–84% vs training from scratch</td></tr>
+<tr><td><a href="https://arxiv.org/abs/2510.22048">PFΔ</a></td><td>MIT</td><td>Benchmark of 859,800 solved PF cases with N-1, N-2 and near-infeasible cases</td><td>ML is up to 5× faster than Newton-Raphson but fails on unseen grid sizes</td></tr>
+</table>
+
+<h3>Session by session</h3>
+<h4>Keynote: from pilots to grid intelligence (GE Vernova)</h4>
+<p>Mahesh Sudhakaran argued that most AI pilots never scale because they are trained inside one utility, one topology and one dataset while failures cross ownership boundaries (his example was the April 2025 Iberian blackout). He asked researchers for three things: real-time verification of neural networks, topology-agnostic inference, and synthetic generation of extreme events, for which historical data barely exists. He framed the sharing model as pre-trained weights rather than raw data.</p>
+
+<h4>GridFM state of the union</h4>
+<ul>
+<li><strong>IBM (Brunschwiler, Vos, Puech, Freitag).</strong> GENCO handles PF, OPF and SE in one model. Trained only on N-1 and N-2 cases, it held up to 20 simultaneous outages and caught voltage violations that the DC approximation misses. Speed advantages appear only above about 2,000 buses, and an AC solver stays as the fallback for outliers. A side project builds hourly bus-level load for a synthetic Texas grid from 24 years of ERCOT data, ERA5-Land weather, building footprints and demographics, and reconstructs the unserved demand of Winter Storm Uri.</li>
+<li><strong>LF Energy (Miralles, Parisot).</strong> GridFM is an open project under the Linux Foundation for Energy with a public technical steering committee. Utilities in Europe are testing it, and a pan-European grid foundation-model consortium ("AI.grids") intends to build on it.</li>
+<li><strong>Microsoft Research (Weiwei Yang).</strong> Builds realistic, OPF-ready grids from public data, teaches the model what infeasible cases look like via eight synthetic stress modes, and uses physics-based self-supervision plus active learning so a new utility needs only a few hundred labelled cases. Warm-starting the classical solver from the model's answer cut its iterations.</li>
+<li><strong>Roadmap (Hendrik Hamann).</strong> A community roadmap split into data, models and applications, with named application tracks (benchmarks, core solvers, security, distribution, forecasting, interconnection screening, planning, agents, operations). He noted that nearly everything presented was steady-state and launched a volunteer sprint to write the roadmap.</li>
+</ul>
+
+<h4>AI-ready grid data</h4>
+<ul>
+<li><strong>Suren Byna (Ohio State):</strong> a multi-dimensional definition of "AI-ready data" and the open <a href="https://github.com/idtlab/AIDRIN">AIDRIN</a> tool that scores it.</li>
+<li><strong>Charlotte Avery (Centre for Net Zero):</strong> Faraday, a generative model producing privacy-preserving synthetic household smart-meter profiles conditioned on location and low-carbon technology, shared through LF Energy's OpenSynth.</li>
+<li><strong>MIT (PFΔ team):</strong> training on N-1 cases improves generalization; strong constraint enforcement wins near infeasibility; models fail on grid sizes they have not seen. They also noted there is genuine debate about whether AI is the right tool for power flow at all.</li>
+<li><strong>Russell Bent (Los Alamos):</strong> PowerModels.jl and PNNL's GridPACK generate training data at scale on HPC, including load-shedding cases driven by a hurricane damage model on a synthetic Texas grid.</li>
+<li><strong>Panel:</strong> the sharpest exchange was whether to make data "AI-ready" or to make AI robust to messy grid data (imputation and physics-based self-supervision built in). Independent certification of grid models was raised; how to prove coverage of extreme contingencies was left open.</li>
+</ul>
+
+<h4>Cybersecurity</h4>
+<p>IBM showed that an attacker can tell whether a grid topology was used to train a model only under very strong assumptions, which supports sharing trained weights (model inversion remains untested). Dartmouth presented privacy-preserving federated detection of bid manipulation in virtual power plants and LLM-based detection of adversarial false-data injection. NEC turned existing fibre-optic cables into vibration sensors to protect data-centre and grid corridors. West Virginia University showed operator assistants built with retrieval and credibility scoring, tested with real operators in a control-room testbed. A community survey found no reported AI security incidents yet.</p>
+
+<h4>AI for power markets</h4>
+<p>TU Delft's PriceFM, a price-forecasting foundation model for 38 European zones that uses the cross-border transmission graph as a prior, beat general time-series foundation models. Michigan showed that forecasting models interacting through market clearing reach an equilibrium, and that training for price accuracy instead of forecast accuracy lowered system cost. Georgia Tech described optimization "proxies" that replace repeated dispatch solves in seconds with certified optimality gaps. Dartmouth used LLM agents with personas to simulate household battery behaviour. Stony Brook's SONNET disaggregates rooftop solar from net load and stays robust when weather forecasts are badly wrong.</p>
+
+<h4>Safe AI for the grid (panel)</h4>
+<p>DOE's Office of Electricity highlighted black-box risk, the lack of data on rare extreme events, and operator complacency, and urged bringing utilities in early. Great River Energy, a Minnesota cooperative, described a phased AI programme that includes storm preparation analytics. The NRC said it has not yet received an AI application to review and concluded that guidance rather than new rules is needed. EPRI described a European AI testing facility and its Open Power AI consortium. Idaho National Laboratory presented an "even-if" safety framework that tests forecasting and restoration AI under drift.</p>
+
+<h4>Breakouts (not recorded)</h4>
+<ul>
+<li><strong>Agentic AI:</strong> Harvard and ISO New England's planning agents; EcoFlow's self-improving home energy management; Argonne's GridMind, which chains a weather agent, outage sampling, contingency analysis and the LUMINA model in a hurricane demo.</li>
+<li><strong>Optimization:</strong> GPU linear programming (MIT), batched GPU interior-point solving and implicit differentiation (Georgia Tech), feasibility-guaranteed neural networks (MIT), and optimal transmission switching (MIT).</li>
+<li><strong>Distribution:</strong> LIPA's AI engineering portal, TRC's survey of where utility AI is actually deployed, LCRA's extreme-weather control-room needs, NLR's control-room LLM and outage-prediction work, and RSE's graph network for hosting capacity.</li>
+</ul>
+
+<h4>Industry, dynamics and AI data centres (day 3)</h4>
+<p>CAISO described an agentic outage-management assistant in expanded beta and plans time-series foundation models for capacity-margin forecasting that account for weather. GE Vernova reported a cautionary result: a large general time-series foundation model did not beat a small domain model on daily peak load until fully fine-tuned at about 1,000 times the size. AWS described agents in production at a US utility that cut an interconnection model build from 30 days to 45 minutes. PJM, which hosts a large share of US data-centre demand, made the case for AI in extreme multi-outage events. The dynamics session covered electromagnetic models of data-centre loads (Texas A&amp;M with ERCOT), learning black-box inverter models (NYU), waveform-level measurements (UC Riverside) and an LLM assistant for EMT modelling (ASU). The AI-data-centre session covered storage sizing using historical county-level outage data (CU Boulder), flexible job scheduling (Georgia Tech), new data-centre efficiency metrics (Verrus), power-flexible LLM serving (Harvard) and AI load transients (Alberta).</p>
+
+<h3>Themes, disagreements and open problems</h3>
+<p><strong>Where people agreed.</strong> Physics must be enforced, not just added as a loss penalty. Heterogeneous graph transformers are the default architecture. Generalizing to new topologies is the defining test. Synthetic data is unavoidable but must be shown to transfer to real grids. LLM agents should wrap trusted tools rather than replace them, and this is the only track with production deployments. Open weights and community governance are the norm.</p>
+<table>
+<tr><th>Question</th><th>One view</th><th>The other</th></tr>
+<tr><td>Is AI the right tool for power flow?</td><td>Large speedups reported</td><td>Speedups only on large grids; outliers need a classical fallback; ML residuals are orders of magnitude larger than Newton-Raphson's</td></tr>
+<tr><td>Do general time-series foundation models help?</td><td>Being evaluated by an ISO</td><td>Small domain models matched or beat them on load and price forecasting</td></tr>
+<tr><td>Where will adoption come first?</td><td>Planning, where speed matters more than precision</td><td>Markets and trading; meanwhile agents for paperwork are already in production</td></tr>
+<tr><td>Data or models?</td><td>Make data AI-ready</td><td>Make models robust to real, messy data</td></tr>
+<tr><td>How big is the data-centre load wave?</td><td>Hundreds of GW of requests in some regions</td><td>Past growth forecasts did not materialize</td></tr>
+</table>
+<p><strong>Open problems named:</strong> scaling accuracy to real 10k–100k-bus grids; extreme and rare events (synthetic generation, certifying coverage, learning load-shed spikes); moving beyond steady state into time and dynamics; distribution grids; verification and uncertainty quantification; benchmarks for agents; and getting utilities into the room. Notably, <strong>no speaker used a weather foundation model</strong>; weather appears in the roadmap only as "alternative data" several years out.</p>
+
+<p class="part">Part 3</p>
+<h2 id="tutorials">The tutorials</h2>
+<p>Five hands-on tutorials ran in parallel on day 1; none were recorded.</p>
+
+<h3>Tutorial 1: Universal graph learning (Cornell and UCF)</h3>
+<p>Anna Scaglione and Tong Wu tackled a practical pain: a neural network trained on one grid configuration breaks when a line goes out for maintenance or a feeder is added, because the number of nodes, the data distribution and the output size all change. Their goal is one model that keeps working across reconfigurations without retraining (<a href="https://arxiv.org/abs/2509.08672">paper</a>).</p>
+<p><strong>Idea 1: physics already tells you how information spreads.</strong> Voltages behave like a smoothed version of the currents injected into the grid: a demand bump at one node becomes a gentle dip across its neighbours. So the network's "mix with neighbours" step is built from the grid's own electrical connectivity. The learned weights become a recipe for mixing neighbours rather than a lookup table for specific nodes, and the recipe survives rewiring.</p>
+<p><strong>Idea 2: handle any size in and any size out.</strong></p>
+<div class="widget">
+<svg width="100%" viewBox="0 0 680 300" role="img" aria-label="Grids of different sizes pass through a shared physics-based filter, are pooled to a fixed size, then a transformer with position tags produces one output per node">
+<defs><marker id="arrowu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="105" y="40" text-anchor="middle">Grids, any size</text><text class="th" x="260" y="40" text-anchor="middle">1. Shared filter</text><text class="th" x="410" y="40" text-anchor="middle">2. Pool</text><text class="th" x="570" y="40" text-anchor="middle">3. Generate</text>
+<g stroke="#888780" stroke-width="1" fill="none"><path d="M55 90 L115 90"/><path d="M55 140 L130 140 M80 140 L80 160"/><path d="M55 205 L155 205 M95 205 L95 225 M135 205 L135 225"/></g>
+<g class="c-teal"><circle cx="55" cy="90" r="5"/><circle cx="85" cy="90" r="5"/><circle cx="115" cy="90" r="5"/><circle cx="55" cy="140" r="5"/><circle cx="80" cy="140" r="5"/><circle cx="105" cy="140" r="5"/><circle cx="130" cy="140" r="5"/><circle cx="80" cy="160" r="5"/><circle cx="55" cy="205" r="5"/><circle cx="75" cy="205" r="5"/><circle cx="95" cy="205" r="5"/><circle cx="115" cy="205" r="5"/><circle cx="135" cy="205" r="5"/><circle cx="155" cy="205" r="5"/><circle cx="95" cy="225" r="5"/><circle cx="135" cy="225" r="5"/></g>
+<text class="ts" x="105" y="258" text-anchor="middle">3, 5 or 8 nodes</text>
+<line x1="170" y1="155" x2="196" y2="155" class="arr" marker-end="url(#arrowu)"/>
+<g class="c-purple"><rect x="200" y="85" width="120" height="140" rx="8" stroke-width="0.5"/><text class="th" x="260" y="135" text-anchor="middle" dominant-baseline="central">Mix with</text><text class="th" x="260" y="155" text-anchor="middle" dominant-baseline="central">neighbours</text><text class="ts" x="260" y="180" text-anchor="middle" dominant-baseline="central">Grid physics</text><text class="ts" x="260" y="196" text-anchor="middle" dominant-baseline="central">sets the weights</text></g>
+<text class="ts" x="260" y="258" text-anchor="middle">Same weights, all grids</text>
+<line x1="320" y1="155" x2="346" y2="155" class="arr" marker-end="url(#arrowu)"/>
+<g class="c-purple"><rect x="370" y="95" width="80" height="22" rx="4" stroke-width="0.5"/><rect x="370" y="125" width="80" height="22" rx="4" stroke-width="0.5"/><rect x="370" y="155" width="80" height="22" rx="4" stroke-width="0.5"/><rect x="370" y="185" width="80" height="22" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="410" y="258" text-anchor="middle">Always 4 summaries</text>
+<line x1="460" y1="155" x2="486" y2="155" class="arr" marker-end="url(#arrowu)"/>
+<g class="c-coral"><rect x="490" y="85" width="160" height="56" rx="8" stroke-width="0.5"/><text class="th" x="570" y="105" text-anchor="middle" dominant-baseline="central">Transformer</text><text class="ts" x="570" y="124" text-anchor="middle" dominant-baseline="central">+ position tags</text></g>
+<line x1="570" y1="141" x2="570" y2="176" class="arr" marker-end="url(#arrowu)"/>
+<g class="c-coral"><circle cx="515" cy="200" r="7"/><circle cx="540" cy="200" r="7"/><circle cx="565" cy="200" r="7"/><circle cx="590" cy="200" r="7"/><circle cx="615" cy="200" r="7"/><circle cx="640" cy="200" r="7"/></g>
+<text class="ts" x="578" y="258" text-anchor="middle">One answer per node</text><text class="ts" x="578" y="276" text-anchor="middle">of the new grid</text>
+</svg>
+</div>
+<p>A shared filter runs on every grid; pooling squashes any number of nodes into a fixed set of summaries; a transformer turns those back into one output per node of the target grid, using position tags (the same trick language models use to know word order). Training adds a third axis beyond space and time, a <em>topology dimension</em>: many deliberately rewired versions of the grid, so new configurations look familiar. In the paper, a model trained across several standard test grids kept about 91–93% accuracy at locating cyberattacked sensors where standard networks fell to about 62–64%, and forecasting error on unseen reconfigurations was about 100 times lower than a plain transformer. Caveats: simulations on textbook grids only, transfer to a completely new grid is future work, and there is no public code.</p>
+
+<h3>Tutorial 2: Hands-on power flow with PowSyBl (Artelys)</h3>
+<p>PowSyBl is the open-source grid simulator built by France's transmission operator RTE, now an LF Energy project; <span class="mono">pypowsybl</span> is its Python interface. A foundation-model workshop teaches it because every model learns from solved cases, and the labels are only as good as the solver that produced them. The <a href="https://github.com/gfm5pp/gfm5pp">two public notebooks</a> load five grids (a 6-bus toy, two ENTSO-E standard test grids in the European CGMES exchange format, a synthetic country called "Belgovia", and a 6,515-bus model of the French grid), then show how many hidden decisions sit inside "just run the power flow". The clearest is: when demand rises, who covers it?</p>
+
+<div class="widget">
+<div class="ctl"><span>Extra demand</span><input type="range" id="w6x" min="0" max="100" value="20" oninput="w6draw()"><span id="w6xv" style="min-width:52px;text-align:right"></span></div>
+<div class="row"><label><input type="radio" name="w6m" value="single" checked onchange="w6draw()"> One slack generator takes it all</label><label><input type="radio" name="w6m" value="dist" onchange="w6draw()"> Distributed slack (60 / 30 / 10%)</label></div>
+<div id="w6bars"></div>
+<div id="w6note" class="cap"></div>
+</div>
+<script>
+(function(){
+const gens=[{n:'Gen 1',f:0.6},{n:'Gen 2',f:0.3},{n:'Gen 3',f:0.1}];
+window.w6draw=function(){
+ const X=+document.getElementById('w6x').value,m=document.querySelector('input[name=w6m]:checked').value;
+ document.getElementById('w6xv').textContent=X+' MW';
+ const share=gens.map((g,i)=>m==='single'?(i===0?X:0):X*g.f);
+ document.getElementById('w6bars').innerHTML=gens.map((g,i)=>`<div style="display:grid;grid-template-columns:60px 1fr 70px;gap:10px;align-items:center;margin:6px 0;font-size:14px"><span>${g.n}</span><div style="background:var(--surface-1);border:1px solid var(--border);border-radius:4px;height:22px;position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:${Math.max(0.5,share[i])}%;background:#1D9E75;border-radius:4px;transition:width .3s"></div></div><span style="text-align:right;color:var(--text-secondary)">+${share[i].toFixed(1)} MW</span></div>`).join('');
+ document.getElementById('w6note').textContent=m==='single'?'One plant swings alone: simple, but unrealistic, and that plant may hit its limit.':'Each plant picks up its share: closer to reality, and it changes every line flow in the answer.';
+};
+w6draw();
+})();
+</script>
+<p>Different slack choices put different power on different lines, so the "same" case yields different answers. The notebooks walk through the rest: choice of solver (Newton-Raphson, fast decoupled, Newton-Krylov, or the DC shortcut), stopping tolerance, starting guess (a good one converges in about 5 iterations, a bad one in about 15 or never), generator reactive-power limits that switch mid-solve, what to do when no generator can cover a gap, deliberately breaking convergence and then fixing it with a better start and damped steps, islands, and the equipment zoo (tap changers, capacitor banks, static VAR compensators, HVDC converters). The lesson for machine learning: every benchmark label embeds these settings, which is one reason the community wants shared benchmarks.</p>
+
+<h3>Tutorials 3–5 in brief</h3>
+<ul>
+<li><strong>gridfm-datakit and gridfm-graphkit (IBM):</strong> datakit generates PF and OPF training cases from all 66 standard PGLib grids plus a synthetic Texas grid, perturbing loads from real profiles, topology (N-k outages), line parameters and generator costs, and imports the PFΔ and OPFData datasets; graphkit trains and fine-tunes GENCO and other graph models. Both are Apache-2.0 on <a href="https://github.com/gridfm">GitHub</a>.</li>
+<li><strong>ANDES (NC State, Hantao Cui):</strong> an open-source Python library for dynamic (time-domain) grid simulation with over 100 device models, used to generate training data beyond steady state. Only a video was shared.</li>
+<li><strong>PowerMCP and PowerSkills (Harvard, Qian Zhang):</strong> connecting a general-purpose LLM to grid software through the Model Context Protocol, plus reusable workflow "skills", from the open <a href="https://poweragent.seas.harvard.edu/">PowerAgent</a> community.</li>
+</ul>
+
+<p class="part">Part 4</p>
+<h2 id="resources">Open models, datasets and code</h2>
+<table>
+<tr><th>Resource</th><th>What</th><th>Link</th></tr>
+<tr><td>GENCO weights and datasets</td><td>Six checkpoints and 36 PF/OPF datasets (Apache-2.0)</td><td><a href="https://huggingface.co/gridfm">huggingface.co/gridfm</a></td></tr>
+<tr><td>gridfm-datakit / graphkit</td><td>Data generation and training</td><td><a href="https://github.com/gridfm">github.com/gridfm</a></td></tr>
+<tr><td>GridSFM</td><td>Microsoft's model, code and an open US grid dataset covering 48 states</td><td><a href="https://github.com/microsoft/GridSFM">code</a>, <a href="https://huggingface.co/datasets/microsoft/GridSFM_US_power_grid">data</a></td></tr>
+<tr><td>LUMINA-2M</td><td>Argonne's open AC-OPF model</td><td><a href="https://huggingface.co/argonne/LUMINA-2M">weights</a>, <a href="https://github.com/argonne-gridfm">code</a></td></tr>
+<tr><td>PFΔ</td><td>Power flow benchmark</td><td><a href="https://huggingface.co/datasets/pfdelta/pfdelta">data</a>, <a href="https://github.com/MOSSLab-MIT/pfdelta">code</a></td></tr>
+<tr><td>PGLearn</td><td>OPF datasets from 14 to 24k buses</td><td><a href="https://huggingface.co/PGLearn">data</a></td></tr>
+<tr><td>Faraday 5.0</td><td>10M synthetic UK household load profiles</td><td><a href="https://huggingface.co/datasets/OpenSynth/cnz-faraday-5.0">data</a></td></tr>
+<tr><td>PowerModels.jl, GridPACK, pypowsybl, ANDES</td><td>Classical solvers and simulators</td><td><a href="https://github.com/lanl-ansi/PowerModels.jl">PowerModels</a>, <a href="https://github.com/GridOPTICS/GridPACK">GridPACK</a>, <a href="https://github.com/powsybl/pypowsybl">pypowsybl</a>, <a href="https://github.com/CURENT/andes">ANDES</a></td></tr>
+<tr><td>FSNet, AIDRIN, APPFL, PowerMCP</td><td>Feasibility-guaranteed networks, data readiness, federated learning, LLM tool access</td><td><a href="https://github.com/MOSSLab-MIT/FSNet">FSNet</a>, <a href="https://github.com/idtlab/AIDRIN">AIDRIN</a>, <a href="https://github.com/APPFL/APPFL">APPFL</a>, <a href="https://github.com/Power-Agent/PowerMCP">PowerMCP</a></td></tr>
+</table>
+
+<p class="part">Part 5</p>
+<h2 id="directions">Open research directions</h2>
+<p>The power-flow and OPF surrogate space is now crowded, with several strong open models. The gap the conference left wide open is <strong>weather</strong>: every grid model assumes someone hands it the list of failed lines and the loads, and weather-driven outage prediction rarely talks to grid physics. Directions I find most promising:</p>
+<ol>
+<li><strong>Storm → line failures → grid response.</strong> Chain a weather model to probabilities of line failure (wind, ice, vegetation), run power flow on the damaged grid, and predict which areas go dark, validated against real outage records. This captures outages caused by failures far away that purely statistical models miss.</li>
+<li><strong>Synthetic extreme events.</strong> Use weather foundation models to generate physically plausible variants of real storms and convert them into correlated outage sets for training and stress-testing grid models, directly answering the keynote's request.</li>
+<li><strong>An open benchmark for weather-driven outages.</strong> The community has benchmarks for power flow but none for outages; one built from public outage records and reanalysis weather, with locked test events, would let methods be compared honestly.</li>
+<li><strong>Weather-driven load at fine resolution,</strong> extending downscaling approaches like IBM's Texas work to other regions so that power flow inputs are realistic during heat waves and cold snaps.</li>
+<li><strong>Weather-dependent line limits</strong> (how much a line can safely carry depends on air temperature and wind), which shifts where the "top of the hill" sits for every line.</li>
+<li><strong>Restoration with grid physics,</strong> since restoring service means islands rejoining in an order that must not overload what is already energized.</li>
+</ol>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://gridfm.org/harvard/">Workshop page and agenda</a>, the individual talk pages linked from it, and the <a href="https://gridfm.org/gridfm-harvard-posters/">poster abstracts</a>.</li>
+<li><a href="https://drive.google.com/drive/folders/1PduykbUBNKKm7bCbgRJbqlXXKgjaNKQz">Slides from the presenters</a> (43 decks).</li>
+<li>Recordings: <a href="https://harvard.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=14dcafa5-9ca3-47dc-95c3-b40a00d731be">day 1</a>, <a href="https://harvard.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3f506813-2d3a-4b46-b472-b40a00d2745f">day 2</a>, <a href="https://harvard.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7ebc906e-780c-4d4e-ab0b-b40a00d2b0fc">day 3</a>. Breakouts and tutorials were not recorded; summaries of those come from slides, abstracts and public code.</li>
+<li>Papers, repositories and model cards linked inline; resource status checked October 2026.</li>
+<li>Follow-ups: <a href="https://gridfm.org/meetings/">GridFM monthly meetings</a> and the <a href="https://gridfm.org/porto/">Porto conference</a>.</li>
+</ul>
+<p>Speaker positions are paraphrased from slides and auto-generated captions; any errors of interpretation are mine. Corrections welcome.</p>
+
+<footer>Manmeet Singh · Notes compiled with help from Claude (Anthropic). Interactive diagrams are simplified teaching models, not engineering tools.</footer>
+</main>
+</body>
+</html>
