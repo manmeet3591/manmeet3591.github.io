@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-/* ── Token system ── dark-first; ocean-console palette */
+/* -- Token system -- dark-first; ocean-console palette */
 :root {
   --bg:       #05101D;
   --surf1:    #0B1829;
@@ -42,10 +42,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:var(--body);background:var(--bg);color:var(--text1);font-size:14px;line-height:1.5;overflow:hidden}
 
-/* ── App shell ── */
+/* -- App shell -- */
 .app{display:flex;flex-direction:column;height:100%}
 
-/* ── Header ── */
+/* -- Header -- */
 header{
   background:var(--surf1);border-bottom:1px solid var(--border);
   padding:0 18px;flex-shrink:0;
@@ -67,7 +67,7 @@ header{
 .dot.pulse{animation:pulse-dot 1.8s infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 
-/* ── Alert ticker ── */
+/* -- Alert ticker -- */
 .ticker{background:var(--surf1);border-bottom:1px solid var(--border);height:28px;overflow:hidden;flex-shrink:0}
 .ticker-inner{display:flex;align-items:center;height:100%;padding:0 18px;gap:0}
 .ticker-label{font-size:10px;font-weight:600;letter-spacing:.8px;color:var(--warn);text-transform:uppercase;white-space:nowrap;padding-right:16px;border-right:1px solid var(--border);margin-right:16px}
@@ -82,7 +82,7 @@ header{
 .badge.flood{background:#A87FE822;color:#A87FE8;border:1px solid #A87FE844}
 @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ── Layer controls ── */
+/* -- Layer controls -- */
 .layer-bar{
   background:var(--surf1);border-bottom:1px solid var(--border);
   display:flex;align-items:center;gap:8px;padding:0 18px;height:38px;flex-shrink:0
@@ -104,7 +104,7 @@ header{
 .layer-sep{width:1px;height:20px;background:var(--border)}
 .map-ts{margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)}
 
-/* ── Map hero ── */
+/* -- Map hero -- */
 .map-hero{
   flex:0 0 auto;
   display:flex;gap:0;
@@ -133,7 +133,7 @@ header{
 .map-svg-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:12px}
 .map-svg-wrap svg{width:100%;height:100%;max-width:100%;max-height:100%}
 
-/* ── Map legend ── */
+/* -- Map legend -- */
 .map-legend{
   background:var(--surf1);border-top:1px solid var(--border);
   height:34px;display:flex;align-items:center;gap:16px;padding:0 18px;flex-shrink:0;
@@ -143,7 +143,7 @@ header{
 .ml-swatch{width:10px;height:10px;border-radius:2px}
 .ml-dot{width:8px;height:8px;border-radius:50%}
 
-/* ── Tab nav ── */
+/* -- Tab nav -- */
 .tab-nav{
   display:flex;border-bottom:1px solid var(--border);
   background:var(--surf1);flex-shrink:0;height:42px;
@@ -160,12 +160,12 @@ header{
 .tab-btn:hover{color:var(--text1)}
 .tab-btn.active{color:var(--text1);border-bottom-color:var(--accent)}
 
-/* ── Content panels ── */
+/* -- Content panels -- */
 .content{flex:1;overflow-y:auto;overflow-x:hidden}
 .tab-panel{display:none;padding:16px 18px;max-width:1600px;margin:0 auto}
 .tab-panel.active{display:block}
 
-/* ── Cards ── */
+/* -- Cards -- */
 .section-title{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px}
@@ -185,7 +185,7 @@ header{
 .badge-warn{background:#F5A62322;color:#F5A623;border:1px solid #F5A62344}
 .badge-good{background:#00D48A22;color:#00D48A;border:1px solid #00D48A44}
 
-/* ── Charts ── */
+/* -- Charts -- */
 .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
 .chart-card{background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px}
@@ -193,7 +193,7 @@ header{
 .chart-sub{font-size:10px;color:var(--text2);font-weight:400;margin-left:6px}
 .chart-wrap{position:relative;height:160px}
 
-/* ── Flood table ── */
+/* -- Flood table -- */
 .ftable{width:100%;border-collapse:collapse;font-size:12px}
 .ftable th{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);padding:6px 10px;border-bottom:1px solid var(--border);text-align:left;font-weight:500}
 .ftable td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text1)}
@@ -204,7 +204,7 @@ header{
 .inund-fill{height:100%;border-radius:2px}
 .risk-chip{display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mono)}
 
-/* ── S2S outlook ── */
+/* -- S2S outlook -- */
 .s2s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px}
 .s2s-card{background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:10px}
 .s2s-week{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
@@ -216,7 +216,7 @@ header{
 .s2s-bar-fill{height:100%;border-radius:2px}
 .s2s-bar-val{width:26px;color:var(--text2);text-align:right;font-family:var(--mono)}
 
-/* ── Tooltip ── */
+/* -- Tooltip -- */
 #mapTooltip{
   position:fixed;z-index:9999;pointer-events:none;
   background:rgba(10,24,45,.95);backdrop-filter:blur(12px);
@@ -233,7 +233,7 @@ header{
 .tt-val{color:var(--text1);font-family:var(--mono);font-size:11px;font-weight:500}
 .tt-div{height:1px;background:var(--border);margin:5px 0}
 
-/* ── Marker animations ── */
+/* -- Marker animations -- */
 @keyframes ring-pulse{
   0%{r:12;opacity:.8;stroke-width:2}
   70%{r:26;opacity:0;stroke-width:1}
@@ -366,15 +366,15 @@ header{
 
         <!-- Lat/lon grid -->
         <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
-          <line x1="0" y1="23" x2="460" y2="23"/><!-- 48°N -->
-          <line x1="0" y1="81" x2="460" y2="81"/><!-- 43°N -->
-          <line x1="0" y1="139" x2="460" y2="139"/><!-- 38°N -->
-          <line x1="0" y1="197" x2="460" y2="197"/><!-- 33°N -->
-          <line x1="0" y1="255" x2="460" y2="255"/><!-- 28°N -->
-          <line x1="92" y1="0" x2="92" y2="310"/><!-- -112°W -->
-          <line x1="183" y1="0" x2="183" y2="310"/><!-- -99°W -->
-          <line x1="275" y1="0" x2="275" y2="310"/><!-- -86°W -->
-          <line x1="367" y1="0" x2="367" y2="310"/><!-- -73°W -->
+          <line x1="0" y1="23" x2="460" y2="23"/><!-- 48&#xB0;N -->
+          <line x1="0" y1="81" x2="460" y2="81"/><!-- 43&#xB0;N -->
+          <line x1="0" y1="139" x2="460" y2="139"/><!-- 38&#xB0;N -->
+          <line x1="0" y1="197" x2="460" y2="197"/><!-- 33&#xB0;N -->
+          <line x1="0" y1="255" x2="460" y2="255"/><!-- 28&#xB0;N -->
+          <line x1="92" y1="0" x2="92" y2="310"/><!-- -112&#xB0;W -->
+          <line x1="183" y1="0" x2="183" y2="310"/><!-- -99&#xB0;W -->
+          <line x1="275" y1="0" x2="275" y2="310"/><!-- -86&#xB0;W -->
+          <line x1="367" y1="0" x2="367" y2="310"/><!-- -73&#xB0;W -->
         </g>
 
         <!-- Canada (top border strip) -->
@@ -507,7 +507,7 @@ header{
 
         <!-- Node markers -->
 
-        <!-- Los Angeles (34.05N, 118.24W) → x=(-118.24+125)*5.85=40, y=(50-34.05)*12=191 -->
+        <!-- Los Angeles (34.05N, 118.24W) &#x2192; x=(-118.24+125)*5.85=40, y=(50-34.05)*12=191 -->
         <g class="node-group" data-node="los-angeles" style="cursor:pointer">
           <circle cx="40" cy="162" r="22" fill="transparent"/>
           <circle cx="40" cy="162" r="22" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
@@ -515,10 +515,10 @@ header{
           <circle cx="40" cy="162" r="5" fill="#00D48A"/>
           <circle cx="40" cy="162" r="2.5" fill="#fff" opacity="0.7"/>
           <text x="50" y="158" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">LOS ANGELES DC</text>
-          <text x="50" y="168" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">34.1°N 118.2°W</text>
+          <text x="50" y="168" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">34.1&#xB0;N 118.2&#xB0;W</text>
         </g>
 
-        <!-- Chicago (41.88N, 87.63W) → x=(-87.63+125)*5.85=218, y=(50-41.88)*12=97 -->
+        <!-- Chicago (41.88N, 87.63W) &#x2192; x=(-87.63+125)*5.85=218, y=(50-41.88)*12=97 -->
         <g class="node-group" data-node="chicago" style="cursor:pointer">
           <circle cx="220" cy="98" r="22" fill="transparent"/>
           <circle cx="220" cy="98" r="28" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
@@ -526,10 +526,10 @@ header{
           <circle cx="220" cy="98" r="6" fill="#F5455A"/>
           <circle cx="220" cy="98" r="3" fill="#fff" opacity="0.8"/>
           <text x="230" y="94" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">CHICAGO DC</text>
-          <text x="230" y="104" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">41.9°N 87.6°W</text>
+          <text x="230" y="104" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">41.9&#xB0;N 87.6&#xB0;W</text>
         </g>
 
-        <!-- Atlanta (33.75N, 84.39W) → x=(-84.39+125)*5.85=237, y=(50-33.75)*12=195 -->
+        <!-- Atlanta (33.75N, 84.39W) &#x2192; x=(-84.39+125)*5.85=237, y=(50-33.75)*12=195 -->
         <g class="node-group" data-node="atlanta" style="cursor:pointer">
           <circle cx="238" cy="195" r="22" fill="transparent"/>
           <circle cx="238" cy="195" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring" opacity="0.65"/>
@@ -537,10 +537,10 @@ header{
           <circle cx="238" cy="195" r="5.5" fill="#F5A623"/>
           <circle cx="238" cy="195" r="3" fill="#fff" opacity="0.7"/>
           <text x="248" y="191" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">ATLANTA DC</text>
-          <text x="248" y="201" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">33.8°N 84.4°W</text>
+          <text x="248" y="201" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">33.8&#xB0;N 84.4&#xB0;W</text>
         </g>
 
-        <!-- New Jersey (40.7N, 74.17W) → x=(-74.17+125)*5.85=297, y=(50-40.7)*12=112 -->
+        <!-- New Jersey (40.7N, 74.17W) &#x2192; x=(-74.17+125)*5.85=297, y=(50-40.7)*12=112 -->
         <g class="node-group" data-node="newjersey" style="cursor:pointer">
           <circle cx="298" cy="112" r="22" fill="transparent"/>
           <circle cx="298" cy="112" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring-s" opacity="0.6"/>
@@ -548,7 +548,7 @@ header{
           <circle cx="298" cy="112" r="5.5" fill="#F5A623"/>
           <circle cx="298" cy="112" r="3" fill="#fff" opacity="0.7"/>
           <text x="305" y="106" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">NEW JERSEY DC</text>
-          <text x="305" y="116" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">40.7°N 74.2°W</text>
+          <text x="305" y="116" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">40.7&#xB0;N 74.2&#xB0;W</text>
         </g>
 
         <!-- Compass -->
@@ -652,14 +652,14 @@ header{
 
         <!-- Subtle lat/lon grid -->
         <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
-          <line x1="0" y1="105" x2="320" y2="105"/><!-- 30°N -->
-          <line x1="0" y1="167" x2="320" y2="167"/><!-- 25°N -->
-          <line x1="0" y1="230" x2="320" y2="230"/><!-- 20°N -->
-          <line x1="0" y1="292" x2="320" y2="292"/><!-- 15°N -->
-          <line x1="0" y1="355" x2="320" y2="355"/><!-- 10°N -->
-          <line x1="80" y1="0" x2="80" y2="420"/><!-- 75°E -->
-          <line x1="158" y1="0" x2="158" y2="420"/><!-- 83°E -->
-          <line x1="236" y1="0" x2="236" y2="420"/><!-- 91°E -->
+          <line x1="0" y1="105" x2="320" y2="105"/><!-- 30&#xB0;N -->
+          <line x1="0" y1="167" x2="320" y2="167"/><!-- 25&#xB0;N -->
+          <line x1="0" y1="230" x2="320" y2="230"/><!-- 20&#xB0;N -->
+          <line x1="0" y1="292" x2="320" y2="292"/><!-- 15&#xB0;N -->
+          <line x1="0" y1="355" x2="320" y2="355"/><!-- 10&#xB0;N -->
+          <line x1="80" y1="0" x2="80" y2="420"/><!-- 75&#xB0;E -->
+          <line x1="158" y1="0" x2="158" y2="420"/><!-- 83&#xB0;E -->
+          <line x1="236" y1="0" x2="236" y2="420"/><!-- 91&#xB0;E -->
         </g>
 
         <!-- Neighboring countries (background) -->
@@ -789,7 +789,7 @@ header{
 
         <!-- Node markers (always visible) -->
 
-        <!-- Rajasthan (26.3N, 73.1E) → x=(73.1-67)*9.5=58, y=(37.5-26.3)*12.8=143 -->
+        <!-- Rajasthan (26.3N, 73.1E) &#x2192; x=(73.1-67)*9.5=58, y=(37.5-26.3)*12.8=143 -->
         <g class="node-group" data-node="rajasthan" style="cursor:pointer">
           <circle cx="58" cy="143" r="20" fill="transparent" class="hit-area"/>
           <circle cx="58" cy="143" r="24" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
@@ -797,10 +797,10 @@ header{
           <circle cx="58" cy="143" r="5" fill="#00D48A"/>
           <circle cx="58" cy="143" r="3" fill="#fff" opacity="0.7"/>
           <text x="68" y="139" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">RAJASTHAN MFG</text>
-          <text x="68" y="149" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">26.3°N 73.1°E</text>
+          <text x="68" y="149" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">26.3&#xB0;N 73.1&#xB0;E</text>
         </g>
 
-        <!-- Pune (18.5N, 73.9E) → x=(73.9-67)*9.5=65, y=(37.5-18.5)*12.8=243 -->
+        <!-- Pune (18.5N, 73.9E) &#x2192; x=(73.9-67)*9.5=65, y=(37.5-18.5)*12.8=243 -->
         <g class="node-group" data-node="pune" style="cursor:pointer">
           <circle cx="65" cy="243" r="20" fill="transparent" class="hit-area"/>
           <circle cx="65" cy="243" r="24" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring fast" opacity="0.6"/>
@@ -808,10 +808,10 @@ header{
           <circle cx="65" cy="243" r="5.5" fill="#F5A623"/>
           <circle cx="65" cy="243" r="3" fill="#fff" opacity="0.7"/>
           <text x="75" y="239" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">PUNE MFG</text>
-          <text x="75" y="249" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.5°N 73.9°E</text>
+          <text x="75" y="249" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.5&#xB0;N 73.9&#xB0;E</text>
         </g>
 
-        <!-- JNPT Mumbai (18.9N, 72.9E) → x=(72.9-67)*9.5=56, y=(37.5-18.9)*12.8=238 -->
+        <!-- JNPT Mumbai (18.9N, 72.9E) &#x2192; x=(72.9-67)*9.5=56, y=(37.5-18.9)*12.8=238 -->
         <g class="node-group" data-node="jnpt" style="cursor:pointer">
           <circle cx="48" cy="228" r="20" fill="transparent" class="hit-area"/>
           <circle cx="48" cy="228" r="26" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
@@ -819,10 +819,10 @@ header{
           <circle cx="48" cy="228" r="6" fill="#F5455A"/>
           <circle cx="48" cy="228" r="3" fill="#fff" opacity="0.8"/>
           <text x="22" y="218" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">JNPT PORT</text>
-          <text x="22" y="228" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.9°N 72.9°E</text>
+          <text x="22" y="228" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.9&#xB0;N 72.9&#xB0;E</text>
         </g>
 
-        <!-- Kolkata (22.5N, 88.4E) → x=(88.4-67)*9.5=203, y=(37.5-22.5)*12.8=192 -->
+        <!-- Kolkata (22.5N, 88.4E) &#x2192; x=(88.4-67)*9.5=203, y=(37.5-22.5)*12.8=192 -->
         <g class="node-group" data-node="kolkata" style="cursor:pointer">
           <circle cx="203" cy="192" r="20" fill="transparent" class="hit-area"/>
           <circle cx="203" cy="192" r="26" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring" opacity="0.7"/>
@@ -830,7 +830,7 @@ header{
           <circle cx="203" cy="192" r="6" fill="#F5455A"/>
           <circle cx="203" cy="192" r="3" fill="#fff" opacity="0.8"/>
           <text x="213" y="188" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">KOLKATA</text>
-          <text x="213" y="198" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">22.5°N 88.4°E</text>
+          <text x="213" y="198" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">22.5&#xB0;N 88.4&#xB0;E</text>
         </g>
 
         <!-- Compass rose -->
@@ -918,7 +918,7 @@ header{
       </div>
       <div class="card sev-good">
         <div class="card-loc">Los Angeles DC</div>
-        <div class="card-val">22<span class="card-unit">°C</span></div>
+        <div class="card-val">22<span class="card-unit">&#xB0;C</span></div>
         <div class="card-desc">Clear, 14 km/h SW breeze. All ops normal. Marine layer clearing.</div>
         <div class="card-badge badge-good">CLEAR</div>
       </div>
@@ -960,7 +960,7 @@ header{
       </div>
       <div class="card sev-good">
         <div class="card-loc">Rajasthan Plant</div>
-        <div class="card-val">31<span class="card-unit">°C</span></div>
+        <div class="card-val">31<span class="card-unit">&#xB0;C</span></div>
         <div class="card-desc">Clear skies, 8 km/h NW breeze. Ops normal. Heat advisory watch.</div>
         <div class="card-badge badge-good">CLEAR</div>
       </div>
@@ -968,7 +968,7 @@ header{
     <div class="section-title">ECMWF ENS - 8-15 Day Medium Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India  -  Temperature Anomaly (°C) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">India  -  Temperature Anomaly (&#xB0;C) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaTemp"></canvas></div>
       </div>
       <div class="chart-card">
@@ -1004,7 +1004,7 @@ header{
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">2.1 m</td>
-          <td style="color:#F5455A">▲ Rising</td>
+          <td style="color:#F5455A">&#x25B2; Rising</td>
           <td style="color:var(--text2)">Operations suspended. Road access closed.</td>
           <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">CRITICAL</span></td>
         </tr>
@@ -1018,7 +1018,7 @@ header{
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.8 m</td>
-          <td style="color:#F5A623">► Stable</td>
+          <td style="color:#F5A623">&#x25BA; Stable</td>
           <td style="color:var(--text2)">NH-27 partially submerged. Delay 6-8 hr.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">ADVISORY</span></td>
         </tr>
@@ -1032,7 +1032,7 @@ header{
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">1.6 m</td>
-          <td style="color:#F5A623">▼ Receding</td>
+          <td style="color:#F5A623">&#x25BC; Receding</td>
           <td style="color:var(--text2)">I-10 W limited. Atlanta routing via I-20.</td>
           <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HIGH</span></td>
         </tr>
@@ -1046,7 +1046,7 @@ header{
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.4 m</td>
-          <td style="color:#F5A623">► Stable</td>
+          <td style="color:#F5A623">&#x25BA; Stable</td>
           <td style="color:var(--text2)">Minor parking area flooding. DC ops unaffected.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">LOW</span></td>
         </tr>
@@ -1060,7 +1060,7 @@ header{
             </div>
           </td>
           <td style="font-family:var(--mono);color:var(--text2)"> - </td>
-          <td style="color:#00D48A">✓ Clear</td>
+          <td style="color:#00D48A">&#x2713; Clear</td>
           <td style="color:var(--text2)">No inundation detected. All ops normal.</td>
           <td><span class="risk-chip" style="background:#00D48A22;color:#00D48A;border:1px solid #00D48A44">CLEAR</span></td>
         </tr>
@@ -1188,14 +1188,14 @@ header{
 </div><!-- .app -->
 
 <script>
-// ── Timestamp ──
+// \u2500\u2500 Timestamp \u2500\u2500
 (function(){
   const now = new Date();
   const fmt = d => d.toUTCString().replace('GMT','UTC');
   document.getElementById('mapTs').textContent = fmt(now);
 })();
 
-// ── Alert ticker ──
+// \u2500\u2500 Alert ticker \u2500\u2500
 const alerts = [
   {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt  -  Port ops suspended'},
   {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall  -  SAR flood confirmed 2.1m depth'},
@@ -1206,7 +1206,7 @@ const alerts = [
   {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm  -  Storm surge 0.8m, container yard delays 3-5hr'},
   {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km2 inundated  -  I-10 W limited'},
   {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected  -  Rajasthan week 3 clearing'},
-  {badge:'INFO',cls:'info',text:'ECMWF ENS: La Nina SST anomaly -1.2°C Nino-3.4  -  Elevated US storm risk'},
+  {badge:'INFO',cls:'info',text:'ECMWF ENS: La Nina SST anomaly -1.2\u00b0C Nino-3.4  -  Elevated US storm risk'},
   {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2  -  Bay of Bengal enhanced convection'},
 ];
 const tc = document.getElementById('tickerContent');
@@ -1218,7 +1218,7 @@ const tc = document.getElementById('tickerContent');
   tc.appendChild(el);
 });
 
-// ── Layer switching ──
+// \u2500\u2500 Layer switching \u2500\u2500
 let currentLayer = 'nowcast';
 const layerIds = {
   nowcast: ['layer-nowcast-india','layer-nowcast-us'],
@@ -1255,7 +1255,7 @@ function setLayer(layer) {
   currentLayer = layer;
 }
 
-// ── Tab switching ──
+// \u2500\u2500 Tab switching \u2500\u2500
 function switchTab(tab) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1263,7 +1263,7 @@ function switchTab(tab) {
   event.currentTarget.classList.add('active');
 }
 
-// ── Map tooltip ──
+// \u2500\u2500 Map tooltip \u2500\u2500
 const tooltip = document.getElementById('mapTooltip');
 const ttLoc = document.getElementById('ttLoc');
 const ttBody = document.getElementById('ttBody');
@@ -1271,16 +1271,16 @@ const ttBody = document.getElementById('ttBody');
 const nodeData = {
   rajasthan: {
     name: 'Rajasthan Manufacturing',
-    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'[OK] Ops Normal'}],
-    flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'✅ Clear'}],
+    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31\u00b0C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'[OK] Ops Normal'}],
+    flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'\u2705 Clear'}],
     s2s:     [{k:'Week 2-3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
-    medium:  [{k:'Day 8-15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2°C'}],
+    medium:  [{k:'Day 8-15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2\u00b0C'}],
   },
   pune: {
     name: 'Pune Manufacturing',
-    nowcast: [{k:'Condition',v:'Heavy Rain [!]'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active  -  8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'⚠️ Monitoring'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor  -  12 km2'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'⚠️ Low'}],
-    s2s:     [{k:'Week 2-3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 ± 3d'},{k:'Confidence',v:'65%'}],
+    nowcast: [{k:'Condition',v:'Heavy Rain [!]'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active  -  8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'\u26a0\ufe0f Monitoring'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor  -  12 km2'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'\u26a0\ufe0f Low'}],
+    s2s:     [{k:'Week 2-3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 \u00b1 3d'},{k:'Confidence',v:'65%'}],
     medium:  [{k:'Day 8-10',v:'Continued wet'},{k:'Day 11-15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
   },
   jnpt: {
@@ -1292,36 +1292,36 @@ const nodeData = {
   },
   kolkata: {
     name: 'Kolkata Distribution Hub',
-    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'⛔ Closed'},{k:'Status',v:'⛔ Ops Suspended'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'\u26d4 Closed'},{k:'Status',v:'\u26d4 Ops Suspended'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km2 inundated'},{k:'Trend',v:'[!!] Rising'},{k:'Depth',v:'2.1 m peak'}],
     s2s:     [{k:'Week 2-3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2-3',v:'High'}],
     medium:  [{k:'Day 8-12',v:'Continued heavy rain'},{k:'Day 13-15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
   },
   'los-angeles': {
     name: 'Los Angeles DC',
-    nowcast: [{k:'Condition',v:'Clear ✅'},{k:'Temp',v:'22°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'[OK] Ops Normal'}],
-    flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'✅ Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
-    s2s:     [{k:'Week 4-6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'✅ Favorable'}],
-    medium:  [{k:'Day 8-15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8°C'}],
+    nowcast: [{k:'Condition',v:'Clear \u2705'},{k:'Temp',v:'22\u00b0C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'[OK] Ops Normal'}],
+    flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'\u2705 Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
+    s2s:     [{k:'Week 4-6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'\u2705 Favorable'}],
+    medium:  [{k:'Day 8-15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8\u00b0C'}],
   },
   chicago: {
     name: 'Chicago Distribution Center',
-    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Tornado watch',v:'⚠️ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'⛔ Ops Halted'}],
-    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'⛔ Blocked'},{k:'Risk',v:'[!!] Critical'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Tornado watch',v:'\u26a0\ufe0f In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'\u26d4 Ops Halted'}],
+    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'\u26d4 Blocked'},{k:'Risk',v:'[!!] Critical'}],
     s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Nina signal',v:'Strong'},{k:'Week 3-4',v:'Gradual improvement'}],
     medium:  [{k:'Day 8-10',v:'Storm track clearing'},{k:'Day 11-15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
   },
   atlanta: {
     name: 'Atlanta Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'⚠️ Degraded Ops'}],
+    nowcast: [{k:'Condition',v:'Advisory \u26a0\ufe0f'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'\u26a0\ufe0f Degraded Ops'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Near vicinity',v:'Mississippi Delta impact'},{k:'Access roads',v:'I-20 rerouting'}],
     s2s:     [{k:'Week 2-3',v:'La Nina enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
     medium:  [{k:'Day 8-12',v:'Below-normal precip'},{k:'Day 13-15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
   },
   newjersey: {
     name: 'New Jersey Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory ⚠️'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3-5 hours'},{k:'Status',v:'⚠️ Reduced capacity'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km2'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'⚠️ Low'}],
+    nowcast: [{k:'Condition',v:'Advisory \u26a0\ufe0f'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3-5 hours'},{k:'Status',v:'\u26a0\ufe0f Reduced capacity'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km2'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'\u26a0\ufe0f Low'}],
     s2s:     [{k:'Week 2-3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Nina impact',v:'Moderate'}],
     medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
   },
@@ -1353,7 +1353,7 @@ document.querySelectorAll('.node-group').forEach(g => {
   g.addEventListener('mouseleave', hideTooltip);
 });
 
-// ── Charts ──
+// \u2500\u2500 Charts \u2500\u2500
 const chartDefaults = {
   responsive: true, maintainAspectRatio: false,
   plugins: {legend:{labels:{color:'#7A9DC0',font:{family:'Outfit',size:11},boxWidth:12,padding:12}}},
@@ -1403,7 +1403,7 @@ new Chart(document.getElementById('chartIndiaTemp'), {
       {label:'India p10-p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
     ]
   },
-  options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'°C anomaly',color:'#3D5E7A'}}}}
+  options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'\u00b0C anomaly',color:'#3D5E7A'}}}}
 });
 
 new Chart(document.getElementById('chartUSPrecip'), {
@@ -1418,7 +1418,7 @@ new Chart(document.getElementById('chartUSPrecip'), {
   options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'% anomaly',color:'#3D5E7A'}}}}
 });
 
-// ── Init: show nowcast layer on load ──
+// \u2500\u2500 Init: show nowcast layer on load \u2500\u2500
 setLayer('nowcast');
 </script>
 </body>
