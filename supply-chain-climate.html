@@ -6,9 +6,8 @@
 <title>Supply Chain Climate Intelligence</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
-/* â”€â”€ Token system â”€â”€ dark-first; ocean-console palette */
+/* -- Token system -- dark-first; ocean-console palette */
 :root {
   --bg:       #05101D;
   --surf1:    #0B1829;
@@ -43,10 +42,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:var(--body);background:var(--bg);color:var(--text1);font-size:14px;line-height:1.5;overflow:hidden}
 
-/* â”€â”€ App shell â”€â”€ */
+/* -- App shell -- */
 .app{display:flex;flex-direction:column;height:100%}
 
-/* â”€â”€ Header â”€â”€ */
+/* -- Header -- */
 header{
   background:var(--surf1);border-bottom:1px solid var(--border);
   padding:0 18px;flex-shrink:0;
@@ -68,7 +67,7 @@ header{
 .dot.pulse{animation:pulse-dot 1.8s infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 
-/* â”€â”€ Alert ticker â”€â”€ */
+/* -- Alert ticker -- */
 .ticker{background:var(--surf1);border-bottom:1px solid var(--border);height:28px;overflow:hidden;flex-shrink:0}
 .ticker-inner{display:flex;align-items:center;height:100%;padding:0 18px;gap:0}
 .ticker-label{font-size:10px;font-weight:600;letter-spacing:.8px;color:var(--warn);text-transform:uppercase;white-space:nowrap;padding-right:16px;border-right:1px solid var(--border);margin-right:16px}
@@ -83,7 +82,7 @@ header{
 .badge.flood{background:#A87FE822;color:#A87FE8;border:1px solid #A87FE844}
 @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* â”€â”€ Layer controls â”€â”€ */
+/* -- Layer controls -- */
 .layer-bar{
   background:var(--surf1);border-bottom:1px solid var(--border);
   display:flex;align-items:center;gap:8px;padding:0 18px;height:38px;flex-shrink:0
@@ -105,7 +104,7 @@ header{
 .layer-sep{width:1px;height:20px;background:var(--border)}
 .map-ts{margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)}
 
-/* â”€â”€ Map hero â”€â”€ */
+/* -- Map hero -- */
 .map-hero{
   flex:0 0 auto;
   display:flex;gap:0;
@@ -134,7 +133,7 @@ header{
 .map-svg-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:12px}
 .map-svg-wrap svg{width:100%;height:100%;max-width:100%;max-height:100%}
 
-/* â”€â”€ Map legend â”€â”€ */
+/* -- Map legend -- */
 .map-legend{
   background:var(--surf1);border-top:1px solid var(--border);
   height:34px;display:flex;align-items:center;gap:16px;padding:0 18px;flex-shrink:0;
@@ -144,7 +143,7 @@ header{
 .ml-swatch{width:10px;height:10px;border-radius:2px}
 .ml-dot{width:8px;height:8px;border-radius:50%}
 
-/* â”€â”€ Tab nav â”€â”€ */
+/* -- Tab nav -- */
 .tab-nav{
   display:flex;border-bottom:1px solid var(--border);
   background:var(--surf1);flex-shrink:0;height:42px;
@@ -161,12 +160,12 @@ header{
 .tab-btn:hover{color:var(--text1)}
 .tab-btn.active{color:var(--text1);border-bottom-color:var(--accent)}
 
-/* â”€â”€ Content panels â”€â”€ */
+/* -- Content panels -- */
 .content{flex:1;overflow-y:auto;overflow-x:hidden}
 .tab-panel{display:none;padding:16px 18px;max-width:1600px;margin:0 auto}
 .tab-panel.active{display:block}
 
-/* â”€â”€ Cards â”€â”€ */
+/* -- Cards -- */
 .section-title{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px}
@@ -186,7 +185,7 @@ header{
 .badge-warn{background:#F5A62322;color:#F5A623;border:1px solid #F5A62344}
 .badge-good{background:#00D48A22;color:#00D48A;border:1px solid #00D48A44}
 
-/* â”€â”€ Charts â”€â”€ */
+/* -- Charts -- */
 .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
 .chart-card{background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px}
@@ -194,7 +193,7 @@ header{
 .chart-sub{font-size:10px;color:var(--text2);font-weight:400;margin-left:6px}
 .chart-wrap{position:relative;height:160px}
 
-/* â”€â”€ Flood table â”€â”€ */
+/* -- Flood table -- */
 .ftable{width:100%;border-collapse:collapse;font-size:12px}
 .ftable th{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);padding:6px 10px;border-bottom:1px solid var(--border);text-align:left;font-weight:500}
 .ftable td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text1)}
@@ -205,7 +204,7 @@ header{
 .inund-fill{height:100%;border-radius:2px}
 .risk-chip{display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mono)}
 
-/* â”€â”€ S2S outlook â”€â”€ */
+/* -- S2S outlook -- */
 .s2s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px}
 .s2s-card{background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:10px}
 .s2s-week{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
@@ -217,7 +216,7 @@ header{
 .s2s-bar-fill{height:100%;border-radius:2px}
 .s2s-bar-val{width:26px;color:var(--text2);text-align:right;font-family:var(--mono)}
 
-/* â”€â”€ Tooltip â”€â”€ */
+/* -- Tooltip -- */
 #mapTooltip{
   position:fixed;z-index:9999;pointer-events:none;
   background:rgba(10,24,45,.95);backdrop-filter:blur(12px);
@@ -234,53 +233,20 @@ header{
 .tt-val{color:var(--text1);font-family:var(--mono);font-size:11px;font-weight:500}
 .tt-div{height:1px;background:var(--border);margin:5px 0}
 
-/* â”€â”€ Leaflet core (inlined) â”€â”€ */
-.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
-.leaflet-container{overflow:hidden;background:#040E1A;outline-offset:1px;font-family:var(--body)}
-.leaflet-tile{visibility:hidden}.leaflet-tile-loaded{visibility:inherit}
-.leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none}
-.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}
-.leaflet-control{float:left;clear:both;pointer-events:auto;position:relative;z-index:800}
-.leaflet-right .leaflet-control{float:right}
-.leaflet-top .leaflet-control{margin-top:8px}
-.leaflet-bottom .leaflet-control{margin-bottom:8px}
-.leaflet-left .leaflet-control{margin-left:8px}
-.leaflet-right .leaflet-control{margin-right:8px}
-.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200;filter:invert(100%) hue-rotate(180deg) brightness(90%) contrast(88%)}.leaflet-overlay-pane{z-index:400}
-.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}
-.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}
-.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:grab}
-.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive{cursor:grabbing}
-.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}
-.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive{pointer-events:auto}
-.leaflet-zoom-anim .leaflet-zoom-animated{transition:transform .25s cubic-bezier(0,0,.25,1)}
-.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile{transition:none}
-.leaflet-zoom-animated{transform-origin:0 0}
-.leaflet-fade-anim .leaflet-popup{opacity:0;transition:opacity .2s linear}
-.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}
-.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.7)}
-.leaflet-bar a,.leaflet-bar a:hover{background:var(--surf2);border-bottom:1px solid var(--border);width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:var(--text2)}
-.leaflet-bar a:hover{background:var(--surf3);color:var(--text1)}
-.leaflet-bar a:first-child{border-radius:4px 4px 0 0}
-.leaflet-bar a:last-child{border-radius:0 0 4px 4px;border-bottom:none}
-.leaflet-bar a.leaflet-disabled{cursor:default;background:var(--surf1);color:var(--text3)}
-.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px/26px 'Lucida Console',Monaco,monospace}
-.leaflet-control-attribution{background:rgba(5,16,29,.75);color:var(--text3);padding:0 5px;font-size:9px;line-height:1.4;border-radius:3px 0 0 0}
-.leaflet-control-attribution a{color:var(--text2);text-decoration:none}
-.leaflet-div-icon{background:transparent;border:none}
-
-/* â”€â”€ Leaflet marker animation â”€â”€ */
-@keyframes ring-pulse-lf{
-  0%{transform:scale(.4);opacity:.9}
-  60%{transform:scale(1.8);opacity:0}
-  100%{transform:scale(.4);opacity:0}
+/* -- Marker animations -- */
+@keyframes ring-pulse{
+  0%{r:12;opacity:.8;stroke-width:2}
+  70%{r:26;opacity:0;stroke-width:1}
+  100%{r:12;opacity:0;stroke-width:2}
 }
-.lf-ring{position:absolute;inset:0;border-radius:50%;border:2px solid currentColor;animation:ring-pulse-lf 2.2s ease-out infinite}
-.lf-ring.fast{animation-duration:1.5s}
-.lf-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid rgba(255,255,255,.75);position:relative;z-index:1}
-
-/* â”€â”€ Map leaf container â”€â”€ */
-.map-leaf{flex:1;position:relative;min-height:180px}
+@keyframes ring-pulse-s{
+  0%{r:9;opacity:.6;stroke-width:1.5}
+  70%{r:20;opacity:0;stroke-width:1}
+  100%{r:9;opacity:0;stroke-width:1.5}
+}
+.pulse-ring{animation:ring-pulse 2s ease-out infinite}
+.pulse-ring.fast{animation-duration:1.4s}
+.pulse-ring-s{animation:ring-pulse-s 2.4s ease-out infinite}
 
 /* Responsive */
 @media(max-width:600px){
@@ -305,14 +271,14 @@ header{
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon">ðŸŒ</div>
+      <div class="logo-icon" style="color:#fff;font-weight:700;letter-spacing:-.5px;font-size:13px">SC</div>
       <div class="logo-text">
         <span>ChairCo Climate</span>
         <span class="logo-sub">Supply Chain Intelligence</span>
       </div>
     </div>
     <div class="hdiv"></div>
-    <div class="header-meta">India Â· United States Â· Operational Network</div>
+    <div class="header-meta">United States &middot; India &middot; Operational Network</div>
     <div class="status-pills">
       <div class="spill red"><span class="dot pulse"></span>3 Critical</div>
       <div class="spill amber"><span class="dot pulse"></span>5 Advisory</div>
@@ -324,7 +290,7 @@ header{
 <!-- Alert ticker -->
 <div class="ticker">
   <div class="ticker-inner">
-    <div class="ticker-label">âš¡ ALERTS</div>
+    <div class="ticker-label">ALERTS</div>
     <div class="ticker-track">
       <div class="ticker-content" id="tickerContent"></div>
     </div>
@@ -334,7 +300,7 @@ header{
 <!-- Layer bar -->
 <div class="layer-bar">
   <span class="layer-label">Overlay:</span>
-  <button class="lbtn n active" onclick="setLayer('nowcast')"><span class="li" style="background:#5B9CF5"></span>Nowcast 0â€“3 hr</button>
+  <button class="lbtn n active" onclick="setLayer('nowcast')"><span class="li" style="background:#5B9CF5"></span>Nowcast 0-3 hr</button>
   <button class="lbtn f" onclick="setLayer('flood')"><span class="li" style="background:#A87FE8"></span>Flood Risk (OPERA/S1)</button>
   <button class="lbtn s" onclick="setLayer('s2s')"><span class="li" style="background:#2BD4C4"></span>S2S Outlook</button>
   <button class="lbtn m" onclick="setLayer('medium')"><span class="li" style="background:#F07D3A"></span>Medium Range</button>
@@ -345,22 +311,563 @@ header{
 <!-- Map hero -->
 <div class="map-hero">
 
-  <!-- India panel -->
-  <div class="map-panel" id="panelIndia">
-    <div class="map-panel-header">
-      <div class="map-panel-title">ðŸ‡®ðŸ‡³ India Operations</div>
-      <div class="map-panel-sub" id="indiaSubtitle">Nowcast Â· 4 nodes</div>
-    </div>
-    <div id="mapIndia" class="map-leaf"></div>
-  </div>
-
   <!-- US panel -->
   <div class="map-panel" id="panelUS">
     <div class="map-panel-header">
-      <div class="map-panel-title">ðŸ‡ºðŸ‡¸ US Distribution</div>
-      <div class="map-panel-sub" id="usSubtitle">Nowcast Â· 4 nodes</div>
+      <div class="map-panel-title">&#x1F1FA;&#x1F1F8; US Distribution</div>
+      <div class="map-panel-sub" id="usSubtitle">Nowcast &middot; 4 nodes</div>
     </div>
-    <div id="mapUS" class="map-leaf"></div>
+    <div class="map-svg-wrap">
+      <svg id="svgUS" viewBox="0 0 460 310" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="oceanGradUS" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#040E1C"/>
+            <stop offset="100%" stop-color="#020A14"/>
+          </linearGradient>
+          <linearGradient id="landGradUS" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#14315A"/>
+            <stop offset="100%" stop-color="#0E2240"/>
+          </linearGradient>
+
+          <!-- Weather blobs US Nowcast -->
+          <radialGradient id="blobCritUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5455A" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#F5455A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobWarnUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5A623" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobGoodUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00D48A" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#00D48A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobFloodUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.55"/>
+            <stop offset="60%" stop-color="#7B4FD0" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobS2SUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#5B9CF5" stop-opacity="0.45"/>
+            <stop offset="60%" stop-color="#2BD4C4" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#5B9CF5" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobMedUS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F07D3A" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#F07D3A" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="blur8us"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="blur14us"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="glow4us"><feGaussianBlur stdDeviation="4"/></filter>
+        </defs>
+
+        <!-- Ocean background -->
+        <rect width="460" height="310" fill="url(#oceanGradUS)"/>
+
+        <!-- Lat/lon grid -->
+        <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
+          <line x1="0" y1="23" x2="460" y2="23"/><!-- 48&#xB0;N -->
+          <line x1="0" y1="81" x2="460" y2="81"/><!-- 43&#xB0;N -->
+          <line x1="0" y1="139" x2="460" y2="139"/><!-- 38&#xB0;N -->
+          <line x1="0" y1="197" x2="460" y2="197"/><!-- 33&#xB0;N -->
+          <line x1="0" y1="255" x2="460" y2="255"/><!-- 28&#xB0;N -->
+          <line x1="92" y1="0" x2="92" y2="310"/><!-- -112&#xB0;W -->
+          <line x1="183" y1="0" x2="183" y2="310"/><!-- -99&#xB0;W -->
+          <line x1="275" y1="0" x2="275" y2="310"/><!-- -86&#xB0;W -->
+          <line x1="367" y1="0" x2="367" y2="310"/><!-- -73&#xB0;W -->
+        </g>
+
+        <!-- Canada (top border strip) -->
+        <path d="M 0,0 L 460,0 L 460,18 L 380,14 L 310,10 L 240,8 L 160,10 L 80,14 L 0,18 Z"
+              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
+        <!-- Mexico -->
+        <path d="M 0,310 L 460,310 L 460,280 L 420,272 L 380,268 L 340,265 L 300,268 L 250,272 L 220,278 L 180,282 L 140,280 L 100,275 L 60,268 L 20,268 L 0,272 Z"
+              fill="#07192E" stroke="#0D2540" stroke-width="0.8"/>
+
+        <!-- Contiguous US  -  careful smooth path -->
+        <!-- Coordinate transform: x=(lon+125)*5.85, y=(50-lat)*12 -->
+        <!-- viewBox 460x310, lon -125 to -66, lat 24 to 50 -->
+        <path id="usPath" d="
+          M 5,22
+          C 20,16 35,14 55,12
+          L 90,10
+          C 115,8 140,8 160,10
+          L 200,12
+          C 225,12 248,12 268,14
+          L 298,14
+          C 318,14 338,14 358,12
+          L 390,8
+          C 410,5 430,4 450,6
+          L 458,8
+          L 458,42
+          C 455,50 450,56 444,60
+          L 435,66
+          C 428,70 422,75 418,82
+          C 414,88 412,95 410,102
+          L 408,112
+          C 406,122 404,132 400,140
+          C 396,148 390,154 384,160
+          L 375,168
+          C 368,176 362,184 356,192
+          L 348,202
+          C 342,212 336,222 330,230
+          L 322,240
+          C 316,250 310,260 305,268
+          L 298,275
+          C 292,280 285,283 278,282
+          L 268,280
+          C 260,278 252,272 244,266
+          L 236,258
+          C 228,250 220,242 212,235
+          L 205,228
+          C 198,222 190,217 182,214
+          L 172,212
+          C 162,210 150,210 140,208
+          L 128,205
+          C 118,202 108,198 100,193
+          L 92,188
+          C 82,183 72,178 62,174
+          L 50,170
+          C 40,167 30,165 20,162
+          L 8,158
+          C 4,150 2,138 2,124
+          L 2,95
+          C 2,80 4,65 8,52
+          L 5,22 Z
+        " fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1.2"/>
+
+        <!-- Florida peninsula -->
+        <path d="M 348,202 C 352,210 355,218 358,228 C 361,238 362,248 360,258 C 358,268 354,276 350,282 C 345,288 339,292 334,290 C 329,288 325,282 323,276 C 320,268 320,258 322,248 C 324,238 328,228 330,218 L 330,230 L 322,240"
+              fill="url(#landGradUS)" stroke="#1E3F6A" stroke-width="1"/>
+
+        <!-- Great Lakes (simplified blue fills) -->
+        <g fill="#050F1E" stroke="#0D2540" stroke-width="0.5" opacity="0.8">
+          <!-- Lake Superior -->
+          <ellipse cx="298" cy="52" rx="38" ry="14"/>
+          <!-- Lake Michigan -->
+          <ellipse cx="318" cy="82" rx="12" ry="22"/>
+          <!-- Lake Huron -->
+          <ellipse cx="338" cy="68" rx="14" ry="18"/>
+          <!-- Lake Erie -->
+          <ellipse cx="355" cy="92" rx="16" ry="7"/>
+          <!-- Lake Ontario -->
+          <ellipse cx="378" cy="88" rx="11" ry="6"/>
+        </g>
+
+        <!-- State borders (subtle) -->
+        <g stroke="#1A3B60" stroke-width="0.6" fill="none" opacity="0.65">
+          <!-- East coast states vertical lines -->
+          <path d="M 408,112 L 410,140 L 408,160 L 405,180 L 400,200"/>
+          <!-- Mississippi River rough -->
+          <path d="M 285,55 C 282,80 280,110 278,140 C 276,168 274,195 272,218 C 270,240 268,260 265,275"/>
+          <!-- Ohio/Tennessee line -->
+          <path d="M 330,118 L 300,120 L 270,122 L 240,118"/>
+          <!-- Kansas/Missouri -->
+          <path d="M 240,110 L 240,155 L 242,185"/>
+          <!-- Rockies region -->
+          <path d="M 155,25 L 152,80 L 150,140 L 148,190"/>
+          <!-- TX border -->
+          <path d="M 215,178 L 218,210 L 222,240 L 225,268"/>
+        </g>
+
+        <!-- Weather overlays  -  Nowcast -->
+        <g id="layer-nowcast-us">
+          <!-- Chicago: critical (severe storms) -->
+          <ellipse cx="310" cy="98" rx="55" ry="48" fill="url(#blobCritUS)" filter="url(#blur14us)" opacity="0.9"/>
+          <!-- Atlanta: warning (heavy rain) -->
+          <ellipse cx="338" cy="190" rx="52" ry="44" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.85"/>
+          <!-- LA: clear -->
+          <ellipse cx="50" cy="160" rx="45" ry="38" fill="url(#blobGoodUS)" filter="url(#blur8us)" opacity="0.65"/>
+          <!-- NJ: advisory -->
+          <ellipse cx="404" cy="118" rx="40" ry="35" fill="url(#blobWarnUS)" filter="url(#blur8us)" opacity="0.6"/>
+        </g>
+
+        <!-- Flood overlay US -->
+        <g id="layer-flood-us" style="display:none">
+          <!-- Mississippi Delta / SE flooding -->
+          <ellipse cx="295" cy="215" rx="65" ry="52" fill="url(#blobFloodUS)" filter="url(#blur14us)" opacity="0.9"/>
+          <!-- NJ/Northeast coastal -->
+          <ellipse cx="406" cy="122" rx="45" ry="36" fill="url(#blobFloodUS)" filter="url(#blur8us)" opacity="0.7"/>
+        </g>
+
+        <!-- S2S overlay US -->
+        <g id="layer-s2s-us" style="display:none">
+          <!-- Cool/wet anomaly eastern US (week 3-6) -->
+          <ellipse cx="360" cy="140" rx="100" ry="82" fill="url(#blobS2SUS)" filter="url(#blur14us)" opacity="0.8"/>
+          <!-- Warm/dry western -->
+          <ellipse cx="100" cy="145" rx="80" ry="65" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.5"/>
+        </g>
+
+        <!-- Medium range overlay US -->
+        <g id="layer-medium-us" style="display:none">
+          <!-- Frontal system tracking NE -->
+          <ellipse cx="280" cy="130" rx="120" ry="85" fill="url(#blobMedUS)" filter="url(#blur14us)" opacity="0.65"/>
+          <ellipse cx="80" cy="148" rx="65" ry="50" fill="url(#blobGoodUS)" filter="url(#blur14us)" opacity="0.4"/>
+        </g>
+
+        <!-- Node markers -->
+
+        <!-- Los Angeles (34.05N, 118.24W) &#x2192; x=(-118.24+125)*5.85=40, y=(50-34.05)*12=191 -->
+        <g class="node-group" data-node="los-angeles" style="cursor:pointer">
+          <circle cx="40" cy="162" r="22" fill="transparent"/>
+          <circle cx="40" cy="162" r="22" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
+          <circle cx="40" cy="162" r="8" fill="#00D48A" opacity="0.2" filter="url(#glow4us)"/>
+          <circle cx="40" cy="162" r="5" fill="#00D48A"/>
+          <circle cx="40" cy="162" r="2.5" fill="#fff" opacity="0.7"/>
+          <text x="50" y="158" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">LOS ANGELES DC</text>
+          <text x="50" y="168" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">34.1&#xB0;N 118.2&#xB0;W</text>
+        </g>
+
+        <!-- Chicago (41.88N, 87.63W) &#x2192; x=(-87.63+125)*5.85=218, y=(50-41.88)*12=97 -->
+        <g class="node-group" data-node="chicago" style="cursor:pointer">
+          <circle cx="220" cy="98" r="22" fill="transparent"/>
+          <circle cx="220" cy="98" r="28" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
+          <circle cx="220" cy="98" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4us)"/>
+          <circle cx="220" cy="98" r="6" fill="#F5455A"/>
+          <circle cx="220" cy="98" r="3" fill="#fff" opacity="0.8"/>
+          <text x="230" y="94" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">CHICAGO DC</text>
+          <text x="230" y="104" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">41.9&#xB0;N 87.6&#xB0;W</text>
+        </g>
+
+        <!-- Atlanta (33.75N, 84.39W) &#x2192; x=(-84.39+125)*5.85=237, y=(50-33.75)*12=195 -->
+        <g class="node-group" data-node="atlanta" style="cursor:pointer">
+          <circle cx="238" cy="195" r="22" fill="transparent"/>
+          <circle cx="238" cy="195" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring" opacity="0.65"/>
+          <circle cx="238" cy="195" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
+          <circle cx="238" cy="195" r="5.5" fill="#F5A623"/>
+          <circle cx="238" cy="195" r="3" fill="#fff" opacity="0.7"/>
+          <text x="248" y="191" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">ATLANTA DC</text>
+          <text x="248" y="201" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">33.8&#xB0;N 84.4&#xB0;W</text>
+        </g>
+
+        <!-- New Jersey (40.7N, 74.17W) &#x2192; x=(-74.17+125)*5.85=297, y=(50-40.7)*12=112 -->
+        <g class="node-group" data-node="newjersey" style="cursor:pointer">
+          <circle cx="298" cy="112" r="22" fill="transparent"/>
+          <circle cx="298" cy="112" r="26" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring-s" opacity="0.6"/>
+          <circle cx="298" cy="112" r="10" fill="#F5A623" opacity="0.2" filter="url(#glow4us)"/>
+          <circle cx="298" cy="112" r="5.5" fill="#F5A623"/>
+          <circle cx="298" cy="112" r="3" fill="#fff" opacity="0.7"/>
+          <text x="305" y="106" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">NEW JERSEY DC</text>
+          <text x="305" y="116" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">40.7&#xB0;N 74.2&#xB0;W</text>
+        </g>
+
+        <!-- Compass -->
+        <g transform="translate(438,292)" opacity="0.4">
+          <text x="0" y="0" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="Outfit,sans-serif">N</text>
+          <line x1="0" y1="2" x2="0" y2="10" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="0" y1="6" x2="-5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
+          <line x1="0" y1="6" x2="5" y2="11" stroke="#7A9DC0" stroke-width="0.8"/>
+        </g>
+
+        <!-- Scale bar -->
+        <g transform="translate(12,302)" opacity="0.5">
+          <line x1="0" y1="0" x2="58" y2="0" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="0" y1="-3" x2="0" y2="3" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="58" y1="-3" x2="58" y2="3" stroke="#7A9DC0" stroke-width="1"/>
+          <text x="29" y="-4" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="DM Mono,monospace">1000 km</text>
+        </g>
+
+        <!-- Coastline glow -->
+        <path d="
+          M 5,22 C 20,16 35,14 55,12 L 90,10 C 115,8 140,8 160,10 L 200,12
+          C 225,12 248,12 268,14 L 298,14 C 318,14 338,14 358,12 L 390,8
+          C 410,5 430,4 450,6 L 458,8 L 458,42 C 455,50 450,56 444,60 L 435,66
+          C 428,70 422,75 418,82 C 414,88 412,95 410,102 L 408,112
+          C 406,122 404,132 400,140 C 396,148 390,154 384,160 L 375,168
+          C 368,176 362,184 356,192 L 348,202 C 342,212 336,222 330,230 L 322,240
+          C 316,250 310,260 305,268 L 298,275 C 292,280 285,283 278,282 L 268,280
+          C 260,278 252,272 244,266 L 236,258 C 228,250 220,242 212,235 L 205,228
+          C 198,222 190,217 182,214 L 172,212 C 162,210 150,210 140,208 L 128,205
+          C 118,202 108,198 100,193 L 92,188 C 82,183 72,178 62,174 L 50,170
+          C 40,167 30,165 20,162 L 8,158 C 4,150 2,138 2,124 L 2,95
+          C 2,80 4,65 8,52 L 5,22 Z
+        " fill="none" stroke="rgba(0,194,255,0.12)" stroke-width="1.5"/>
+
+      </svg>
+    </div>
+  </div>
+
+  <!-- India panel -->
+  <div class="map-panel" id="panelIndia">
+    <div class="map-panel-header">
+      <div class="map-panel-title">&#x1F1EE;&#x1F1F3; India Operations</div>
+      <div class="map-panel-sub" id="indiaSubtitle">Nowcast &middot; 4 nodes</div>
+    </div>
+    <div class="map-svg-wrap">
+      <svg id="svgIndia" viewBox="0 0 320 420" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <!-- Ocean gradient -->
+          <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#040E1C"/>
+            <stop offset="100%" stop-color="#020A14"/>
+          </linearGradient>
+
+          <!-- Weather blob gradients (Nowcast) -->
+          <radialGradient id="blobWarnIN" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5A623" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobCritIN" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5455A" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#F5455A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobGoodIN" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00D48A" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#00D48A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobFloodIN" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobS2SIN" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#2BD4C4" stop-opacity="0.4"/>
+            <stop offset="50%" stop-color="#F5A623" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#2BD4C4" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobMedIN" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F07D3A" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#F07D3A" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Flood gradient big -->
+          <radialGradient id="blobFloodIN2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A87FE8" stop-opacity="0.7"/>
+            <stop offset="60%" stop-color="#7B4FD0" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#A87FE8" stop-opacity="0"/>
+          </radialGradient>
+
+          <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="blur12"><feGaussianBlur stdDeviation="12"/></filter>
+          <filter id="glow4"><feGaussianBlur stdDeviation="4"/></filter>
+
+          <!-- India state shimmer gradient -->
+          <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#14315A"/>
+            <stop offset="100%" stop-color="#0E2240"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Ocean background -->
+        <rect width="320" height="420" fill="url(#oceanGrad)"/>
+
+        <!-- Subtle lat/lon grid -->
+        <g stroke="#0D2540" stroke-width="0.5" opacity="0.6">
+          <line x1="0" y1="105" x2="320" y2="105"/><!-- 30&#xB0;N -->
+          <line x1="0" y1="167" x2="320" y2="167"/><!-- 25&#xB0;N -->
+          <line x1="0" y1="230" x2="320" y2="230"/><!-- 20&#xB0;N -->
+          <line x1="0" y1="292" x2="320" y2="292"/><!-- 15&#xB0;N -->
+          <line x1="0" y1="355" x2="320" y2="355"/><!-- 10&#xB0;N -->
+          <line x1="80" y1="0" x2="80" y2="420"/><!-- 75&#xB0;E -->
+          <line x1="158" y1="0" x2="158" y2="420"/><!-- 83&#xB0;E -->
+          <line x1="236" y1="0" x2="236" y2="420"/><!-- 91&#xB0;E -->
+        </g>
+
+        <!-- Neighboring countries (background) -->
+        <!-- Pakistan (simplified) -->
+        <path d="M 18,45 L 30,35 L 60,20 L 80,18 L 78,40 L 72,68 L 68,85 L 58,95 L 40,110 L 20,120 L 10,105 L 5,80 Z"
+              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
+        <!-- Nepal/Bhutan strip -->
+        <path d="M 118,95 L 185,88 L 220,92 L 222,105 L 185,110 L 118,108 Z"
+              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
+        <!-- Bangladesh -->
+        <path d="M 220,105 L 242,105 L 248,118 L 250,140 L 240,155 L 225,158 L 218,140 L 218,118 Z"
+              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
+        <!-- Myanmar (partial) -->
+        <path d="M 252,100 L 270,95 L 285,110 L 288,140 L 275,165 L 260,170 L 255,155 L 248,130 L 250,115 Z"
+              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
+        <!-- Sri Lanka -->
+        <path d="M 147,388 Q 155,380 163,385 Q 168,395 163,405 Q 155,412 147,406 Q 142,398 147,388 Z"
+              fill="#091829" stroke="#0D2540" stroke-width="0.8"/>
+
+        <!-- India main body  -  carefully crafted smooth outline -->
+        <!-- Using coordinate transform: x=(lon-67)*9.5, y=(37.5-lat)*12.8 -->
+        <!-- viewBox 320x420, lon 67-101, lat 7.5-37.5 -->
+        <path id="indiaPath" d="
+          M 62,8
+          C 68,5 76,4 86,8
+          L 100,10
+          C 115,12 128,16 135,22
+          L 148,28
+          C 160,30 175,28 185,32
+          C 198,36 208,44 220,48
+          C 228,52 236,52 242,55
+          C 250,58 260,62 268,70
+          L 278,82
+          C 284,90 288,100 286,112
+          C 284,122 278,130 272,138
+          L 260,152
+          C 252,162 245,170 238,178
+          C 228,188 218,196 210,206
+          L 202,216
+          C 196,226 192,238 190,250
+          C 188,260 188,270 186,280
+          C 184,290 180,300 175,308
+          L 168,318
+          C 162,328 155,336 148,344
+          L 140,352
+          C 135,358 130,365 125,372
+          C 120,379 114,386 108,390
+          L 100,396
+          C 94,400 88,404 82,405
+          C 76,406 70,404 65,399
+          L 58,392
+          C 53,386 49,378 46,370
+          L 42,360
+          C 38,350 35,340 33,330
+          C 30,318 29,306 28,294
+          C 27,282 26,270 25,258
+          C 24,246 23,234 22,222
+          L 20,210
+          C 18,198 14,186 10,174
+          C 6,162 3,150 2,138
+          L 2,126
+          C 2,114 5,102 10,92
+          C 14,82 20,74 26,66
+          L 34,58
+          C 40,50 48,44 55,38
+          C 58,32 60,20 62,8 Z
+        " fill="url(#landGrad)" stroke="#1E3F6A" stroke-width="1.2"/>
+
+        <!-- India northeast region (Assam/northeast states) -->
+        <path d="M 240,55 L 260,48 L 278,44 L 300,46 L 312,55 L 316,68 L 308,80 L 296,90 L 282,98 L 270,100 L 260,92 L 250,84 L 240,72 L 238,62 Z"
+              fill="url(#landGrad)" stroke="#1E3F6A" stroke-width="1.0"/>
+
+        <!-- Kashmir region (northern J&K) -->
+        <path d="M 62,8 C 60,4 62,0 68,0 L 90,0 C 102,0 114,3 122,8 C 130,12 134,18 135,22 L 128,16 C 115,12 100,10 86,8 L 76,4 Z"
+              fill="url(#landGrad)" stroke="#1E3F6A" stroke-width="0.8"/>
+
+        <!-- State boundaries (subtle) -->
+        <g stroke="#1A3B60" stroke-width="0.6" fill="none" opacity="0.7">
+          <!-- Rajasthan-Gujarat line -->
+          <path d="M 25,125 L 38,135 L 42,155 L 40,175"/>
+          <!-- MP line -->
+          <path d="M 90,130 L 130,120 L 168,128 L 190,145"/>
+          <!-- Maharashtra line -->
+          <path d="M 60,198 L 100,188 L 140,190 L 170,200"/>
+          <!-- Andhra/Karnataka line -->
+          <path d="M 70,275 L 110,268 L 150,272 L 180,265"/>
+          <!-- Bihar/UP line -->
+          <path d="M 118,108 L 155,112 L 185,110"/>
+        </g>
+
+        <!-- Weather overlay blobs  -  Nowcast layer -->
+        <g id="layer-nowcast-india">
+          <!-- Mumbai/JNPT: warning (cyclone) -->
+          <ellipse cx="57" cy="232" rx="58" ry="52" fill="url(#blobWarnIN)" filter="url(#blur12)" opacity="0.9"/>
+          <!-- Kolkata: critical (flood risk) -->
+          <ellipse cx="210" cy="192" rx="52" ry="46" fill="url(#blobCritIN)" filter="url(#blur12)" opacity="0.85"/>
+          <!-- Rajasthan: clear -->
+          <ellipse cx="62" cy="148" rx="48" ry="42" fill="url(#blobGoodIN)" filter="url(#blur8)" opacity="0.7"/>
+          <!-- Pune: advisory -->
+          <ellipse cx="75" cy="248" rx="40" ry="36" fill="url(#blobWarnIN)" filter="url(#blur8)" opacity="0.5"/>
+        </g>
+
+        <!-- Flood overlay -->
+        <g id="layer-flood-india" style="display:none">
+          <!-- Kolkata/WB major flooding -->
+          <ellipse cx="212" cy="195" rx="68" ry="60" fill="url(#blobFloodIN2)" filter="url(#blur12)" opacity="1"/>
+          <!-- Assam NE flooding -->
+          <ellipse cx="275" cy="70" rx="45" ry="36" fill="url(#blobFloodIN)" filter="url(#blur8)" opacity="0.8"/>
+          <!-- Bihar partial -->
+          <ellipse cx="170" cy="140" rx="38" ry="30" fill="url(#blobFloodIN)" filter="url(#blur8)" opacity="0.5"/>
+        </g>
+
+        <!-- S2S overlay -->
+        <g id="layer-s2s-india" style="display:none">
+          <!-- Warm/wet over south India (week 3-6) -->
+          <ellipse cx="100" cy="310" rx="90" ry="80" fill="url(#blobS2SIN)" filter="url(#blur12)" opacity="0.9"/>
+          <!-- Dry anomaly NW -->
+          <ellipse cx="45" cy="145" rx="55" ry="48" fill="url(#blobMedIN)" filter="url(#blur12)" opacity="0.5"/>
+        </g>
+
+        <!-- Medium range overlay -->
+        <g id="layer-medium-india" style="display:none">
+          <!-- 8-15 day frontal system -->
+          <ellipse cx="130" cy="180" rx="100" ry="75" fill="url(#blobMedIN)" filter="url(#blur12)" opacity="0.7"/>
+          <ellipse cx="60" cy="120" rx="55" ry="45" fill="url(#blobGoodIN)" filter="url(#blur12)" opacity="0.5"/>
+        </g>
+
+        <!-- Node markers (always visible) -->
+
+        <!-- Rajasthan (26.3N, 73.1E) &#x2192; x=(73.1-67)*9.5=58, y=(37.5-26.3)*12.8=143 -->
+        <g class="node-group" data-node="rajasthan" style="cursor:pointer">
+          <circle cx="58" cy="143" r="20" fill="transparent" class="hit-area"/>
+          <circle cx="58" cy="143" r="24" fill="none" stroke="#00D48A" stroke-width="1" class="pulse-ring-s" opacity="0.5"/>
+          <circle cx="58" cy="143" r="8" fill="#00D48A" opacity="0.2" filter="url(#glow4)"/>
+          <circle cx="58" cy="143" r="5" fill="#00D48A"/>
+          <circle cx="58" cy="143" r="3" fill="#fff" opacity="0.7"/>
+          <text x="68" y="139" fill="#00D48A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">RAJASTHAN MFG</text>
+          <text x="68" y="149" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">26.3&#xB0;N 73.1&#xB0;E</text>
+        </g>
+
+        <!-- Pune (18.5N, 73.9E) &#x2192; x=(73.9-67)*9.5=65, y=(37.5-18.5)*12.8=243 -->
+        <g class="node-group" data-node="pune" style="cursor:pointer">
+          <circle cx="65" cy="243" r="20" fill="transparent" class="hit-area"/>
+          <circle cx="65" cy="243" r="24" fill="none" stroke="#F5A623" stroke-width="1.5" class="pulse-ring fast" opacity="0.6"/>
+          <circle cx="65" cy="243" r="9" fill="#F5A623" opacity="0.2" filter="url(#glow4)"/>
+          <circle cx="65" cy="243" r="5.5" fill="#F5A623"/>
+          <circle cx="65" cy="243" r="3" fill="#fff" opacity="0.7"/>
+          <text x="75" y="239" fill="#F5A623" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">PUNE MFG</text>
+          <text x="75" y="249" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.5&#xB0;N 73.9&#xB0;E</text>
+        </g>
+
+        <!-- JNPT Mumbai (18.9N, 72.9E) &#x2192; x=(72.9-67)*9.5=56, y=(37.5-18.9)*12.8=238 -->
+        <g class="node-group" data-node="jnpt" style="cursor:pointer">
+          <circle cx="48" cy="228" r="20" fill="transparent" class="hit-area"/>
+          <circle cx="48" cy="228" r="26" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring fast" opacity="0.7"/>
+          <circle cx="48" cy="228" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4)"/>
+          <circle cx="48" cy="228" r="6" fill="#F5455A"/>
+          <circle cx="48" cy="228" r="3" fill="#fff" opacity="0.8"/>
+          <text x="22" y="218" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">JNPT PORT</text>
+          <text x="22" y="228" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">18.9&#xB0;N 72.9&#xB0;E</text>
+        </g>
+
+        <!-- Kolkata (22.5N, 88.4E) &#x2192; x=(88.4-67)*9.5=203, y=(37.5-22.5)*12.8=192 -->
+        <g class="node-group" data-node="kolkata" style="cursor:pointer">
+          <circle cx="203" cy="192" r="20" fill="transparent" class="hit-area"/>
+          <circle cx="203" cy="192" r="26" fill="none" stroke="#F5455A" stroke-width="2" class="pulse-ring" opacity="0.7"/>
+          <circle cx="203" cy="192" r="11" fill="#F5455A" opacity="0.25" filter="url(#glow4)"/>
+          <circle cx="203" cy="192" r="6" fill="#F5455A"/>
+          <circle cx="203" cy="192" r="3" fill="#fff" opacity="0.8"/>
+          <text x="213" y="188" fill="#F5455A" font-size="8.5" font-family="Outfit,sans-serif" font-weight="600">KOLKATA</text>
+          <text x="213" y="198" fill="#7A9DC0" font-size="7.5" font-family="DM Mono,monospace">22.5&#xB0;N 88.4&#xB0;E</text>
+        </g>
+
+        <!-- Compass rose -->
+        <g transform="translate(295,385)" opacity="0.4">
+          <text x="0" y="0" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="Outfit,sans-serif">N</text>
+          <line x1="0" y1="2" x2="0" y2="10" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="0" y1="6" x2="-6" y2="12" stroke="#7A9DC0" stroke-width="0.8"/>
+          <line x1="0" y1="6" x2="6" y2="12" stroke="#7A9DC0" stroke-width="0.8"/>
+        </g>
+
+        <!-- Scale bar -->
+        <g transform="translate(12,408)" opacity="0.5">
+          <line x1="0" y1="0" x2="47" y2="0" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="0" y1="-3" x2="0" y2="3" stroke="#7A9DC0" stroke-width="1"/>
+          <line x1="47" y1="-3" x2="47" y2="3" stroke="#7A9DC0" stroke-width="1"/>
+          <text x="23" y="-4" text-anchor="middle" fill="#7A9DC0" font-size="7" font-family="DM Mono,monospace">500 km</text>
+        </g>
+
+        <!-- Coastline shimmer effect -->
+        <path d="
+          M 62,8 C 68,5 76,4 86,8 L 100,10 C 115,12 128,16 135,22 L 148,28
+          C 160,30 175,28 185,32 C 198,36 208,44 220,48 C 228,52 236,52 242,55
+          C 250,58 260,62 268,70 L 278,82 C 284,90 288,100 286,112
+          C 284,122 278,130 272,138 L 260,152 C 252,162 245,170 238,178
+          C 228,188 218,196 210,206 L 202,216 C 196,226 192,238 190,250
+          C 188,260 188,270 186,280 C 184,290 180,300 175,308 L 168,318
+          C 162,328 155,336 148,344 L 140,352 C 135,358 130,365 125,372
+          C 120,379 114,386 108,390 L 100,396 C 94,400 88,404 82,405
+          C 76,406 70,404 65,399 L 58,392 C 53,386 49,378 46,370 L 42,360
+          C 38,350 35,340 33,330 C 30,318 29,306 28,294 C 27,282 26,270 25,258
+          C 24,246 23,234 22,222 L 20,210 C 18,198 14,186 10,174
+          C 6,162 3,150 2,138 L 2,126 C 2,114 5,102 10,92
+          C 14,82 20,74 26,66 L 34,58 C 40,50 48,44 55,38 C 58,32 60,20 62,8 Z
+        " fill="none" stroke="rgba(0,194,255,0.15)" stroke-width="1.5"/>
+
+      </svg>
+    </div>
   </div>
 
 </div>
@@ -373,15 +880,15 @@ header{
   <div class="ml-item"><div class="ml-swatch" style="background:#A87FE866;border:1px solid #A87FE8"></div>Flood Inundation (OPERA/S1)</div>
   <div class="ml-item"><div class="ml-swatch" style="background:#2BD4C444;border:1px solid #2BD4C4"></div>S2S Anomaly</div>
   <div class="ml-item"><div class="ml-swatch" style="background:#F5A62344;border:1px solid #F5A623"></div>Precip Anomaly</div>
-  <span style="margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)">Data: ECMWF IFS Â· OPERA DSWx-S1 Â· NCEP Â· Mock prototype</span>
+  <span style="margin-left:auto;font-size:10px;color:var(--text3);font-family:var(--mono)">Data: ECMWF IFS | OPERA DSWx-S1 | NCEP | Mock prototype</span>
 </div>
 
 <!-- Tab nav -->
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('nowcast')"><span class="tbi">âš¡</span>Nowcast 0â€“3 hr</button>
-  <button class="tab-btn" onclick="switchTab('forecast')"><span class="tbi">ðŸ“ˆ</span>1â€“15 Day Forecast</button>
-  <button class="tab-btn" onclick="switchTab('flood')"><span class="tbi">ðŸŒŠ</span>Flood Risk (OPERA)</button>
-  <button class="tab-btn" onclick="switchTab('s2s')"><span class="tbi">ðŸŒ€</span>S2S Outlook</button>
+  <button class="tab-btn active" onclick="switchTab('nowcast')">Nowcast 0-3 hr</button>
+  <button class="tab-btn" onclick="switchTab('forecast')">1-15 Day Forecast</button>
+  <button class="tab-btn" onclick="switchTab('flood')">Flood Risk (OPERA)</button>
+  <button class="tab-btn" onclick="switchTab('s2s')">S2S Outlook</button>
 </div>
 
 <!-- Content -->
@@ -389,34 +896,7 @@ header{
 
   <!-- Nowcast tab -->
   <div class="tab-panel active" id="tab-nowcast">
-    <div class="section-title" style="margin-top:2px">ðŸ‡®ðŸ‡³ India â€” Nowcast Conditions</div>
-    <div class="cards-grid">
-      <div class="card sev-crit">
-        <div class="card-loc">JNPT Mumbai Port</div>
-        <div class="card-val">52<span class="card-unit">kt gusts</span></div>
-        <div class="card-desc">Pre-cyclonic circulation. Port ops suspended. 3.8m wave height.</div>
-        <div class="card-badge badge-crit">CRITICAL</div>
-      </div>
-      <div class="card sev-crit">
-        <div class="card-loc">Kolkata Hub</div>
-        <div class="card-val">187<span class="card-unit">mm/6hr</span></div>
-        <div class="card-desc">Extreme rainfall. Flood inundation confirmed SAR â€” 2.1m depth.</div>
-        <div class="card-badge badge-crit">CRITICAL</div>
-      </div>
-      <div class="card sev-warn">
-        <div class="card-loc">Pune Manufacturing</div>
-        <div class="card-val">34<span class="card-unit">mm/hr</span></div>
-        <div class="card-desc">Heavy showers, lightning. Visibility 800m. Road closures possible.</div>
-        <div class="card-badge badge-warn">ADVISORY</div>
-      </div>
-      <div class="card sev-good">
-        <div class="card-loc">Rajasthan Plant</div>
-        <div class="card-val">31<span class="card-unit">Â°C</span></div>
-        <div class="card-desc">Clear skies, 8 km/h NW breeze. Ops normal. Heat advisory watch.</div>
-        <div class="card-badge badge-good">CLEAR</div>
-      </div>
-    </div>
-    <div class="section-title">ðŸ‡ºðŸ‡¸ United States â€” Nowcast Conditions</div>
+    <div class="section-title">&#x1F1FA;&#x1F1F8; United States  -  Nowcast Conditions</div>
     <div class="cards-grid">
       <div class="card sev-crit">
         <div class="card-loc">Chicago DC</div>
@@ -433,12 +913,12 @@ header{
       <div class="card sev-warn">
         <div class="card-loc">New Jersey DC</div>
         <div class="card-val">42<span class="card-unit">kt gusts</span></div>
-        <div class="card-desc">Coastal storm, storm surge 0.8m. Container yard delays 3â€“5 hrs.</div>
+        <div class="card-desc">Coastal storm, storm surge 0.8m. Container yard delays 3-5 hrs.</div>
         <div class="card-badge badge-warn">ADVISORY</div>
       </div>
       <div class="card sev-good">
         <div class="card-loc">Los Angeles DC</div>
-        <div class="card-val">22<span class="card-unit">Â°C</span></div>
+        <div class="card-val">22<span class="card-unit">&#xB0;C</span></div>
         <div class="card-desc">Clear, 14 km/h SW breeze. All ops normal. Marine layer clearing.</div>
         <div class="card-badge badge-good">CLEAR</div>
       </div>
@@ -447,25 +927,52 @@ header{
 
   <!-- Forecast tab -->
   <div class="tab-panel" id="tab-forecast">
-    <div class="section-title" style="margin-top:2px">IFS HRES Â· 1â€“7 Day Short Range</div>
+    <div class="section-title" style="margin-top:2px">IFS HRES - 1-7 Day Short Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India Nodes â€” Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-title">India Nodes  -  Rainfall (mm/day) <span class="chart-sub">IFS HRES</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaRain"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">US Nodes â€” Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
+        <div class="chart-title">US Nodes  -  Wind Speed (kt) <span class="chart-sub">IFS HRES</span></div>
         <div class="chart-wrap"><canvas id="chartUSWind"></canvas></div>
       </div>
     </div>
-    <div class="section-title">ECMWF ENS Â· 8â€“15 Day Medium Range</div>
+    <div class="section-title" style="margin-top:2px">&#x1F1EE;&#x1F1F3; India  -  Nowcast Conditions</div>
+    <div class="cards-grid">
+      <div class="card sev-crit">
+        <div class="card-loc">JNPT Mumbai Port</div>
+        <div class="card-val">52<span class="card-unit">kt gusts</span></div>
+        <div class="card-desc">Pre-cyclonic circulation. Port ops suspended. 3.8m wave height.</div>
+        <div class="card-badge badge-crit">CRITICAL</div>
+      </div>
+      <div class="card sev-crit">
+        <div class="card-loc">Kolkata Hub</div>
+        <div class="card-val">187<span class="card-unit">mm/6hr</span></div>
+        <div class="card-desc">Extreme rainfall. Flood inundation confirmed SAR  -  2.1m depth.</div>
+        <div class="card-badge badge-crit">CRITICAL</div>
+      </div>
+      <div class="card sev-warn">
+        <div class="card-loc">Pune Manufacturing</div>
+        <div class="card-val">34<span class="card-unit">mm/hr</span></div>
+        <div class="card-desc">Heavy showers, lightning. Visibility 800m. Road closures possible.</div>
+        <div class="card-badge badge-warn">ADVISORY</div>
+      </div>
+      <div class="card sev-good">
+        <div class="card-loc">Rajasthan Plant</div>
+        <div class="card-val">31<span class="card-unit">&#xB0;C</span></div>
+        <div class="card-desc">Clear skies, 8 km/h NW breeze. Ops normal. Heat advisory watch.</div>
+        <div class="card-badge badge-good">CLEAR</div>
+      </div>
+    </div>
+    <div class="section-title">ECMWF ENS - 8-15 Day Medium Range</div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">India â€” Temperature Anomaly (Â°C) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">India  -  Temperature Anomaly (&#xB0;C) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartIndiaTemp"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">US â€” Precipitation Anomaly (%) <span class="chart-sub">ENS 51-member</span></div>
+        <div class="chart-title">US  -  Precipitation Anomaly (%) <span class="chart-sub">ENS 51-member</span></div>
         <div class="chart-wrap"><canvas id="chartUSPrecip"></canvas></div>
       </div>
     </div>
@@ -473,7 +980,7 @@ header{
 
   <!-- Flood tab -->
   <div class="tab-panel" id="tab-flood">
-    <div class="section-title" style="margin-top:2px">OPERA DSWx-S1 â€” Sentinel-1 SAR Flood Inundation Â· 30m Resolution</div>
+    <div class="section-title" style="margin-top:2px">OPERA DSWx-S1 - Sentinel-1 SAR Flood Inundation - 30m Resolution</div>
     <table class="ftable">
       <thead>
         <tr>
@@ -493,11 +1000,11 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:84%;background:#F5455A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">412 kmÂ²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">412 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">2.1 m</td>
-          <td style="color:#F5455A">â–² Rising</td>
+          <td style="color:#F5455A">&#x25B2; Rising</td>
           <td style="color:var(--text2)">Operations suspended. Road access closed.</td>
           <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">CRITICAL</span></td>
         </tr>
@@ -507,12 +1014,12 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:62%;background:#F5A623"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">218 kmÂ²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">218 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.8 m</td>
-          <td style="color:#F5A623">â–º Stable</td>
-          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6â‚38 hr.</td>
+          <td style="color:#F5A623">&#x25BA; Stable</td>
+          <td style="color:var(--text2)">NH-27 partially submerged. Delay 6-8 hr.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">ADVISORY</span></td>
         </tr>
         <tr>
@@ -521,13 +1028,13 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:71%;background:#F5455A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">683 kmÂ²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">683 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">1.6 m</td>
-          <td style="color:#F5A623">â–¼ Receding</td>
+          <td style="color:#F5A623">&#x25BC; Receding</td>
           <td style="color:var(--text2)">I-10 W limited. Atlanta routing via I-20.</td>
-          <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HBÇH5•pan></td>
+          <td><span class="risk-chip" style="background:#F5455A22;color:#F5455A;border:1px solid #F5455A44">HIGH</span></td>
         </tr>
         <tr>
           <td><strong>NJ Coastal Strip</strong></td>
@@ -535,11 +1042,11 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:38%;background:#F5A623"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">89 kmÂ²</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">89 km2</span>
             </div>
           </td>
           <td style="font-family:var(--mono);color:#A87FE8">0.4 m</td>
-          <td style="color:#F5A623">â–º Stable</td>
+          <td style="color:#F5A623">&#x25BA; Stable</td>
           <td style="color:var(--text2)">Minor parking area flooding. DC ops unaffected.</td>
           <td><span class="risk-chip" style="background:#F5A62322;color:#F5A623;border:1px solid #F5A62344">LOW</span></td>
         </tr>
@@ -549,36 +1056,36 @@ header{
           <td>
             <div class="inund-bar">
               <div class="inund-track"><div class="inund-fill" style="width:3%;background:#00D48A"></div></div>
-              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)">â€”</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text1)"> - </span>
             </div>
           </td>
-          <td style="font-family:var(--mono);color:var(--text2)">â€”</td>
-          <td style="color:#00D48A">âœ“ Clear</td>
+          <td style="font-family:var(--mono);color:var(--text2)"> - </td>
+          <td style="color:#00D48A">&#x2713; Clear</td>
           <td style="color:var(--text2)">No inundation detected. All ops normal.</td>
           <td><span class="risk-chip" style="background:#00D48A22;color:#00D48A;border:1px solid #00D48A44">CLEAR</span></td>
         </tr>
       </tbody>
     </table>
     <div style="margin-top:12px;padding:10px 14px;background:var(--surf1);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text2)">
-      <strong style="color:var(--text1)">Data provenance:</strong> OPERA DSWx-S1 v1.0 Â· Sentinel-1 C-band SAR (VV polarization) Â· 30 m spatial resolution Â· ~6-day revisit. Processed via ASF DAAC. Depth estimated from flood duration model. All values provisional prototype mock data.
+      <strong style="color:var(--text1)">Data provenance:</strong> OPERA DSWx-S1 v1.0 | Sentinel-1 C-band SAR (VV polarization) | 30 m spatial resolution | ~6-day revisit. Processed via ASF DAAC. Depth estimated from flood duration model. All values provisional prototype mock data.
     </div>
   </div>
 
   <!-- S2S tab -->
   <div class="tab-panel" id="tab-s2s">
-    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S â€” Sub-Seasonal Outlook Â· Weeks 2â€“6</div>
+    <div class="section-title" style="margin-top:2px">ECMWF IFS S2S - Sub-Seasonal Outlook - Weeks 2-6</div>
     <div class="s2s-grid">
       <div class="s2s-card">
         <div class="s2s-week">Week 2</div>
-        <div class="s2s-range">Oct 17â€“23, 2026</div>
+        <div class="s2s-range">Oct 17-23, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:72%;background:#F5A623"></div></div>
             <div class="s2s-bar-val" style="color:#F5A623">+72%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:35%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+35%</div>
           </div>
@@ -587,15 +1094,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 3</div>
-        <div class="s2s-range">Oct 24â€“30, 2026</div>
+        <div class="s2s-range">Oct 24-30, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:58%;background:#F5A623"></div></div>
             <div class="s2s-bar-val" style="color:#F5A623">+58%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:52%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+52%</div>
           </div>
@@ -604,15 +1111,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 4</div>
-        <div class="s2s-range">Oct 31â€“Nov 6, 2026</div>
+        <div class="s2s-range">Oct 31-Nov 6, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:32%;background:#2BD4C4"></div></div>
             <div class="s2s-bar-val" style="color:#2BD4C4">+32%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:44%;background:#F07D3A"></div></div>
             <div class="s2s-bar-val" style="color:#F07D3A">-44%</div>
           </div>
@@ -621,15 +1128,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 5</div>
-        <div class="s2s-range">Nov 7â€“13, 2026</div>
+        <div class="s2s-range">Nov 7-13, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:20%;background:#2BD4C4"></div></div>
             <div class="s2s-bar-val" style="color:#2BD4C4">+20%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:28%;background:#5B9CF5"></div></div>
             <div class="s2s-bar-val" style="color:#5B9CF5">+28%</div>
           </div>
@@ -638,15 +1145,15 @@ header{
       </div>
       <div class="s2s-card">
         <div class="s2s-week">Week 6</div>
-        <div class="s2s-range">Nov 14â€“20, 2026</div>
+        <div class="s2s-range">Nov 14-20, 2026</div>
         <div class="s2s-bars">
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡®ðŸ‡³</div>
+            <div class="s2s-bar-label">&#x1F1EE;&#x1F1F3;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:15%;background:#7A9DC0"></div></div>
             <div class="s2s-bar-val" style="color:var(--text2)">+15%</div>
           </div>
           <div class="s2s-bar-row">
-            <div class="s2s-bar-label">ðŸ‡ºðŸ‡¸</div>
+            <div class="s2s-bar-label">&#x1F1FA;&#x1F1F8;</div>
             <div class="s2s-bar-track"><div class="s2s-bar-fill" style="width:18%;background:#7A9DC0"></div></div>
             <div class="s2s-bar-val" style="color:var(--text2)">+18%</div>
           </div>
@@ -654,23 +1161,23 @@ header{
         <div style="font-size:9px;color:var(--text3);margin-top:5px">Confidence: 38% (low)</div>
       </div>
     </div>
-    <div class="section-title">Predicted MJO Phase Â· Weeks 2â€“6</div>
+    <div class="section-title">Predicted MJO Phase - Weeks 2-6</div>
     <div style="background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:11px;color:var(--text2)">
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">India Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>ðŸ”´ <strong style="color:#F5A623">Week 2:</strong> Continued wet anomaly over Bay of Bengal. Kolkata port disruption 70% probability.</div>
-            <div>ðŸŸ¡ <strong style="color:#F5A623">Week 3:</strong> MJO Phase 3 active. Rajasthan harvest transport delay risk 45%.</div>
-            <div>ðŸŸ¢ <strong style="color:#00D48A">Week 4+:</strong> Monsoon withdrawal likely. Conditions improving across all nodes.</div>
+            <div>[!!] <strong style="color:#F5A623">Week 2:</strong> Continued wet anomaly over Bay of Bengal. Kolkata port disruption 70% probability.</div>
+            <div>[!] <strong style="color:#F5A623">Week 3:</strong> MJO Phase 3 active. Rajasthan harvest transport delay risk 45%.</div>
+            <div>[OK] <strong style="color:#00D48A">Week 4+:</strong> Monsoon withdrawal likely. Conditions improving across all nodes.</div>
           </div>
         </div>
         <div style="flex:1;min-width:180px">
           <div style="color:var(--text1);font-weight:600;margin-bottom:6px">US Supply Chain Risks</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <div>ðŸ”´ <strong style="color:#5B9CF5">Week 2:</strong> La NiÃ±a pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
-            <div>ðŸŸ¡ <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
-            <div>ðŸŸ¢ <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
+            <div>[!!] <strong style="color:#5B9CF5">Week 2:</strong> La Nina pattern active. Pacific storm track elevated. Chicago/NJ risk high.</div>
+            <div>[!] <strong style="color:#F07D3A">Week 4:</strong> Below-normal precip SE US. Atlanta ops expected to normalize.</div>
+            <div>[OK] <strong style="color:#00D48A">Week 5+:</strong> Ridging pattern. Western US clear window for LA DC restocking.</div>
           </div>
         </div>
       </div>
@@ -681,26 +1188,29 @@ header{
 </div><!-- .app -->
 
 <script>
-// â”€â”€ Timestamp â”€â”€
+// \u2500\u2500 Timestamp \u2500\u2500
 (function(){
-  document.getElementById('mapTs').textContent = 'ðŸ• ' + new Date().toUTCString().replace('GMT','UTC');
+  const now = new Date();
+  const fmt = d => d.toUTCString().replace('GMT','UTC');
+  document.getElementById('mapTs').textContent = fmt(now);
 })();
 
-// â”€â”€ Alert ticker â”€â”€
+// \u2500\u2500 Alert ticker \u2500\u2500
 const alerts = [
-  {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt â€” Port ops suspended'},
-  {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall â€” SAR flood confirmed 2.1m depth'},
-  {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell â€” Tornado watch, hail 8.9cm, ops halted'},
-  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 kmÂ² â€” rising'},
-  {badge:'ADVISORY',cls:'oarn',text:'Pune Manufacturing: 34mm/hr heavy showers â€” Lightning advisory active'},
-  {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch â€” Loading dock access 40% capacity'},
-  {badge:'ADVISORY',cls:'oarn',text:'New Jersey DC: Coastal storm â€” Storm surge 0.8m, container yard delays 3â€“5hr'},
-  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 kmÂ² inundated â€” I-10 W limited'},
-  {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected â€” Rajasthan week 3 clearing'},
-  {badge:'INFO',cls:'info',text:'ECMWF ENS: La NiÃ±a SST anomaly -1.2Â°C NiÃ±o-3.4 â€” Elevated US storm risk'},
-  {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2 â€” Bay of Bengal enhanced convection'},
+  {badge:'CRITICAL',cls:'crit',text:'JNPT Mumbai: Pre-cyclonic winds 52 kt  -  Port ops suspended'},
+  {badge:'CRITICAL',cls:'crit',text:'Kolkata Hub: 187mm/6hr rainfall  -  SAR flood confirmed 2.1m depth'},
+  {badge:'CRITICAL',cls:'crit',text:'Chicago DC: Severe supercell  -  Tornado watch, hail 8.9cm, ops halted'},
+  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Kolkata flood extent 412 km2  -  rising'},
+  {badge:'ADVISORY',cls:'warn',text:'Pune Manufacturing: 34mm/hr heavy showers  -  Lightning advisory active'},
+  {badge:'ADVISORY',cls:'warn',text:'Atlanta DC: Flash flood watch  -  Loading dock access 40% capacity'},
+  {badge:'ADVISORY',cls:'warn',text:'New Jersey DC: Coastal storm  -  Storm surge 0.8m, container yard delays 3-5hr'},
+  {badge:'FLOOD',cls:'flood',text:'OPERA S1 Pass: Mississippi Delta 683 km2 inundated  -  I-10 W limited'},
+  {badge:'INFO',cls:'info',text:'IFS HRES: Monsoon withdrawal signal detected  -  Rajasthan week 3 clearing'},
+  {badge:'INFO',cls:'info',text:'ECMWF ENS: La Nina SST anomaly -1.2\u00b0C Nino-3.4  -  Elevated US storm risk'},
+  {badge:'INFO',cls:'info',text:'S2S MJO: Phase 3 forecast week 2  -  Bay of Bengal enhanced convection'},
 ];
 const tc = document.getElementById('tickerContent');
+// Double for seamless loop
 [...alerts,...alerts].forEach(a => {
   const el = document.createElement('div');
   el.className = 't-item';
@@ -708,78 +1218,121 @@ const tc = document.getElementById('tickerContent');
   tc.appendChild(el);
 });
 
-// â”€â”€ Node data â”€â”€
+// \u2500\u2500 Layer switching \u2500\u2500
+let currentLayer = 'nowcast';
+const layerIds = {
+  nowcast: ['layer-nowcast-india','layer-nowcast-us'],
+  flood:   ['layer-flood-india','layer-flood-us'],
+  s2s:     ['layer-s2s-india','layer-s2s-us'],
+  medium:  ['layer-medium-india','layer-medium-us'],
+};
+const subtitles = {
+  nowcast: {india:'Nowcast 0-3 hr - 4 nodes', us:'Nowcast 0-3 hr - 4 nodes'},
+  flood:   {india:'Flood Risk (OPERA/S1) - Active', us:'Flood Risk (OPERA/S1) - Active'},
+  s2s:     {india:'S2S Outlook - Wk 2-6', us:'S2S Outlook - Wk 2-6'},
+  medium:  {india:'Medium Range 8-15d - ENS', us:'Medium Range 8-15d - ENS'},
+};
+
+function setLayer(layer) {
+  // Hide all
+  Object.values(layerIds).flat().forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.style.display = 'none';
+  });
+  // Show selected
+  (layerIds[layer]||[]).forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.style.display = '';
+  });
+  // Update buttons
+  document.querySelectorAll('.lbtn').forEach(b => b.classList.remove('active'));
+  const keys = {nowcast:'n',flood:'f',s2s:'s',medium:'m'};
+  document.querySelector('.lbtn.' + (keys[layer]||'n'))?.classList.add('active');
+  // Update subtitles
+  const sub = subtitles[layer] || subtitles.nowcast;
+  document.getElementById('indiaSubtitle').textContent = sub.india;
+  document.getElementById('usSubtitle').textContent = sub.us;
+  currentLayer = layer;
+}
+
+// \u2500\u2500 Tab switching \u2500\u2500
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab)?.classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// \u2500\u2500 Map tooltip \u2500\u2500
+const tooltip = document.getElementById('mapTooltip');
+const ttLoc = document.getElementById('ttLoc');
+const ttBody = document.getElementById('ttBody');
+
 const nodeData = {
   rajasthan: {
     name: 'Rajasthan Manufacturing',
-    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31Â°C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'âœ… Ops Normal'}],
-    flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'âœ… Clear'}],
-    s2s:     [{k:'Week 2â€“3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
-    medium:  [{k:'Day 8â€“15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2Â°C'}],
+    nowcast: [{k:'Condition',v:'Clear / Hot'},{k:'Temp',v:'31\u00b0C'},{k:'Wind',v:'8 km/h NW'},{k:'Humidity',v:'22%'},{k:'Status',v:'[OK] Ops Normal'}],
+    flood:   [{k:'SAR Pass',v:'Oct 09, 14:22 UTC'},{k:'Inundation',v:'None detected'},{k:'Risk',v:'\u2705 Clear'}],
+    s2s:     [{k:'Week 2-3',v:'+12% precip anom'},{k:'Week 4+',v:'Drying trend'},{k:'MJO Impact',v:'Low'}],
+    medium:  [{k:'Day 8-15',v:'Hot and dry'},{k:'Precip anom',v:'-30%'},{k:'Temp anom',v:'+3.2\u00b0C'}],
   },
   pune: {
     name: 'Pune Manufacturing',
-    nowcast: [{k:'Condition',v:'Heavy Rain âš ï¸'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active â€” 8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'âš ï¸ Monitoring'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor â€” 12 kmÂ²'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'âš ï¸ Low'}],
-    s2s:     [{k:'Week 2â€“3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 Â± 3d'},{k:'Confidence',v:'65%'}],
-    medium:  [{k:'Day 8â€“10',v:'Continued wet'},{k:'Day 11â€“15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
+    nowcast: [{k:'Condition',v:'Heavy Rain [!]'},{k:'Rain rate',v:'34 mm/hr'},{k:'Lightning',v:'Active  -  8 strikes/hr'},{k:'Visibility',v:'800 m'},{k:'Status',v:'\u26a0\ufe0f Monitoring'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Inundation',v:'Minor  -  12 km2'},{k:'Depth',v:'< 0.2 m'},{k:'Risk',v:'\u26a0\ufe0f Low'}],
+    s2s:     [{k:'Week 2-3',v:'+58% precip anom'},{k:'Monsoon withdrawal',v:'Oct 22 \u00b1 3d'},{k:'Confidence',v:'65%'}],
+    medium:  [{k:'Day 8-10',v:'Continued wet'},{k:'Day 11-15',v:'Gradual clearing'},{k:'Precip anom',v:'+45%'}],
   },
   jnpt: {
     name: 'JNPT Mumbai Port',
-    nowcast: [{k:'Condition',v:'CRITICAL ðŸ”´'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'â›” Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
-    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1â€“6 affected'},{k:'Risk',v:'ðŸ”´ Critical'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Wind gusts',v:'52 kt (96 km/h)'},{k:'Wave height',v:'3.8 m'},{k:'Port status',v:'[X] Suspended'},{k:'ETA resume',v:'Oct 11 ~18 UTC'}],
+    flood:   [{k:'Storm surge',v:'1.2 m above normal'},{k:'Dock flooding',v:'Berths 1-6 affected'},{k:'Risk',v:'[!!] Critical'}],
     s2s:     [{k:'Week 2',v:'Continued disruption'},{k:'Week 3',v:'Improving'},{k:'Alt routing',v:'Nhava Sheva barge'}],
-    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9â€“15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
+    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Return to normal'},{k:'Wind anom',v:'+65% above clim'}],
   },
   kolkata: {
     name: 'Kolkata Distribution Hub',
-    nowcast: [{k:'Condition',v:'CRITICAL ðŸ”´'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'â›” Closed'},{k:'Status',v:'â›” Ops Suspended'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 kmÂ² inundated'},{k:'Trend',v:'ðŸ”´ Rising'},{k:'Depth',v:'2.1 m peak'}],
-    s2s:     [{k:'Week 2â€“3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2â€“3',v:'High'}],
-    medium:  [{k:'Day 8â€“12',v:'Continued heavy rain'},{k:'Day 13â€“15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Rainfall',v:'187 mm / 6 hr'},{k:'Flood depth',v:'2.1 m (SAR confirmed)'},{k:'NH-12',v:'\u26d4 Closed'},{k:'Status',v:'\u26d4 Ops Suspended'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 02:14 UTC'},{k:'Extent',v:'412 km2 inundated'},{k:'Trend',v:'[!!] Rising'},{k:'Depth',v:'2.1 m peak'}],
+    s2s:     [{k:'Week 2-3',v:'+72% precip anom'},{k:'Bay of Bengal MJO',v:'Phase 3 active'},{k:'Risk weeks 2-3',v:'High'}],
+    medium:  [{k:'Day 8-12',v:'Continued heavy rain'},{k:'Day 13-15',v:'Slow recession'},{k:'Precip anom',v:'+90%'}],
   },
   'los-angeles': {
     name: 'Los Angeles DC',
-    nowcast: [{k:'Condition',v:'Clear âœ…'},{k:'Temp',v:'22Â°C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'âœ… Ops Normal'}],
-    flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'âœ… Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
-    s2s:     [{k:'Week 4â€“6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'âœ… Favorable'}],
-    medium:  [{k:'Day 8â€“15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8Â°C'}],
+    nowcast: [{k:'Condition',v:'Clear \u2705'},{k:'Temp',v:'22\u00b0C'},{k:'Wind',v:'14 km/h SW'},{k:'Marine layer',v:'Clearing by 10 UTC'},{k:'Status',v:'[OK] Ops Normal'}],
+    flood:   [{k:'SAR Status',v:'No inundation'},{k:'Risk',v:'\u2705 Clear'},{k:'Wildfire smoke',v:'AQI 48 (Good)'}],
+    s2s:     [{k:'Week 4-6',v:'Warm/dry ridge'},{k:'Storm risk',v:'Low'},{k:'Restocking window',v:'\u2705 Favorable'}],
+    medium:  [{k:'Day 8-15',v:'Persistent ridge'},{k:'Precip anom',v:'-45%'},{k:'Temp anom',v:'+1.8\u00b0C'}],
   },
   chicago: {
     name: 'Chicago Distribution Center',
-    nowcast: [{k:'Condition',v:'CRITICAL ðŸ”´'},{k:'Tornado watch',v:'âš ï¸ In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'â›” Ops Halted'}],
-    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'â›” Blocked'},{k:'Risk',v:'ðŸ”´ Critical'}],
-    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La NiÃ±a signal',v:'Strong'},{k:'Week 3â€“4',v:'Gradual improvement'}],
-    medium:  [{k:'Day 8â€“10',v:'Storm track clearing'},{k:'Day 11â€“15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
+    nowcast: [{k:'Condition',v:'CRITICAL [!!]'},{k:'Tornado watch',v:'\u26a0\ufe0f In effect'},{k:'Hail',v:'8.9 cm diameter'},{k:'Wind gusts',v:'78 kt'},{k:'Status',v:'\u26d4 Ops Halted'}],
+    flood:   [{k:'Basement flooding',v:'Reported'},{k:'Dock access',v:'\u26d4 Blocked'},{k:'Risk',v:'[!!] Critical'}],
+    s2s:     [{k:'Week 2',v:'High storm risk'},{k:'La Nina signal',v:'Strong'},{k:'Week 3-4',v:'Gradual improvement'}],
+    medium:  [{k:'Day 8-10',v:'Storm track clearing'},{k:'Day 11-15',v:'Normal conditions'},{k:'Precip anom',v:'+55%'}],
   },
   atlanta: {
     name: 'Atlanta Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory âš ï¸'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'âš ï¸ Degraded Ops'}],
+    nowcast: [{k:'Condition',v:'Advisory \u26a0\ufe0f'},{k:'Rainfall',v:'68 mm / 3 hr'},{k:'Flash flood watch',v:'Active'},{k:'Dock capacity',v:'40% reduced'},{k:'Status',v:'\u26a0\ufe0f Degraded Ops'}],
     flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Near vicinity',v:'Mississippi Delta impact'},{k:'Access roads',v:'I-20 rerouting'}],
-    s2s:     [{k:'Week 2â€“3',v:'La NiÃ±a enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
-    medium:  [{k:'Day 8â€“12',v:'Below-normal precip'},{k:'Day 13â€“15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
+    s2s:     [{k:'Week 2-3',v:'La Nina enhanced rain'},{k:'Week 4',v:'Drying trend'},{k:'Confidence',v:'60%'}],
+    medium:  [{k:'Day 8-12',v:'Below-normal precip'},{k:'Day 13-15',v:'Normal resume'},{k:'Precip anom',v:'-15%'}],
   },
   newjersey: {
     name: 'New Jersey Distribution Center',
-    nowcast: [{k:'Condition',v:'Advisory âš ï¸'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3â€“5 hours'},{k:'Status',v:'âš ï¸ Reduced capacity'}],
-    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 kmÂ²'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'âš ï¸ Low'}],
-    s2s:     [{k:'Week 2â€“3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La NiÃ±a impact',v:'Moderate'}],
-    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9â€“15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
+    nowcast: [{k:'Condition',v:'Advisory \u26a0\ufe0f'},{k:'Wind gusts',v:'42 kt'},{k:'Storm surge',v:'0.8 m above MHHW'},{k:'Yard delays',v:'3-5 hours'},{k:'Status',v:'\u26a0\ufe0f Reduced capacity'}],
+    flood:   [{k:'SAR Pass',v:'Oct 10, 06:30 UTC'},{k:'Coastal inundation',v:'89 km2'},{k:'DC impact',v:'Minor parking area'},{k:'Risk',v:'\u26a0\ufe0f Low'}],
+    s2s:     [{k:'Week 2-3',v:'Coastal storm risk +60%'},{k:'Week 4',v:'Improving'},{k:'La Nina impact',v:'Moderate'}],
+    medium:  [{k:'Day 8',v:'System clears'},{k:'Day 9-15',v:'Gradual improvement'},{k:'Wind anom',v:'+35%'}],
   },
 };
-
-// â”€â”€ Tooltip helpers â”€â”€
-const tooltip = document.getElementById('mapTooltip');
-const ttLoc   = document.getElementById('ttLoc');
-const ttBody  = document.getElementById('ttBody');
-let currentLayer = 'nowcast';
 
 function showTooltip(e, nodeId) {
   const data = nodeData[nodeId];
   if(!data) return;
-  const rows = data[currentLayer] || data.nowcast;
+  const layerRows = data[currentLayer] || data.nowcast;
   ttLoc.textContent = data.name;
-  ttBody.innerHTML  = rows.map(r =>
+  ttBody.innerHTML = layerRows.map(r =>
     `<div class="tt-row"><span class="tt-key">${r.k}</span><span class="tt-val">${r.v}</span></div>`
   ).join('');
   positionTooltip(e);
@@ -787,170 +1340,20 @@ function showTooltip(e, nodeId) {
 }
 function positionTooltip(e) {
   const x = e.clientX + 14, y = e.clientY - 10;
-  tooltip.style.left = (x + 240 > window.innerWidth  ? x - 268 : x) + 'px';
-  tooltip.style.top  = (y + 140 > window.innerHeight ? y - 140 : y) + 'px';
+  const tw = 240, th = 140;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  tooltip.style.left = (x + tw > vw ? x - tw - 28 : x) + 'px';
+  tooltip.style.top  = (y + th > vh ? y - th : y) + 'px';
 }
 function hideTooltip() { tooltip.classList.remove('visible'); }
 
-// â”€â”€ Leaflet Maps â”€â”€
-const tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const tileOpts = {
-  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  maxZoom: 19, minZoom: 2
-};
+document.querySelectorAll('.node-group').forEach(g => {
+  g.addEventListener('mouseenter', e => showTooltip(e, g.dataset.node));
+  g.addEventListener('mousemove', positionTooltip);
+  g.addEventListener('mouseleave', hideTooltip);
+});
 
-const mapIndia = L.map('mapIndia', {scrollWheelZoom: false, zoomControl: false, minZoom: 4, maxZoom: 9});
-mapIndia.setView([22, 80], 5);
-L.tileLayer(tileUrl, tileOpts).addTo(mapIndia);
-L.control.zoom({position: 'bottomright'}).addTo(mapIndia);
-
-const mapUS = L.map('mapUS', {scrollWheelZoom: false, zoomControl: false, minZoom: 3, maxZoom: 9});
-mapUS.setView([38, -96], 4);
-L.tileLayer(tileUrl, tileOpts).addTo(mapUS);
-L.control.zoom({position: 'bottomright'}).addTo(mapUS);
-
-// â”€â”€ Node marker factory â”€â”€
-function addNode(map, lat, lng, color, nodeId, fastPulse) {
-  const icon = L.divIcon({
-    className: '',
-    html: `<div style="position:relative;width:32px;height:32px;display:flex;align-items:center;justify-content:center">
-      <div class="lf-ring${fastPulse ? ' fast' : ''}" style="color:${color}"></div>
-      <div class="lf-dot" style="background:${color};box-shadow:0 0 10px ${color}99"></div>
-    </div>`,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16]
-  });
-  const m = L.marker([lat, lng], {icon, zIndexOffset: 100}).addTo(map);
-  m.on('mouseover', e => showTooltip(e.originalEvent, nodeId));
-  m.on('mousemove', e => positionTooltip(e.originalEvent));
-  m.on('mouseout',  hideTooltip);
-  return m;
-}
-
-// India supply chain nodes
-addNode(mapIndia, 26.3,  73.1, '#00D48A', 'rajasthan',   false);
-addNode(mapIndia, 18.5,  73.9, '#F5A623', 'pune',        true);
-addNode(mapIndia, 18.9,  72.9, '#F5455A', 'jnpt',        true);
-addNode(mapIndia, 22.5,  88.4, '#F5455A', 'kolkata',     false);
-
-// US distribution centers
-addNode(mapUS, 34.05, -118.24, '#00D48A', 'los-angeles', false);
-addNode(mapUS, 41.88,  -87.63, '#F5455A', 'chicago',     true);
-addNode(mapUS, 33.75,  -84.39, '#F5A623', 'atlanta',     false);
-addNode(mapUS, 40.70,  -74.17, '#F5A623', 'newjersey',   false);
-
-// â”€â”€ Weather overlay circles â”€â”€
-const overlayDefs = {
-  nowcast: {
-    india: [
-      {lat:18.85, lng:72.9,  r:270000, color:'#F5A623', op:0.30},
-      {lat:22.5,  lng:88.4,  r:250000, color:'#F5455A', op:0.32},
-      {lat:26.3,  lng:73.1,  r:230000, color:'#00D48A', op:0.18},
-      {lat:18.5,  lng:73.9,  r:170000, color:'#F5A623', op:0.22},
-    ],
-    us: [
-      {lat:41.88, lng:-87.63, r:500000, color:'#F5455A', op:0.28},
-      {lat:33.75, lng:-84.39, r:450000, color:'#F5A623', op:0.25},
-      {lat:34.05, lng:-118.24,r:400000, color:'#00D48A', op:0.18},
-      {lat:40.70, lng:-74.17, r:360000, color:'#F5A623', op:0.22},
-    ]
-  },
-  flood: {
-    india: [
-      {lat:22.5,  lng:88.4,  r:400000, color:'#A87FE8', op:0.45},
-      {lat:26.2,  lng:91.7,  r:300000, color:'#A87FE8', op:0.35},
-      {lat:25.6,  lng:85.1,  r:250000, color:'#A87FE8', op:0.25},
-    ],
-    us: [
-      {lat:32.0, lng:-90.0,  r:600000, color:'#A87FE8', op:0.40},
-      {lat:40.7, lng:-74.17, r:400000, color:'#A87FE8', op:0.35},
-    ]
-  },
-  s2s: {
-    india: [
-      {lat:14.5, lng:78.0, r:700000, color:'#2BD4C4', op:0.28},
-      {lat:26.0, lng:70.0, r:480000, color:'#F07D3A', op:0.22},
-    ],
-    us: [
-      {lat:38.0, lng:-82.0,  r:900000, color:'#5B9CF5', op:0.25},
-      {lat:38.0, lng:-114.0, r:750000, color:'#F07D3A', op:0.22},
-    ]
-  },
-  medium: {
-    india: [
-      {lat:22.0, lng:79.0, r:850000, color:'#F07D3A', op:0.28},
-      {lat:27.0, lng:72.0, r:480000, color:'#00D48A', op:0.18},
-    ],
-    us: [
-      {lat:37.0, lng:-93.0,  r:1100000, color:'#F07D3A', op:0.25},
-      {lat:37.0, lng:-116.0, r:600000,  color:'#00D48A', op:0.18},
-    ]
-  },
-};
-
-let activeCircles = [];
-function clearOverlays() {
-  activeCircles.forEach(({map, circle}) => map.removeLayer(circle));
-  activeCircles = [];
-}
-function showOverlays(layerName) {
-  clearOverlays();
-  const defs = overlayDefs[layerName] || overlayDefs.nowcast;
-  (defs.india || []).forEach(d => {
-    const c = L.circle([d.lat, d.lng], {
-      radius: d.r, weight: 0,
-      fillColor: d.color, fillOpacity: d.op, interactive: false
-    }).addTo(mapIndia);
-    activeCircles.push({map: mapIndia, circle: c});
-  });
-  (defs.us || []).forEach(d => {
-    const c = L.circle([d.lat, d.lng], {
-      radius: d.r, weight: 0,
-      fillColor: d.color, fillOpacity: d.op, interactive: false
-    }).addTo(mapUS);
-    activeCircles.push({map: mapUS, circle: c});
-  });
-}
-
-// â”€â”€ Layer switching â”€â”€
-const subtitles = {
-  nowcast: {india:'Nowcast 0â€“3 hr Â· 4 nodes', us:'Nowcast 0â€“3 hr Â· 4 nodes'},
-  flood:   {india:'Flood Risk (OPERA/S1) Â· Active', us:'Flood Risk (OPERA/S1) Â· Active'},
-  s2s:     {india:'S2S Outlook Â· Wk 2â€“6', us:'S2S Outlook Â· Wk 2â€“6'},
-  medium:  {india:'Medium Range 8â€“15d Â· ENS', us:'Medium Range 8â€“15d Â· ENS'},
-};
-function setLayer(layer) {
-  showOverlays(layer);
-  document.querySelectorAll('.lbtn').forEach(b => b.classList.remove('active'));
-  const keys = {nowcast:'n', flood:'f', s2s:'s', medium:'m'};
-  document.querySelector('.lbtn.' + (keys[layer] || 'n'))?.classList.add('active');
-  const sub = subtitles[layer] || subtitles.nowcast;
-  document.getElementById('indiaSubtitle').textContent = sub.india;
-  document.getElementById('usSubtitle').textContent    = sub.us;
-  currentLayer = layer;
-}
-
-// Init nowcast overlays
-showOverlays('nowcast');
-
-// Ensure Leaflet knows its container size after layout settles
-setTimeout(() => { mapIndia.invalidateSize(); mapUS.invalidateSize(); }, 120);
-
-// â”€â”€ Tab switching â”€â”€
-function switchTab(tab) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  const panel = document.getElementById('tab-' + tab);
-  if (panel) panel.classList.add('active');
-  event.currentTarget.classList.add('active');
-  // Sync map layer when switching to map tabs
-  const layerMap = {nowcast:'nowcast', flood:'flood', s2s:'s2s'};
-  if (layerMap[tab]) setLayer(layerMap[tab]);
-  // Re-invalidate map size in case tab was hidden during init
-  setTimeout(() => { mapIndia.invalidateSize(); mapUS.invalidateSize(); }, 60);
-}
-
-// â”€â”€ Charts â”€â”€
+// \u2500\u2500 Charts \u2500\u2500
 const chartDefaults = {
   responsive: true, maintainAspectRatio: false,
   plugins: {legend:{labels:{color:'#7A9DC0',font:{family:'Outfit',size:11},boxWidth:12,padding:12}}},
@@ -997,10 +1400,10 @@ new Chart(document.getElementById('chartIndiaTemp'), {
     labels: days15,
     datasets:[
       {label:'India Mean',data:[2.1,2.4,2.2,1.8,1.5,1.2,0.8,0.4],borderColor:'#F07D3A',backgroundColor:'#F07D3A22',borderWidth:2,tension:0.4,fill:true,pointRadius:3},
-      {label:'India p10â€“p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
+      {label:'India p10-p90',data:[3.2,3.6,3.4,2.8,2.5,2.0,1.5,0.8],borderColor:'#F07D3A55',borderWidth:1,borderDash:[4,3],tension:0.4,pointRadius:0},
     ]
   },
-  options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'Â°C anomaly',color:'#3D5E7A'}}}}
+  options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'\u00b0C anomaly',color:'#3D5E7A'}}}}
 });
 
 new Chart(document.getElementById('chartUSPrecip'), {
@@ -1014,6 +1417,9 @@ new Chart(document.getElementById('chartUSPrecip'), {
   },
   options:{...chartDefaults,scales:{...chartDefaults.scales,y:{...chartDefaults.scales.y,title:{display:true,text:'% anomaly',color:'#3D5E7A'}}}}
 });
+
+// \u2500\u2500 Init: show nowcast layer on load \u2500\u2500
+setLayer('nowcast');
 </script>
 </body>
 </html>
